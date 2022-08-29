@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Project detail
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md m-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
+                                <a class="btn btn-outline-primary disabled" style="width: 100px">{{ projectlogo.status }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md mx-4 mb-4">
+                        <a class="btn btn-primary me-2" href="{% url 'detail-project-logo' projectlogo.id %}"
+                           style="width: 150px">Overview</a>
+                        <a class="btn btn-outline-primary me-2" href="{% url 'activity-project-logo' projectlogo.id %}"
+                           style="width: 150px">Activity</a>
+                        <a class="btn btn-outline-primary me-2" href="{% url 'files-project-logo' projectlogo.id %}"
+                           style="width: 150px">Files</a>
+                        <a class="btn btn-outline-primary" href="{% url 'payments-project-logo' projectlogo.id %}"
+                           style="width: 150px">Payments</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container mx-auto m-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="min-width: 200px">
+                            {% if projectlogo.optional_project_image_1 %}
+                                <img class="card-img"
+                                     src="{{ projectlogo.optional_project_image_1.url }}"
+                                     alt="Card image cap">
+                            {% elif projectlogo.ready_logo %}
+                                <img class="card-img"
+                                     src="{{ projectlogo.ready_logo.logo_image_1.url }}"
+                                     alt="Card image cap">
+                            {% else %}
+                                <img class="card-img"
+                                     src="{% static 'images/CiprianM_Brand.png' %}"
+                                     alt="Card image cap">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4" style="min-width: 200px">
+                            <div class="card-header">
+                                <h3 class="card-text">Project brief:</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Logo name: {{ projectlogo.logo_name }}</p>
+                                <p class="card-text">Project description: {{ projectlogo.project_description }}</p>
+                                {% if projectlogo.logo_slogan %}
+                                    <p class="card-text">Logo slogan: {{ projectlogo.logo_slogan }}</p>
+                                {% endif %}
+                                {% if projectlogo.company_description %}
+                                    <p class="card-text">Logo slogan: {{ projectlogo.company_description }}</p>
+                                {% endif %}
+                                {% if projectlogo.logo_colors %}
+                                    <p class="card-text">Logo slogan: {{ projectlogo.logo_colors }}</p>
+                                {% endif %}
+                                {% if projectlogo.service_name %}
+                                    <p class="card-text">Service: {{ projectlogo.service_name }}</p>
+                                {% endif %}
+                                {% if projectlogo.ready_logo %}
+                                    <p class="card-text">Starting logo: {{ projectlogo.ready_logo }}</p>
+                                {% endif %}
+                                {% if user.is_superuser %}
+                                    {% if projectlogo.client_name %}
+                                        <p class="card-text">Client name: {{ projectlogo.client_name }}</p>
+                                    {% endif %}
+                                {% endif %}
+                                {% if projectlogo.other_notes %}
+                                    <p class="card-text">Other notes: {{ projectlogo.other_notes }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-outline-primary float-start" href="{% url 'projects' %}"
+                                   role="button" style="width: 150px">Go back</a>
+                                <a class="btn btn-outline-primary float-end"
+                                   href="{% url 'update-project-logo' projectlogo.id %}">Update project</a>
+                            </div>
+                        </div>
+                        {% if user.is_superuser %}
+                            <div class="card border border-0">
+                                <div class="col">
+                                    <a class="btn btn-outline-primary me-2" href="#" style="width: 150px">Create a
+                                        quote</a>
+                                    <a class="btn btn-outline-primary me-2" href="#" style="width: 150px">Send a
+                                        message</a>
+                                    <a class="btn btn-outline-danger float-end" href="#" style="width: 150px">Decline
+                                        project</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a class="btn btn-outline-primary me-2" href="#" style="width: 150px">Send a message</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

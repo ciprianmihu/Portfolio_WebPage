@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Project payments
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md m-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
+                                <a class="btn btn-outline-primary disabled" style="width: 100px">{{ projectlogo.status }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md mx-4 mb-4">
+                        <a class="btn btn-outline-primary me-2" href="{% url 'detail-project-logo' projectlogo.id %}"
+                           style="width: 150px">Overview</a>
+                        <a class="btn btn-outline-primary me-2" href="{% url 'activity-project-logo' projectlogo.id %}"
+                           style="width: 150px">Activity</a>
+                        <a class="btn btn-outline-primary me-2" href="{% url 'files-project-logo' projectlogo.id %}"
+                           style="width: 150px">Files</a>
+                        <a class="btn btn-primary" href="{% url 'payments-project-logo' projectlogo.id %}"
+                           style="width: 150px">Payments</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

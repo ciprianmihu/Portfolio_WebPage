@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create a project
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 my-4 was-validated">
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <h3 class="text-center">Create a new project</h3>
+                        </div>
+                        <form method="post" enctype="multipart/form-data" class="was-validated">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                {{ form.as_p }}
+                                <div class="text">
+                                    <p class="text">Style Attributes</p>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="customRange" class="form-label"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Classic designs inspire a sense of elegance, fine craftsmanship
+                                           and timelessness with an aesthetic that has proven itself over the years.">
+                                        Classic</label>
+                                    <label for="customRange" class="form-label float-end"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Modern designs are what's cool today. It shows that your
+                                           brand is current with contemporary design.">
+                                        Modern</label>
+                                    <input type="range" class="form-range" id="customRange">
+                                    <label for="customRange" class="form-label"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Mature designs uphold an image of enduring reliability and
+                                           resilience. For brands that are looking for long term relationships.">
+                                        Mature</label>
+                                    <label for="customRange" class="form-label float-end"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Youth designs inspire energy in people and bring optimism
+                                           to life. For brands full of hope that generate a sense of excitement.">
+                                        Youthful</label>
+                                    <input type="range" class="form-range" id="customRange">
+                                    <label for="customRange" class="form-label"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Feminine designs have a sense of calm and use gentle,
+                                           graceful styles, paired with soft color palettes. For brands that exert
+                                           feelings of refinement and modesty.">
+                                        Feminine</label>
+                                    <label for="customRange" class="form-label float-end"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Masculine designs have a sense of utility, and often use
+                                           dark colors. For brands that promote leadership and look into the future.">
+                                        Masculine</label>
+                                    <input type="range" class="form-range" id="customRange">
+                                    <label for="customRange" class="form-label"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Playful designs show life is all about fun! For brands that
+                                           convey optimism and have bright spirits.">
+                                        Playful</label>
+                                    <label for="customRange" class="form-label float-end"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Sophisticated designs convey intelligence and have simple
+                                           and elegant lines. For brands that show an obsession with perfection.">
+                                        Sophisticated</label>
+                                    <input type="range" class="form-range" id="customRange">
+                                    <label for="customRange" class="form-label"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Economical designs are casual, unprecious, open and
+                                           friendly. For brands that save people time or money.">
+                                        Economical</label>
+                                    <label for="customRange" class="form-label float-end"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Luxurious designs indicate extravagance and quality for
+                                           affluent clients. For brands that have clients with high expectations.">
+                                        Luxurious</label>
+                                    <input type="range" class="form-range" id="customRange">
+                                    <label for="customRange" class="form-label"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Geometric designs follow the rules of mathematics. For
+                                           brands that wish to project accuracy, precision and order.">
+                                        Geometric</label>
+                                    <label for="customRange" class="form-label float-end"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Organic designs have flowing lines, smooth edges and often
+                                           deliberate imperfection. For brands that represent growth, change and
+                                           connection with people.">
+                                        Organic</label>
+                                    <input type="range" class="form-range" id="customRange">
+                                    <label for="customRange" class="form-label"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Abstract designs are for brands with complex and diverse
+                                           products and services.">
+                                        Abstract</label>
+                                    <label for="customRange" class="form-label float-end"
+                                           tabindex="0" data-bs-placement="top"
+                                           data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                           data-bs-custom-class="custom-popover"
+                                           data-bs-content="Literal designs communicate directly to people what brands
+                                           are offering and are super effective at getting their attention.">
+                                        Literal</label>
+                                    <input type="range" class="form-range" id="customRange">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="myCheck" name="remember"
+                                           required>
+                                    <label class="form-check-label" for="myCheck" data-bs-toggle="offcanvas"
+                                           data-bs-target="#customcanvas">Terms and conditions.</label>
+                                    <div class="valid-feedback">Thank you!</div>
+                                    <div class="invalid-feedback">Please read terms and conditions!</div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-outline-primary" style="width: 150px"
+                                   href="{% url 'projects' %}">Cancel</a>
+                                <button type="submit" class="btn btn-outline-primary float-end" style="width: 150px">
+                                    Save as draft
+                                </button>
+                                <button type="submit" class="btn btn-outline-primary float-end me-3" style="width: 150px">
+                                    Invite
+                                </button>
+                            </div>
+                        </form>
+                        <div class="offcanvas offcanvas-start" id="customcanvas">
+                            <div class="offcanvas-header text-center">
+                                <h1 class="offcanvas-title">Terms and conditions</h1>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <p>I retain the right to reproduce, publish and display results in my portfolio
+                                    website and other media or exhibitions for the purpose of recognizing creative
+                                    excellence or professional advancement.</p>
+                                <p>All project entitlements will be transfered to the customer upon completion and
+                                    project payment.</p>
+                                <p>The client agrees that in the event that a project is canceled for any reason other
+                                    than a violation of the terms established by the designer, no refund will be issued
+                                    and no rights will be transferred.</p>
+                                <p>If the customer chooses to receive more than one option as a final project, they will
+                                    be charged extra for each new option selected. The amount for each new option will
+                                    be discussed together.</p>
+                                <p>All projects presented that are not selected as final design can be used by the
+                                    designer as he wishes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

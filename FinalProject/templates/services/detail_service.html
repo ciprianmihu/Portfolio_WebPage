@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Detail service
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <!-- Detail Service section -->
+        <section>
+            <div class="container mx-auto m-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="min-width: 200px">
+                            <img src="{{ servicelogo.service_image_1.url }}" class="card-img" alt="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4" style="min-width: 200px">
+                            <div class="card-header">
+                                <h3 class="card-text">Overview</h3>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Service: {{ servicelogo.service_name }}</h3>
+                                <br>
+                                <p class="card-text">Service description:</p>
+                                <p class="card-text">{{ servicelogo.service_description }}.</p>
+                                <p class="card-text">Service deliverables:</p>
+                                <p class="card-text">{{ servicelogo.service_deliverable }}.</p>
+                                <p class="card-text">Turnaround: {{ servicelogo.turnaround }} days.</p>
+                                <p class="card-text">Price: {{ servicelogo.price }}.</p>
+                            </div>
+                            <div class="card-footer">
+                                {% if perms.services.change_servicelogo or perms.services.delete_servicelogo %}
+                                    <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"
+                                       role="button" style="width: 150px">Go back</a>
+                                    <div class="dropdown float-end">
+                                        <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                data-bs-toggle="dropdown" style="width: 150px">Actions
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{% url 'update-service-logo' servicelogo.id %}"
+                                                   class="dropdown-item">Update service</a></li>
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#servicelogo_{{ servicelogo.id }}">Delete
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    <a class="btn btn-outline-primary float-start" href="{% url 'projects' %}"
+                                       role="button" data-bs-toggle="tooltip" title="Hooray!"
+                                       style="width: 150px">Request service</a>
+                                    <div class="btn-group float-end">
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"
+                                           role="button" data-bs-toggle="tooltip" title="Previous service!">❮</a>
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"
+                                           role="button">View all</a>
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"
+                                           role="button" data-bs-toggle="tooltip" title="Next service!">❯</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- dropdown delete modal section -->
+                        <div class="modal fade" id="servicelogo_{{ servicelogo.id }}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h5 class="modal-title col-md-6 offset-md-3" id="exampleModalLabel">
+                                            Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        Are you sure you want to delete
+                                        service
+                                        <br>
+                                        {{ servicelogo.service_name }}?
+                                    </div>
+                                    <div class="row modal-footer">
+                                        <div class="col">
+                                    <span class="float-start">
+                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                                            No</button>
+                                    </span>
+                                        </div>
+                                        <div class="col">
+                                    <span class="float-end">
+                                        <a href="{% url "delete-service-logo-modal" servicelogo.id %}"
+                                           class="btn btn-outline-danger">Yes</a>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer section -->
+        <section>
+            <div class="container-fluid bg-primary mb-2">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <a>If you've got a project in mind, I can help you get on the right path to get
+                            started. </a>
+                        <a class="btn btn-outline-light ms-4" href="{% url 'contact' %}" style="width: 150px">
+                            Request quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-dark">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <p>info@ciprianm.com </p>
+                        <p>Copyright © 2022 CiprianM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

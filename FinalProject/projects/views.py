@@ -1,0 +1,110 @@
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+
+from projects.filters import ProjectsFilter
+from projects.forms import ProjectLogoForm
+from projects.models import ProjectLogo
+
+
+class ProjectListView(LoginRequiredMixin, ListView):
+    template_name = 'projects/projects.html'
+    model = ProjectLogo
+    context_object_name = 'all_projects'
+
+    def get_context_data(self, **kwargs):
+        data = super(ProjectListView, self).get_context_data(**kwargs)
+
+        projects = ProjectLogo.objects.all()
+        my_filter = ProjectsFilter(self.request.GET, queryset=projects)
+        data['all_projects'] = my_filter.qs
+        data['my_filter'] = my_filter
+
+        return data
+
+
+class ProjectCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/create_project_logo.html'
+    model = ProjectLogo
+    form_class = ProjectLogoForm
+    success_url = reverse_lazy('projects')
+
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_logo = form.save(commit=False)
+            new_project_logo.save()
+            return redirect('projects')
+
+
+class ProjectDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/detail_project_logo.html'
+    model = ProjectLogo
+
+
+class ProjectActivityView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/activity_project_logo.html'
+    model = ProjectLogo
+
+
+class ProjectFilesView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/files_project_logo.html'
+    model = ProjectLogo
+
+
+class ProjectPaymentsView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/payments_project_logo.html'
+    model = ProjectLogo
+
+
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'projects/update_project_logo.html'
+    model = ProjectLogo
+    form_class = ProjectLogoForm
+    success_url = reverse_lazy('projects')
+
+
+class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    template_name = 'projects/delete_project_logo.html'
+    model = ProjectLogo
+    success_url = reverse_lazy('projects')
+    permission_required = 'portfolio.delete_projectlogo'
+
+
+@login_required
+@permission_required('portfolio.delete_projectlogo')
+def delete_project_logo(request, pk):
+    ProjectLogo.objects.filter(id=pk).delete()
+
+    return redirect('projects')
+
+
+class DraftProjectsListView(LoginRequiredMixin, ListView):
+    template_name = 'projects/status/draft_projects.html'
+    model = ProjectLogo
+    context_object_name = 'all_draft_projects'
+
+
+class InvitedProjectsListView(LoginRequiredMixin, ListView):
+    template_name = 'projects/status/invited_projects.html'
+    model = ProjectLogo
+    context_object_name = 'all_invited_projects'
+
+
+class StartedProjectsListView(LoginRequiredMixin, ListView):
+    template_name = 'projects/status/started_projects.html'
+    model = ProjectLogo
+    context_object_name = 'all_started_projects'
+
+
+class CompletedProjectsListView(LoginRequiredMixin, ListView):
+    template_name = 'projects/status/completed_projects.html'
+    model = ProjectLogo
+    context_object_name = 'all_completed_projects'
+
+
+class CanceledProjectListView(LoginRequiredMixin, ListView):
+    template_name = 'projects/status/canceled_projects.html'
+    model = ProjectLogo
+    context_object_name = 'all_canceled_projects'

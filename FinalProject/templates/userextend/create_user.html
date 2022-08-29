@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+    Create an user
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 gy-4 mb-4">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Create a new user</h3>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-primary" style="width: 150px"
+                               href="{% url 'login' %}">Cancel</a>
+                            <button type="submit" class="btn btn-outline-primary float-end"
+                            style="width: 150px">Create user</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

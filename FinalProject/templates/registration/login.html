@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 gy-4">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h3>Login</h3>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                {{ form.as_p }}
+                            </div>
+                            <div class="card-footer text-center">
+                                <button type="submit" class="btn btn-outline-primary" style="width: 150px">Login
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="text pt-4">
+                        <span>Don't have an account?</span>
+                        <span><a href="{% url 'create-user' %}" style="text-decoration: none">Sign up</a></span>
+                        <span class="float-end"><a href="{% url 'password_reset' %}" style="text-decoration: none">
+                            Forgot password?</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

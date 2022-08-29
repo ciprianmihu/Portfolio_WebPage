@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Ready made logos
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <!-- Ready made section -->
+        <section>
+            <div class="container-fluid">
+                <div class="row m-4 p-4">
+                    <div class="col mx-auto">
+                        <h1 class="text-center">READY MADE</h1>
+                        <p class="text-center">Welcome to my awesome ready-made logos with amazing finish and quality.
+                            <br>Each logo is unique, customizable and sold only once.</p>
+                    </div>
+                </div>
+            </div>
+            {% if perms.ready_made.add_readylogo %}
+                <div class="container-fluid pb-5 d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card" style="width: 150px">
+                                <a class="btn btn-outline-primary px-2" href="{% url 'create-ready-logo' %}">
+                                    Add a logo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="container py-5">
+                <div class="row gy-4">
+                    {% for ready_logo in all_ready_logos %}
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow">
+                                <a href="{% url 'detail-ready-logo' ready_logo.id %}">
+                                    <img class="card-img-top"
+                                         src="{{ ready_logo.logo_image_1.url }}"
+                                         alt="Card image cap">
+                                </a>
+                                <div class="card-body">
+                                    <p class="card-text text-center">{{ ready_logo.logo_name.upper }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- Pagination section -->
+        <section>
+            <div class="container-fluid pb-5 d-flex justify-content-center">
+                <div class="row">
+                    <div class="col">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a class="btn btn-outline-primary"
+                                   href="?page={{ page_obj.previous_page_number }}"
+                                   role="button" data-bs-toggle="tooltip" title="Previous page">❮</a>
+                            {% endif %}
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <a class="btn btn-primary" href="?page={{ num }}">{{ num }}</a>
+                                {% elif num > page_obj.number|add:'-1' and num < page_obj.number|add:'1' %}
+                                    <a class="btn btn-primary" href="?page={{ num }}">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <a class="btn btn-outline-primary"
+                                   href="?page={{ page_obj.next_page_number }}"
+                                   role="button" data-bs-toggle="tooltip" title="Next page">❯</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer section -->
+        <section>
+            <div class="container-fluid bg-primary mb-2">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <a>If you've got a project in mind, I can help you get on the right path to get
+                            started. </a>
+                        <a class="btn btn-outline-light ms-4" href="{% url 'contact' %}" style="width: 150px">
+                            Request quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-dark">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <p>info@ciprianm.com </p>
+                        <p>Copyright © 2022 CiprianM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Contact
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <!-- Contact section -->
+        <section>
+            <div class="container-fluid">
+                <div class="row m-4 p-4">
+                    <div class="col mx-auto">
+                        <h1 class="text-center">CONTACT</h1>
+                        <p class="text-center">Do you need a quote for your project? Do you have a question about my
+                            work or my services? Just email me or use the form provided below.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container mx-auto m-4">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <h3>Send a message</h3>
+                            </div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="card-body">
+                                    {{ form.as_p }}
+                                </div>
+                                <div class="card-footer text-center">
+                                    <button type="submit" class="btn btn-outline-primary" style="width: 150px">Send
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer section -->
+        <section>
+            <div class="container-fluid bg-primary mb-2">
+                <div class="row p-4">
+                    <div class="col text-center text-white">
+                        <a>If you've got a project in mind, I can help you get on the right path to get
+                            started. </a>
+                        <a class="btn btn-outline-light ms-4" href="{% url 'contact' %}" style="width: 150px">
+                            Request quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-dark">
+                <div class="row p-4">
+                    <div class="col-md-6 offset-md-3 text-center text-white">
+                        <p>info@ciprianm.com </p>
+                        <p>Copyright © 2022 CiprianM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

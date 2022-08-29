@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    About me
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <!-- About me section -->
+        <section>
+            <div class="container-fluid">
+                <div class="row m-4 p-4">
+                    <div class="col mx-auto">
+                        <h1 class="text-center">ABOUT ME</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row mx-4 px-4">
+                    <div class="col mx-auto">
+                        <div class="card">
+                            <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
+                                <h3 class="card-text">WHO I AM </h3>
+                            </div>
+                            <div class="card-body overflow-hidden">
+                                <div class="row">
+                                    <div class="col-2 m-2" style="min-width: 100px;min-height: 100px">
+                                        <img src="{% static 'images/Brand.svg' %}" alt="Card image cap">
+                                    </div>
+                                    <div class="col m-2">
+                                        <p class="text-center">I am a self-taught illustrative designer that can create
+                                            a broad range of design directions mostly in minimalist style to facilitate
+                                            the expansion of your brand's full creative potential. </p>
+                                        <p class="text-center">I approach every project as new and unique, with an
+                                            arsenal of techniques and expertise that I know work.</p>
+                                        <p class="text-center">I love paying a lot of attention to detail in order to
+                                            create pixel perfect designs. That's what I do best.</p>
+                                        <div class="row text-center">
+                                            <div class="col mx-auto">
+                                                <a class="btn btn-outline-primary m-2" href="{% url 'portfolio' %}"
+                                                   style="width: 150px">View portfolio</a>
+                                                <a class="btn btn-outline-primary m-2" href="{% url 'contact' %}"
+                                                   style="width: 150px">Contact me</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row m-4 p-4">
+                    <div class="col mx-auto">
+                        <h1 class="text-center">WHY CHOOSE ME?</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row mx-4 px-4 pb-4">
+                    <div class="col mx-auto">
+                        <div class="card">
+                            <div class="card-header bg-secondary bg-opacity-50 text-center border border-0">
+                                <h4 class="text">YOU WILL GET EXTENSIVE EXPERIENCE</h4>
+                            </div>
+                            <div class="card-body overflow-hidden text-center">
+                                <p>With years of experience, I will ensure your project is pixel perfect, unique, and
+                                    effective. I'm capable to meet your expectations and satisfy
+                                    any changes regardless of size.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row mx-4 px-4 pb-4">
+                    <div class="col mx-auto">
+                        <div class="card">
+                            <div class="card-header bg-secondary bg-opacity-50 text-center border border-0">
+                                <h4 class="text">YOU WILL HAVE VERY FAST TURNAROUND</h4>
+                            </div>
+                            <div class="card-body overflow-hidden text-center">
+                                <p>I'm a workaholic with enormous passion for design. My clients are impressed with how
+                                    quick I deliver solutions. You'll never wait long for my response.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row mx-4 px-4 pb-4">
+                    <div class="col mx-auto">
+                        <div class="card">
+                            <div class="card-header bg-secondary bg-opacity-50 text-center border border-0">
+                                <h4 class="text">YOU WILL WORK WITH ME ONLY</h4>
+                            </div>
+                            <div class="card-body overflow-hidden text-center">
+                                <p>Your project won't be outsourced, crowd-sourced or subjected to any unscrupulous
+                                    practices, nor juggled around between different designers.
+                                    You will be working with me only.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Carousel section -->
+        <section>
+            <!-- The slideshow/carousel -->
+            <div id="carouselInterval" class="carousel slide mb-2 mt-4" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselInterval" data-bs-slide-to="0"
+                            class="active"></button>
+                    <button type="button" data-bs-target="#carouselInterval" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#carouselInterval" data-bs-slide-to="2"></button>
+                </div>
+                <!-- Carousel inner -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="8000">
+                        <img src="{% static 'images/CarouselCip_2_1.png' %}" alt="Slide 1" class="d-block w-100">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="8000">
+                        <img src="{% static 'images/CarouselCip_2_2.png' %}" alt="Slide 2" class="d-block w-100">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="8000">
+                        <img src="{% static 'images/CarouselCip_2_3.png' %}" alt="Slide 3" class="d-block w-100">
+                    </div>
+                </div>
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselInterval"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselInterval"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+        <!-- Footer section -->
+        <section>
+            <div class="container-fluid bg-primary mb-2">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <a>If you've got a project in mind, I can help you get on the right path to get
+                            started. </a>
+                        <a class="btn btn-outline-light ms-4" href="{% url 'contact' %}" style="width: 150px">
+                            Request quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-dark">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <p>info@ciprianm.com </p>
+                        <p>Copyright © 2022 CiprianM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

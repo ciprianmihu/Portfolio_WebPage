@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Services
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <!-- Services section -->
+        <section>
+            <div class="container-fluid">
+                <div class="row m-4 p-4">
+                    <div class="col mx-auto">
+                        <h1 class="text-center">SERVICES</h1>
+                        <p class="text-center">Welcome to my services, where you can view some awesome services I
+                            provide. <br> If you need something else that is not listed, send me a message.</p>
+                    </div>
+                </div>
+            </div>
+            {% if perms.services.add_servicelogo %}
+                <div class="container-fluid pb-5 d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card" style="width: 150px">
+                                <a class="btn btn-outline-primary px-2" href="{% url 'create-service-logo' %}">
+                                    Add a service</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="container-fluid">
+                <div class="row mb-4">
+                    {% for service in all_services %}
+                        <div class="col-md-6 gy-4">
+                            <div class="card" >
+                                <div class="card-header bg-secondary bg-opacity-50 text-center border border-0">
+                                    <h3 class="card-text">{{ service.service_name }}</h3>
+                                </div>
+                                <div class="card-body overflow-hidden">
+                                    <div class="row ">
+                                        <div class="col-2 m-2 gx-1" style="min-width: 140px">
+                                            <a href="{% url 'detail-service-logo' service.id %}">
+                                                <img class="card-img" src="{{ service.service_image_1.url }}"
+                                                     alt="Card image cap" style="min-height: 138px; min-width: 138px"></a>
+                                        </div>
+                                        <div class="col m-2 gx-1">
+                                            <p class="card-text">{{ service.service_deliverable }}.</p>
+                                            <p class="card-text">Turnaround: {{ service.turnaround }} days.</p>
+                                            <p class="card-text">Price: {{ service.price }}.</p>
+                                            <p class="card-text">Click on the image to view all details.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <!-- Footer section -->
+        <section>
+            <div class="container-fluid bg-primary mb-2">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <a>If you've got a project in mind, I can help you get on the right path to get
+                            started. </a>
+                        <a class="btn btn-outline-light ms-4" href="{% url 'contact' %}" style="width: 150px">
+                            Request quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-dark">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <p>info@ciprianm.com </p>
+                        <p>Copyright © 2022 CiprianM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
