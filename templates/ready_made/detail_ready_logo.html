@@ -49,25 +49,25 @@
                                             <img src="{{ readylogo.optional_logo_image_2.url }}" alt="Slide 2"
                                                  class="card-img">
                                         </div>
-                                        {% if readylogo.logo_image_3 %}
+                                        {% if readylogo.optional_logo_image_3 %}
                                             <div class="carousel-item" data-bs-interval="3000">
                                                 <img src="{{ readylogo.optional_logo_image_3.url }}" alt="Slide 3"
                                                      class="card-img">
                                             </div>
                                         {% endif %}
-                                        {% if readylogo.logo_image_4 %}
+                                        {% if readylogo.optional_logo_image_4 %}
                                             <div class="carousel-item" data-bs-interval="3000">
                                                 <img src="{{ readylogo.optional_logo_image_4.url }}" alt="Slide 4"
                                                      class="card-img">
                                             </div>
                                         {% endif %}
-                                        {% if readylogo.logo_image_5 %}
+                                        {% if readylogo.optional_logo_image_5 %}
                                             <div class="carousel-item" data-bs-interval="3000">
                                                 <img src="{{ readylogo.optional_logo_image_5.url }}" alt="Slide 5"
                                                      class="card-img">
                                             </div>
                                         {% endif %}
-                                        {% if readylogo.logo_image_6 %}
+                                        {% if readylogo.optional_logo_image_6 %}
                                             <div class="carousel-item" data-bs-interval="3000">
                                                 <img src="{{ readylogo.optional_logo_image_6.url }}" alt="Slide 6"
                                                      class="card-img">
@@ -119,7 +119,7 @@
                                     {% endif %}
                                 {% endif %}
                                 {% if perms.ready_made.change_readylogo or perms.ready_made.delete_readyologo %}
-                                    <div class="dropdown dropstart float-end">
+                                    <div class="dropdown float-end">
                                         <button type="button" class="btn btn-outline-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown" style="width: 150px">Actions
                                         </button>
@@ -128,7 +128,7 @@
                                                    class="dropdown-item">Update logo</a></li>
                                             <li>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#readylogo_{{ readylogo.id }}">Delete
+                                                        data-bs-target="#readylogo_{{ readylogo.id }}">Delete logo
                                                 </button>
                                             </li>
                                         </ul>
@@ -157,20 +157,19 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-center">
-                                        Are you sure you want to delete
-                                        logo: {{ readylogo.logo_name }}?
+                                        Are you sure you want to delete logo: {{ readylogo.logo_name }}?
                                     </div>
                                     <div class="row modal-footer">
                                         <div class="col">
                                     <span class="float-start">
-                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                                            No</button>
+                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                                        style="width: 100px">No</button>
                                     </span>
                                         </div>
                                         <div class="col">
                                     <span class="float-end">
                                         <a href="{% url "delete-ready-logo-modal" readylogo.id %}"
-                                           class="btn btn-outline-danger">Yes</a>
+                                           class="btn btn-outline-danger" style="width: 100px">Yes</a>
                                     </span>
                                         </div>
                                     </div>

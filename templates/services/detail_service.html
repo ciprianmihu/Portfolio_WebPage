@@ -43,7 +43,8 @@
                                                    class="dropdown-item">Update service</a></li>
                                             <li>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#servicelogo_{{ servicelogo.id }}">Delete
+                                                        data-bs-target="#servicelogo_{{ servicelogo.id }}">
+                                                    Delete service
                                                 </button>
                                             </li>
                                         </ul>
@@ -75,22 +76,21 @@
                                                 aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-center">
-                                        Are you sure you want to delete
-                                        service
+                                        Are you sure you want to delete service
                                         <br>
                                         {{ servicelogo.service_name }}?
                                     </div>
                                     <div class="row modal-footer">
                                         <div class="col">
                                     <span class="float-start">
-                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                                            No</button>
+                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                                        style="width: 100px">No</button>
                                     </span>
                                         </div>
                                         <div class="col">
                                     <span class="float-end">
                                         <a href="{% url "delete-service-logo-modal" servicelogo.id %}"
-                                           class="btn btn-outline-danger">Yes</a>
+                                           class="btn btn-outline-danger" style="width: 100px">Yes</a>
                                     </span>
                                         </div>
                                     </div>

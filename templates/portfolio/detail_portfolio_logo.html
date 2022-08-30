@@ -12,7 +12,7 @@
                     <div class="col">
                         <div class="card" style="min-width: 200px">
                             {% if not portfoliologo.optional_logo_image_2 %}
-                                <img src="{{ portfoliologo.logo_image_1.url }}" class="card-img" alt="">
+                                <img src="{{ portfoliologo.logo_image_1 }}" class="card-img" alt="">
                             {% else %}
                                 <div id="carouselInterval" class="carousel slide" data-bs-ride="carousel">
                                     <!-- Indicators/dots -->
@@ -48,7 +48,7 @@
                                             <img src="{{ portfoliologo.optional_logo_image_2.url }}" alt="Slide 2"
                                                  class="card-img">
                                         </div>
-                                        {% if portfoliologo.logo_image_3 %}
+                                        {% if portfoliologo.optional_logo_image_3 %}
                                             <div class="carousel-item" data-bs-interval="3000">
                                                 <img src="{{ portfoliologo.optional_logo_image_3.url }}" alt="Slide 3"
                                                      class="card-img">
@@ -106,7 +106,7 @@
                                 <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
                                    role="button" style="width: 150px">Go back</a>
                                 {% if perms.portfolio.change_portfoliologo or perms.portfolio.delete_portfoliologo %}
-                                    <div class="dropdown dropstart float-end">
+                                    <div class="dropdown float-end">
                                         <button type="button" class="btn btn-outline-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown" style="width: 150px">Actions
                                         </button>
@@ -115,8 +115,8 @@
                                                    class="dropdown-item">Update logo</a></li>
                                             <li>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#portfoliologo_{{ portfoliologo.id }}">Delete
-                                                </button>
+                                                        data-bs-target="#portfoliologo_{{ portfoliologo.id }}">
+                                                    Delete logo</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -150,14 +150,14 @@
                                     <div class="row modal-footer">
                                         <div class="col">
                                     <span class="float-start">
-                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
-                                            No</button>
+                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                                        style="width: 100px">No</button>
                                     </span>
                                         </div>
                                         <div class="col">
                                     <span class="float-end">
                                         <a href="{% url "delete-portfolio-logo-modal" portfoliologo.id %}"
-                                           class="btn btn-outline-danger">Yes</a>
+                                           class="btn btn-outline-danger" style="width: 100px">Yes</a>
                                     </span>
                                         </div>
                                     </div>
