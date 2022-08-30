@@ -33,7 +33,7 @@
                 <div class="row mb-4">
                     {% for service in all_services %}
                         <div class="col-md-6 gy-4">
-                            <div class="card" >
+                            <div class="card">
                                 <div class="card-header bg-secondary bg-opacity-50 text-center border border-0">
                                     <h3 class="card-text">{{ service.service_name }}</h3>
                                 </div>
@@ -42,7 +42,8 @@
                                         <div class="col-2 m-2 gx-1" style="min-width: 140px">
                                             <a href="{% url 'detail-service-logo' service.id %}">
                                                 <img class="card-img" src="{{ service.service_image_1.url }}"
-                                                     alt="Card image cap" style="min-height: 138px; min-width: 138px"></a>
+                                                     alt="Card image cap"
+                                                     style="min-height: 138px; min-width: 138px"></a>
                                         </div>
                                         <div class="col m-2 gx-1">
                                             <p class="card-text">{{ service.service_deliverable }}.</p>
@@ -50,6 +51,67 @@
                                             <p class="card-text">Price: {{ service.price }}.</p>
                                             <p class="card-text">Click on the image to view all details.</p>
                                         </div>
+                                        {% if user.is_superuser %}
+                                            <div class="col-md-2 m-2" style="min-width: 140px;min-height: 140px">
+                                                <div class="dropdown float-end">
+                                                    <button type="button"
+                                                            class="btn btn-outline-primary dropdown-toggle"
+                                                            data-bs-toggle="dropdown" style="width: 150px">Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="{% url 'detail-service-logo' service.id %}"
+                                                               class="dropdown-item">Overview</a></li>
+                                                        <li><a href="{% url 'update-service-logo' service.id %}"
+                                                               class="dropdown-item">Edit service</a></li>
+                                                        <li>
+                                                            <button type="button" class="dropdown-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#servicelogo_{{ service.id }}">
+                                                                Delete service
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- dropdown delete modal section -->
+                                                <div class="modal fade" id="servicelogo_{{ service.id }}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header text-center">
+                                                                <h5 class="modal-title col-md-6 offset-md-3"
+                                                                    id="exampleModalLabel">
+                                                                    Delete</h5>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body text-center">
+                                                                Are you sure you want to delete
+                                                                service: {{ service.service_name }}?
+                                                            </div>
+                                                            <div class="row modal-footer">
+                                                                <div class="col">
+                                                                    <span class="float-start">
+                                                                        <button type="button"
+                                                                                class="btn btn-outline-primary"
+                                                                                data-bs-dismiss="modal"
+                                                                                style="width: 100px">No</button>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <span class="float-end">
+                                                                        <a href="{% url "delete-service-logo-modal" service.id %}"
+                                                                           class="btn btn-outline-danger"
+                                                                           style="width: 100px">Yes</a>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

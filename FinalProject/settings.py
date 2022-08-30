@@ -137,6 +137,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # trimite mail in consola
 # SMTP = SIMPLE MAIL TRANSFER PROTOCOL - un protocol folosit pentru trimiterea de mailuri
 
+DEFAULT_FROM_EMAIL = 'admin@florisdent.ro'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
