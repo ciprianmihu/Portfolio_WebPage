@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Detail logo
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <section>
+            <div class="container mx-auto m-4">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="min-width: 200px">
+                            {% if not readylogo.optional_logo_image_2 %}
+                                <img src="{{ readylogo.logo_image_1.url }}" class="card-img" alt="">
+                            {% else %}
+                                <div id="carouselInterval" class="carousel slide" data-bs-ride="carousel">
+                                    <!-- Indicators/dots -->
+                                    <div class="carousel-indicators">
+                                        <button type="button" data-bs-target="#carouselInterval" data-bs-slide-to="0"
+                                                class="active"></button>
+                                        <button type="button" data-bs-target="#carouselInterval"
+                                                data-bs-slide-to="1"></button>
+                                        {% if readylogo.optional_logo_image_3 %}
+                                            <button type="button" data-bs-target="#carouselInterval"
+                                                    data-bs-slide-to="2"></button>
+                                        {% endif %}
+                                        {% if readylogo.optional_logo_image_4 %}
+                                            <button type="button" data-bs-target="#carouselInterval"
+                                                    data-bs-slide-to="3"></button>
+                                        {% endif %}
+                                        {% if readylogo.optional_logo_image_5 %}
+                                            <button type="button" data-bs-target="#carouselInterval"
+                                                    data-bs-slide-to="4"></button>
+                                        {% endif %}
+                                        {% if readylogo.optional_logo_image_6 %}
+                                            <button type="button" data-bs-target="#carouselInterval"
+                                                    data-bs-slide-to="5"></button>
+                                        {% endif %}
+                                    </div>
+                                    <!-- Carousel inner -->
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active" data-bs-interval="3000">
+                                            <img src="{{ readylogo.logo_image_1.url }}" alt="Slide 1"
+                                                 class="card-img">
+                                        </div>
+                                        <div class="carousel-item" data-bs-interval="3000">
+                                            <img src="{{ readylogo.optional_logo_image_2.url }}" alt="Slide 2"
+                                                 class="card-img">
+                                        </div>
+                                        {% if readylogo.optional_logo_image_3 %}
+                                            <div class="carousel-item" data-bs-interval="3000">
+                                                <img src="{{ readylogo.optional_logo_image_3.url }}" alt="Slide 3"
+                                                     class="card-img">
+                                            </div>
+                                        {% endif %}
+                                        {% if readylogo.optional_logo_image_4 %}
+                                            <div class="carousel-item" data-bs-interval="3000">
+                                                <img src="{{ readylogo.optional_logo_image_4.url }}" alt="Slide 4"
+                                                     class="card-img">
+                                            </div>
+                                        {% endif %}
+                                        {% if readylogo.optional_logo_image_5 %}
+                                            <div class="carousel-item" data-bs-interval="3000">
+                                                <img src="{{ readylogo.optional_logo_image_5.url }}" alt="Slide 5"
+                                                     class="card-img">
+                                            </div>
+                                        {% endif %}
+                                        {% if readylogo.optional_logo_image_6 %}
+                                            <div class="carousel-item" data-bs-interval="3000">
+                                                <img src="{{ readylogo.optional_logo_image_6.url }}" alt="Slide 6"
+                                                     class="card-img">
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <!-- Left and right controls/icons -->
+                                    <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselInterval"
+                                            data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselInterval"
+                                            data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="min-width: 200px">
+                            <div class="card-header">
+                                <h3 class="card-text">Overview</h3>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Logo for: {{ readylogo.logo_name }}</h3>
+                                <br>
+                                <p class="card-text">Company description: {{ readylogo.company_description }}</p>
+                                <p class="card-text">Company industry: {{ readylogo.company_industry }}</p>
+                                <p class="card-text">Logo overview: {{ readylogo.logo_description }}</p>
+                            </div>
+                            <div class="card-footer">
+                                {% if perms.ready_made.change_readylogo or perms.ready_made.delete_readyologo %}
+                                    <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
+                                       role="button" style="width: 150px">Go back</a>
+                                {% else %}
+                                    {% if user.is_authenticated %}
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'projects' %}"
+                                           role="button" data-bs-toggle="tooltip" title="Hooray!"
+                                           style="width: 150px">Buy this logo</a>
+                                    {% else %}
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'login' %}"
+                                           role="button" data-bs-toggle="tooltip" title="Hooray!"
+                                           style="width: 150px">Buy this logo</a>
+                                    {% endif %}
+                                {% endif %}
+                                {% if perms.ready_made.change_readylogo or perms.ready_made.delete_readyologo %}
+                                    <div class="dropdown float-end">
+                                        <button type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                data-bs-toggle="dropdown" style="width: 150px">Actions
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{% url 'update-ready-logo' readylogo.id %}"
+                                                   class="dropdown-item">Update logo</a></li>
+                                            <li>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#readylogo_{{ readylogo.id }}">Delete logo
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    <div class="btn-group float-end">
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
+                                           role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
+                                           role="button">View all</a>
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
+                                           role="button" data-bs-toggle="tooltip" title="Next logo!">❯</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- dropdown delete modal section -->
+                        <div class="modal fade" id="readylogo_{{ readylogo.id }}" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h5 class="modal-title col-md-6 offset-md-3" id="exampleModalLabel">
+                                            Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        Are you sure you want to delete logo: {{ readylogo.logo_name }}?
+                                    </div>
+                                    <div class="row modal-footer">
+                                        <div class="col">
+                                    <span class="float-start">
+                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+                                        style="width: 100px">No</button>
+                                    </span>
+                                        </div>
+                                        <div class="col">
+                                    <span class="float-end">
+                                        <a href="{% url "delete-ready-logo-modal" readylogo.id %}"
+                                           class="btn btn-outline-danger" style="width: 100px">Yes</a>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- footer section -->
+        <section>
+            <div class="container-fluid bg-primary mb-2">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <a>If you've got a project in mind, I can help you get on the right path to get
+                            started.</a>
+                        <a class="btn btn-outline-light ms-4" href="{% url 'contact' %}" style="width: 150px">
+                            Request quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-dark">
+                <div class="row p-4">
+                    <div class="col mx-auto text-center text-white">
+                        <p>info@ciprianm.com </p>
+                        <p>Copyright © 2022 CiprianM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
