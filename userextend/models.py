@@ -13,9 +13,10 @@ class UserExtend(User):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(UserExtend, on_delete=models.CASCADE)
+    user = models.OneToOneField(UserExtend, null=True, on_delete=models.CASCADE)
 
     profile_image = models.ImageField(default='CiprianM_Brand.png', upload_to='profiles/')
+    company = models.CharField(max_length=100, null=True, blank=True)
     bio = models.TextField(max_length=1000, blank=True)
     
     def __str__(self):

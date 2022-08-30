@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView
 
 from FinalProject.settings import EMAIL_HOST_USER
-from userextend.forms import UserExtendForm
+from userextend.forms import UserExtendForm, UserExtendUpdateForm
 from userextend.models import UserExtend
 
 
@@ -38,8 +38,8 @@ class UserExtendProfileView(LoginRequiredMixin, DetailView):
 class UserExtendUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'userextend/update_user.html'
     model = UserExtend
-    form_class = UserExtendForm
-    success_url = reverse_lazy('detail-user')
+    form_class = UserExtendUpdateForm
+    success_url = reverse_lazy('home')
 
 
 @login_required
