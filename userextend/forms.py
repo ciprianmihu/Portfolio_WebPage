@@ -1,7 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, \
-    SetPasswordForm, UserChangeForm
+    SetPasswordForm
 from django.forms import TextInput, EmailInput, Select, DateInput
 
 from userextend.models import UserExtend
