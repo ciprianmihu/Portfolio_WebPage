@@ -41,19 +41,19 @@
                                        style="text-decoration: none">All projects ({{ all_projects|length }})</a>
                                 </p>
                                 <p class="card-text">
-                                    <a class="text-dark" href="{% url 'draft-projects' %}"
+                                    <a class="text-dark" href="{% url 'projects' %}?status=Draft"
                                        style="text-decoration: none">Drafts ({{ all_projects|length }})</a></p>
                                 <p class="card-text">
-                                    <a class="text-dark" href="{% url 'invited-projects' %}"
+                                    <a class="text-dark" href="{% url 'projects' %}?status=Invited"
                                        style="text-decoration: none">Invited ({{ all_projects|length }})</a></p>
                                 <p class="card-text">
-                                    <a class="text-dark" href="{% url 'started-projects' %}"
+                                    <a class="text-dark" href="{% url 'projects' %}?status=Started"
                                        style="text-decoration: none">Started ({{ all_projects|length }})</a></p>
                                 <p class="card-text">
-                                    <a class="text-dark" href="{% url 'completed-projects' %}"
+                                    <a class="text-dark" href="{% url 'projects' %}?status=Completed"
                                        style="text-decoration: none">Completed ({{ all_projects|length }})</a></p>
                                 <p class="card-text">
-                                    <a class="text-dark" href="{% url 'canceled-projects' %}"
+                                    <a class="text-dark" href="{% url 'projects' %}?status=Canceled"
                                        style="text-decoration: none">Canceled ({{ all_projects|length }})</a></p>
                             </div>
                         </div>

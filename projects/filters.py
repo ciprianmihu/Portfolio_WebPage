@@ -1,7 +1,6 @@
 # pip install django_filter
 
 import django_filters
-# from django import forms
 
 from projects.models import ProjectLogo
 

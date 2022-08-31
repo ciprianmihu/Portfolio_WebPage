@@ -14,13 +14,24 @@ class ProjectListView(LoginRequiredMixin, ListView):
     model = ProjectLogo
     context_object_name = 'all_projects'
 
+    def get_queryset(self):
+        queryset = super(ProjectListView, self).get_queryset()
+        status = self.request.GET.get('status')
+        if status:
+            queryset = queryset.filter(status=status)
+        filter_queryset = queryset.filter(client_name=self.request.user)
+        return filter_queryset
+
     def get_context_data(self, **kwargs):
         data = super(ProjectListView, self).get_context_data(**kwargs)
 
         projects = ProjectLogo.objects.all()
         my_filter = ProjectsFilter(self.request.GET, queryset=projects)
-        data['all_projects'] = my_filter.qs
-        data['my_filter'] = my_filter
+        if self.request.user.is_superuser:
+            data['all_projects'] = my_filter.qs
+            data['my_filter'] = my_filter
+        else:
+            data['all_projects'] = self.get_queryset()
 
         return data
 
@@ -78,33 +89,3 @@ def delete_project_logo(request, pk):
     ProjectLogo.objects.filter(id=pk).delete()
 
     return redirect('projects')
-
-
-class DraftProjectsListView(LoginRequiredMixin, ListView):
-    template_name = 'projects/status/draft_projects.html'
-    model = ProjectLogo
-    context_object_name = 'all_draft_projects'
-
-
-class InvitedProjectsListView(LoginRequiredMixin, ListView):
-    template_name = 'projects/status/invited_projects.html'
-    model = ProjectLogo
-    context_object_name = 'all_invited_projects'
-
-
-class StartedProjectsListView(LoginRequiredMixin, ListView):
-    template_name = 'projects/status/started_projects.html'
-    model = ProjectLogo
-    context_object_name = 'all_started_projects'
-
-
-class CompletedProjectsListView(LoginRequiredMixin, ListView):
-    template_name = 'projects/status/completed_projects.html'
-    model = ProjectLogo
-    context_object_name = 'all_completed_projects'
-
-
-class CanceledProjectListView(LoginRequiredMixin, ListView):
-    template_name = 'projects/status/canceled_projects.html'
-    model = ProjectLogo
-    context_object_name = 'all_canceled_projects'
