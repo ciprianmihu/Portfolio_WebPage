@@ -34,6 +34,11 @@ class UserExtendProfileView(LoginRequiredMixin, DetailView):
     template_name = 'userextend/profile_user.html'
     model = UserExtend
 
+    def get_queryset(self):
+        queryset = super(UserExtendProfileView, self).get_queryset().filter(id=self.request.user.id)
+
+        return queryset
+
 
 class UserExtendUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'userextend/update_user.html'

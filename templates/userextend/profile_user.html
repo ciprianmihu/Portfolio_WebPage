@@ -38,17 +38,13 @@
                                     {% endif %}
                                 </div>
                                 {% if user.is_authenticated %}
-                                    <div class="col-md-2 m-2" style="min-width: 140px;min-height: 140px">
-                                        <div class="dropdown float-end">
-                                            <button type="button"
-                                                    class="btn btn-outline-primary dropdown-toggle"
-                                                    data-bs-toggle="dropdown" style="width: 150px">Actions
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="{% url 'update-user' userextend.id %}"
-                                                       class="dropdown-item">Edit profile</a></li>
-                                            </ul>
-                                        </div>
+                                    <div class="col-md-2 mx-auto">
+                                        <a href="{% url 'update-user' userextend.id %}"
+                                           class="btn btn-outline-primary float-end mb-3" style="width: 200px">Edit
+                                            profile</a>
+                                        <a href="{% url 'password_change' %}"
+                                           class="btn btn-outline-primary float-end" style="width: 200px">Change
+                                            password</a>
                                     </div>
                                 {% endif %}
                             </div>

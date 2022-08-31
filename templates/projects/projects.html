@@ -38,23 +38,23 @@
                             <div class="card-body">
                                 <p class="card-text">
                                     <a class="text-dark" href="{% url 'projects' %}"
-                                       style="text-decoration: none">All projects ({{ all_projects|length }})</a>
+                                       style="text-decoration: none">All projects ({{ count_all }})</a>
                                 </p>
                                 <p class="card-text">
                                     <a class="text-dark" href="{% url 'projects' %}?status=Draft"
-                                       style="text-decoration: none">Drafts ({{ all_projects|length }})</a></p>
+                                       style="text-decoration: none">Drafts ({{ count_draft }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark" href="{% url 'projects' %}?status=Invited"
-                                       style="text-decoration: none">Invited ({{ all_projects|length }})</a></p>
+                                       style="text-decoration: none">Invited ({{ count_invited }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark" href="{% url 'projects' %}?status=Started"
-                                       style="text-decoration: none">Started ({{ all_projects|length }})</a></p>
+                                       style="text-decoration: none">Started ({{ count_started }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark" href="{% url 'projects' %}?status=Completed"
-                                       style="text-decoration: none">Completed ({{ all_projects|length }})</a></p>
+                                       style="text-decoration: none">Completed ({{ count_completed }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark" href="{% url 'projects' %}?status=Canceled"
-                                       style="text-decoration: none">Canceled ({{ all_projects|length }})</a></p>
+                                       style="text-decoration: none">Canceled ({{ count_canceled }})</a></p>
                             </div>
                         </div>
                         {% if user.is_superuser %}
