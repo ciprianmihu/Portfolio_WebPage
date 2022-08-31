@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     User details
@@ -15,25 +16,41 @@
         </div>
         <div class="container-fluid">
             <div class="row mb-4">
-                <div class="col-md-2 ms-2 my-2">
-                    <div class="card mb-4" style="min-width: 140px">
-                        <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
-                            <h3 class="card-text">Your profile</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="card mb-3 shadow">
-                                <img src="{{ userextend.userprofile.profile_image.url }}" alt="Card image cap">
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="dropdown mx-auto">
-                                <button type="button" class="btn btn-outline-primary dropdown-toggle"
-                                        data-bs-toggle="dropdown" style="width: 150px">Actions
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'update-user' userextend.id %}"
-                                           class="dropdown-item">Update profile</a></li>
-                                </ul>
+                <div class="col-md gy-4">
+                    <div class="card">
+                        <div class="card-body overflow-hidden">
+                            <div class="row ">
+                                <div class="col-2 m-2 gx-1" style="min-width: 140px">
+                                    {% if userextend.userprofile.profile_image %}
+                                        <img class="card-img" src="{{ userextend.userprofile.profile_image.url }}"
+                                             alt="Card image cap" style="min-height: 138px; min-width: 138px">
+                                    {% else %}
+                                        <img class="card-img" src="{% static 'images/CiprianM_Brand.png' %}"
+                                             alt="Card image cap" style="min-height: 138px; min-width: 138px">
+                                    {% endif %}
+                                </div>
+                                <div class="col m-2 gx-1">
+                                    {% if userextend.userprofile.company %}
+                                        <p class="card-text">{{ userextend.userprofile.company }}.</p>
+                                    {% endif %}
+                                    {% if userextend.userprofile.bio %}
+                                        <p class="card-text">{{ userextend.userprofile.bio }}</p>
+                                    {% endif %}
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <div class="col-md-2 m-2" style="min-width: 140px;min-height: 140px">
+                                        <div class="dropdown float-end">
+                                            <button type="button"
+                                                    class="btn btn-outline-primary dropdown-toggle"
+                                                    data-bs-toggle="dropdown" style="width: 150px">Actions
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'update-user' userextend.id %}"
+                                                       class="dropdown-item">Edit profile</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
