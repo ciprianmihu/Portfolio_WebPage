@@ -1,5 +1,6 @@
 from datetime import date
 
+from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, \
     SetPasswordForm
 from django.forms import TextInput, EmailInput, Select, DateInput
@@ -46,7 +47,7 @@ class UserExtendForm(UserCreationForm):
         return cleaned_data
 
 
-class UserExtendUpdateForm(UserCreationForm):
+class UserExtendUpdateForm(forms.ModelForm):
     class Meta:
         model = UserExtend
         fields = ['first_name', 'last_name', 'email', 'email_confirmation', 'username', 'gender', 'date_of_birth']
@@ -61,14 +62,6 @@ class UserExtendUpdateForm(UserCreationForm):
             'gender': Select(attrs={'class': 'form-select'}),
             'date_of_birth': DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(UserExtendUpdateForm, self).__init__(*args, **kwargs)
-
-        self.fields['password1'].widget.attrs['class'] = 'form-control'
-        self.fields['password1'].widget.attrs['placeholder'] = 'Please enter your password'
-        self.fields['password2'].widget.attrs['class'] = 'form-control'
-        self.fields['password2'].widget.attrs['placeholder'] = 'Please confirm your password'
 
     def clean(self):
         cleaned_data = self.cleaned_data
