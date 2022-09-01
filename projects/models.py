@@ -29,11 +29,3 @@ class ProjectLogo(models.Model):
     def __str__(self):
         return f'{self.project_name}'
 
-
-class ProjectLogoClient(models.Model):
-    project = models.OneToOneField(ProjectLogo, null=True, on_delete=models.CASCADE)
-
-    client_name = models.ForeignKey(UserExtend, on_delete=models.CASCADE, null=True, blank=True)
-
-    def __str__(self):
-        return f'{self.project.project_name}'

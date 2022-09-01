@@ -40,7 +40,7 @@
                                         </button>
                                         <ul class="dropdown-menu">
                                             <li><a href="{% url 'update-service-logo' servicelogo.id %}"
-                                                   class="dropdown-item">Update service</a></li>
+                                                   class="dropdown-item">Edit service</a></li>
                                             <li>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                         data-bs-target="#servicelogo_{{ servicelogo.id }}">
@@ -50,7 +50,7 @@
                                         </ul>
                                     </div>
                                 {% else %}
-                                    <a class="btn btn-outline-primary float-start" href="{% url 'projects' %}"
+                                    <a class="btn btn-outline-primary float-start" href="{% url 'contact' %}"
                                        role="button" data-bs-toggle="tooltip" title="Hooray!"
                                        style="width: 150px">Request service</a>
                                     <div class="btn-group float-end">

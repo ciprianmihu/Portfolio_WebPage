@@ -8,7 +8,7 @@
     <main role="main">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 offset-md-3 my-4">
+                <div class="col-md-6 offset-md-3 my-4 was-validated">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="text-center">Update project</h3>
@@ -19,14 +19,10 @@
                                 {{ form.as_p }}
                             </div>
                             <div class="card-footer">
-                                <a class="btn btn-outline-primary" style="width: 150px"
+                                <a class="btn btn-outline-primary" style="width: 100px"
                                    href="{% url 'detail-project-logo' projectlogo.id %}">Cancel</a>
                                 <button type="submit" class="btn btn-outline-primary float-end"
-                                        style="width: 150px">
-                                    Save as draft
-                                </button>
-                                <button type="submit" class="btn btn-outline-primary float-end me-2" style="width: 150px">
-                                    Invite
+                                        style="width: 100px">Save
                                 </button>
                             </div>
                         </form>

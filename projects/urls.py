@@ -11,6 +11,7 @@ urlpatterns = [
     path('files_project_logo/<int:pk>/', views.ProjectFilesView.as_view(), name='files-project-logo'),
     path('payments_project_logo/<int:pk>/', views.ProjectPaymentsView.as_view(), name='payments-project-logo'),
     path('update_project_logo/<int:pk>/', views.ProjectUpdateView.as_view(), name='update-project-logo'),
+    path('update_project_client/<int:pk>/', views.ProjectUpdateClientView.as_view(), name='update-project-client'),
     path('delete_project_logo/<int:pk>/', views.ProjectDeleteView.as_view(), name='delete-project-logo'),
     path('delete_project_logo_modal/<int:pk>/', views.delete_project_logo, name='delete-project-logo-modal'),
 ]

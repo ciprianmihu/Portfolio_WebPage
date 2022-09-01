@@ -13,21 +13,22 @@
                 <div class="row m-4 p-4">
                     <div class="col mx-auto">
                         <h1 class="text-center">PROJECTS</h1>
-                        <p class="text-center">Welcome to projects, where you can view, create and manage your
-                            awesome projects.</p>
+                        <p class="text-center">Welcome to projects. Here you can view your awesome projects.</p>
                     </div>
                 </div>
             </div>
-            <div class="container-fluid pb-5 d-flex justify-content-center">
-                <div class="row">
-                    <div class="col">
-                        <div class="card" style="width: 200px">
-                            <a class="btn btn-outline-primary px-2" href="{% url 'create-project-logo' %}">
-                                Start a new project</a>
+            {% if perms.projects.add_projectlogo %}
+                <div class="container-fluid pb-5 d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card" style="width: 200px">
+                                <a class="btn btn-outline-primary px-2" href="{% url 'create-project-logo' %}">
+                                    Start a new project</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
             <div class="container-fluid">
                 <div class="row mb-4">
                     <div class="col-md-2 ms-2 my-2">
@@ -136,15 +137,24 @@
                                                                class="dropdown-item">Overview</a></li>
                                                         <li><a href="{% url 'activity-project-logo' project_logo.id %}"
                                                                class="dropdown-item">Activity</a></li>
-                                                        <li><a href="{% url 'update-project-logo' project_logo.id %}"
-                                                               class="dropdown-item">Edit project</a></li>
-                                                        <li>
-                                                            <button type="button" class="dropdown-item"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#projectlogo_{{ project_logo.id }}">
-                                                                Delete project
-                                                            </button>
-                                                        </li>
+                                                        {% if user.is_superuser %}
+                                                            <li>
+                                                                <a href="{% url 'update-project-logo' project_logo.id %}"
+                                                                   class="dropdown-item">Edit project</a></li>
+                                                        {% else %}
+                                                            <li>
+                                                                <a href="{% url 'update-project-client' project_logo.id %}"
+                                                                   class="dropdown-item">Edit project</a></li>
+                                                        {% endif %}
+                                                        {% if user.is_superuser %}
+                                                            <li>
+                                                                <button type="button" class="dropdown-item"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#projectlogo_{{ project_logo.id }}">
+                                                                    Delete project
+                                                                </button>
+                                                            </li>
+                                                        {% endif %}
                                                     </ul>
                                                 </div>
                                                 <!-- dropdown delete modal section -->

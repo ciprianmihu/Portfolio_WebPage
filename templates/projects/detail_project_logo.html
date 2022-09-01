@@ -14,7 +14,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
-                                <a class="btn btn-outline-primary disabled" style="width: 100px">{{ projectlogo.status }}</a>
+                                <a class="btn btn-outline-primary disabled"
+                                   style="width: 100px">{{ projectlogo.status }}</a>
                             </div>
                         </div>
                     </div>
@@ -88,8 +89,15 @@
                             <div class="card-footer">
                                 <a class="btn btn-outline-primary float-start" href="{% url 'projects' %}"
                                    role="button" style="width: 150px">Go back</a>
-                                <a class="btn btn-outline-primary float-end"
-                                   href="{% url 'update-project-logo' projectlogo.id %}">Update project</a>
+                                {% if user.is_superuser %}
+                                    <a class="btn btn-outline-primary float-end"
+                                       href="{% url 'update-project-logo' projectlogo.id %}" style="width: 150px">Edit
+                                        project</a>
+                                {% else %}
+                                    <a class="btn btn-outline-primary float-end"
+                                       href="{% url 'update-project-client' projectlogo.id %}" style="width: 150px">Edit
+                                        project</a>
+                                {% endif %}
                             </div>
                         </div>
                         {% if user.is_superuser %}
@@ -99,8 +107,6 @@
                                         quote</a>
                                     <a class="btn btn-outline-primary me-2" href="#" style="width: 150px">Send a
                                         message</a>
-                                    <a class="btn btn-outline-danger float-end" href="#" style="width: 150px">Decline
-                                        project</a>
                                 </div>
                             </div>
                         {% else %}

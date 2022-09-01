@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from projects.filters import ProjectsFilter
-from projects.forms import ProjectLogoForm
+from projects.forms import ProjectLogoForm, ProjectLogoClientForm
 from projects.models import ProjectLogo
 
 
@@ -79,6 +79,13 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'projects/update_project_logo.html'
     model = ProjectLogo
     form_class = ProjectLogoForm
+    success_url = reverse_lazy('projects')
+
+
+class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
+    template_name = 'projects/update_project_logo.html'
+    model = ProjectLogo
+    form_class = ProjectLogoClientForm
     success_url = reverse_lazy('projects')
 
 
