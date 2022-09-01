@@ -31,10 +31,10 @@
                                 </div>
                                 <div class="col m-2 gx-1">
                                     {% if userextend.userprofile.company %}
-                                        <p class="card-text">{{ userextend.userprofile.company }}.</p>
+                                        <p class="card-text">Company: {{ userextend.userprofile.company }}.</p>
                                     {% endif %}
                                     {% if userextend.userprofile.bio %}
-                                        <p class="card-text">{{ userextend.userprofile.bio }}</p>
+                                        <p class="card-text">Bio: {{ userextend.userprofile.bio }}</p>
                                     {% endif %}
                                 </div>
                                 {% if user.is_authenticated %}
