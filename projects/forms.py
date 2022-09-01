@@ -9,7 +9,7 @@ class ProjectLogoForm(forms.ModelForm):
         model = ProjectLogo
         fields = ['project_name', 'logo_name', 'logo_slogan', 'company_description', 'company_industry', 'logo_colors',
                   'service_name', 'ready_logo', 'client_name', 'project_description',
-                  'optional_project_image_1', 'other_notes']
+                  'optional_project_image_1', 'other_notes', 'status']
         widgets = {
             'project_name': TextInput(attrs={'placeholder': 'Please enter project name', 'class': 'form-control'}),
             'logo_name': TextInput(attrs={'placeholder': 'Please enter logo name', 'class': 'form-control'}),
@@ -28,7 +28,8 @@ class ProjectLogoForm(forms.ModelForm):
             'project_description': Textarea(
                 attrs={'placeholder': 'Please enter project description', 'class': 'form-control'}),
             'other_notes': Textarea(
-                attrs={'placeholder': '(Optional) Please enter other notes', 'class': 'form-control'})
+                attrs={'placeholder': '(Optional) Please enter other notes', 'class': 'form-control'}),
+            'status': Select(attrs={'class': 'form-select'})
         }
 
     def __init__(self, *args, **kwargs):
@@ -68,7 +69,7 @@ class ProjectLogoClientForm(forms.ModelForm):
             'project_description': Textarea(
                 attrs={'placeholder': 'Please enter project description', 'class': 'form-control'}),
             'other_notes': Textarea(
-                attrs={'placeholder': '(Optional) Please enter other notes', 'class': 'form-control'})
+                attrs={'placeholder': '(Optional) Please enter other notes', 'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):

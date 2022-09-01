@@ -20,7 +20,7 @@ class ProjectLogo(models.Model):
     other_notes = models.TextField(max_length=1000, blank=True)
     status_options = (('Draft', 'Draft'), ('Invited', 'Invited'), ('Started', 'Started'),
                       ('Completed', 'Completed'), ('Canceled', 'Canceled'))
-    status = models.CharField(max_length=9, choices=status_options, default='Draft', null=True)
+    status = models.CharField(max_length=9, choices=status_options, null=True)
 
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
