@@ -46,7 +46,10 @@ class ProjectLogoClientForm(forms.ModelForm):
     class Meta:
         model = ProjectLogo
         fields = ['logo_name', 'logo_slogan', 'company_description', 'company_industry', 'logo_colors',
-                  'project_description', 'other_notes', 'style_attribute']
+                  'project_description', 'other_notes', 'classic_or_modern', 'mature_or_youthful',
+                  'feminine_or_masculine', 'playful_or_sophisticated', 'economical_or_luxurious',
+                  'geometric_or_organic', 'abstract_or_literal']
+
         widgets = {
             'logo_name': TextInput(attrs={'placeholder': 'Please enter logo name', 'class': 'form-control'}),
             'logo_slogan': TextInput(
@@ -62,5 +65,11 @@ class ProjectLogoClientForm(forms.ModelForm):
                 attrs={'placeholder': 'Please enter project description', 'class': 'form-control'}),
             'other_notes': Textarea(
                 attrs={'placeholder': '(Optional) Please enter other notes', 'class': 'form-control'}),
-            'style_attribute': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-control'}),
+            'classic_or_modern': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
+            'mature_or_youthful': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
+            'feminine_or_masculine': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
+            'playful_or_sophisticated': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
+            'economical_or_luxurious': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
+            'geometric_or_organic': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
+            'abstract_or_literal': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
         }

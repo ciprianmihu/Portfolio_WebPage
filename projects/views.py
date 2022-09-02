@@ -27,11 +27,18 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
         projects = ProjectLogo.objects.all()
         my_filter = ProjectsFilter(self.request.GET, queryset=projects)
-        data['count_all'] = projects.count()
-        data['count_draft'] = projects.filter(status='Draft').count()
-        data['count_started'] = projects.filter(status='Started').count()
-        data['count_completed'] = projects.filter(status='Completed').count()
-        data['count_canceled'] = projects.filter(status='Canceled').count()
+        if self.request.user.is_superuser:
+            data['count_all'] = projects.count()
+            data['count_draft'] = projects.filter(status='Draft').count()
+            data['count_started'] = projects.filter(status='Started').count()
+            data['count_completed'] = projects.filter(status='Completed').count()
+            data['count_canceled'] = projects.filter(status='Canceled').count()
+        else:
+            data['count_all'] = projects.filter(client_name=self.request.user).count()
+            data['count_draft'] = projects.filter(status='Draft', client_name=self.request.user).count()
+            data['count_started'] = projects.filter(status='Started', client_name=self.request.user).count()
+            data['count_completed'] = projects.filter(status='Completed', client_name=self.request.user).count()
+            data['count_canceled'] = projects.filter(status='Canceled', client_name=self.request.user).count()
         if self.request.user.is_superuser:
             data['all_projects'] = my_filter.qs
             data['my_filter'] = my_filter

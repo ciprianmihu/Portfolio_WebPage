@@ -76,8 +76,8 @@
                         {% endif %}
                     </div>
                     <div class="col-md me-2 my-2">
-                        {% for project_logo in all_projects %}
-                            {% if project_logo.project_name %}
+                        {% if all_projects %}
+                            {% for project_logo in all_projects %}
                                 <div class="card mb-4" style="min-width: 140px">
                                     <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
                                         <h3 class="card-text">{{ project_logo.project_name }}</h3>
@@ -104,6 +104,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md m-2">
+                                                <p class="card-text">Short overview:</p>
                                                 <p class="card-text">Logo name: {{ project_logo.logo_name }}.</p>
                                                 <p class="card-text">Project
                                                     description: {{ project_logo.project_description }}</p>
@@ -120,7 +121,6 @@
                                                             name: {{ project_logo.client_name }}</p>
                                                     {% endif %}
                                                 {% endif %}
-                                                <p>Style attribute: {{ project_logo.style_attribute }}</p>
                                                 <a class="btn btn-outline-primary disabled"
                                                    style="width: 150px">{{ project_logo.status }}</a>
                                             </div>
@@ -197,17 +197,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            {% else %}
-                                <div class="card mb-4" style="min-width: 140px">
-                                    <div class="card-header text-center">
-                                        <h3 class="card-text">No projects found</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="text">Hit the start project button to start your awesome project.</p>
-                                    </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card mb-4" style="min-width: 140px">
+                                <div class="card-header text-center border border-0">
+                                    <h3 class="card-text">No projects found</h3>
                                 </div>
-                            {% endif %}
-                        {% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
