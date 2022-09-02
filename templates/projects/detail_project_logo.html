@@ -88,6 +88,9 @@
                                 {% if projectlogo.other_notes %}
                                     <p class="card-text">Other notes: {{ projectlogo.other_notes }}</p>
                                 {% endif %}
+                                <div class="slidecontainer">
+                                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <a class="btn btn-outline-primary float-start" href="{% url 'projects' %}"

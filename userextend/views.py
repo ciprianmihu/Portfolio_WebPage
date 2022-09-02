@@ -20,6 +20,9 @@ class UserExtendCreateView(CreateView):
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
             new_user = form.save()
+            UserProfile.objects.create(
+                user=new_user
+            )
 
             subject = 'Create a new account'
             message = None
