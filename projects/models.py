@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from ready_made.models import ReadyLogo
 from services.models import ServiceLogo
@@ -21,6 +22,7 @@ class ProjectLogo(models.Model):
     status_options = (('Draft', 'Draft'), ('Invited', 'Invited'), ('Started', 'Started'),
                       ('Completed', 'Completed'), ('Canceled', 'Canceled'))
     status = models.CharField(max_length=9, choices=status_options, null=True)
+    style_attribute = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
 
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -61,16 +61,19 @@
                             </div>
                             <div class="card-body">
                                 <p class="card-text">Logo name: {{ projectlogo.logo_name }}</p>
-                                <p class="card-text">Project description: {{ projectlogo.project_description }}</p>
                                 {% if projectlogo.logo_slogan %}
                                     <p class="card-text">Logo slogan: {{ projectlogo.logo_slogan }}</p>
                                 {% endif %}
                                 {% if projectlogo.company_description %}
-                                    <p class="card-text">Logo slogan: {{ projectlogo.company_description }}</p>
+                                    <p class="card-text">Company description: {{ projectlogo.company_description }}</p>
+                                {% endif %}
+                                {% if projectlogo.company_industry %}
+                                    <p class="card-text">Company industry: {{ projectlogo.company_industry }}</p>
                                 {% endif %}
                                 {% if projectlogo.logo_colors %}
-                                    <p class="card-text">Logo slogan: {{ projectlogo.logo_colors }}</p>
+                                    <p class="card-text">Logo colors: {{ projectlogo.logo_colors }}</p>
                                 {% endif %}
+                                <p class="card-text">Project description: {{ projectlogo.project_description }}</p>
                                 {% if projectlogo.service_name %}
                                     <p class="card-text">Service: {{ projectlogo.service_name }}</p>
                                 {% endif %}
