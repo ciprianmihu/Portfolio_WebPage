@@ -19,8 +19,7 @@ class ProjectLogo(models.Model):
     project_description = models.TextField(max_length=1000)
     optional_project_image_1 = models.ImageField(upload_to='projects/', null=True, blank=True)
     other_notes = models.TextField(max_length=1000, blank=True)
-    status_options = (('Draft', 'Draft'), ('Invited', 'Invited'), ('Started', 'Started'),
-                      ('Completed', 'Completed'), ('Canceled', 'Canceled'))
+    status_options = (('Draft', 'Draft'), ('Started', 'Started'), ('Completed', 'Completed'), ('Canceled', 'Canceled'))
     status = models.CharField(max_length=9, choices=status_options, null=True)
     style_attribute = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
 

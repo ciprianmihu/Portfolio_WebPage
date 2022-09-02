@@ -29,7 +29,6 @@ class ProjectListView(LoginRequiredMixin, ListView):
         my_filter = ProjectsFilter(self.request.GET, queryset=projects)
         data['count_all'] = projects.count()
         data['count_draft'] = projects.filter(status='Draft').count()
-        data['count_invited'] = projects.filter(status='Invited').count()
         data['count_started'] = projects.filter(status='Started').count()
         data['count_completed'] = projects.filter(status='Completed').count()
         data['count_canceled'] = projects.filter(status='Canceled').count()

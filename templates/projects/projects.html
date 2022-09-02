@@ -45,9 +45,6 @@
                                     <a class="text-dark" href="{% url 'projects' %}?status=Draft"
                                        style="text-decoration: none">Drafts ({{ count_draft }})</a></p>
                                 <p class="card-text">
-                                    <a class="text-dark" href="{% url 'projects' %}?status=Invited"
-                                       style="text-decoration: none">Invited ({{ count_invited }})</a></p>
-                                <p class="card-text">
                                     <a class="text-dark" href="{% url 'projects' %}?status=Started"
                                        style="text-decoration: none">Started ({{ count_started }})</a></p>
                                 <p class="card-text">
@@ -123,6 +120,7 @@
                                                             name: {{ project_logo.client_name }}</p>
                                                     {% endif %}
                                                 {% endif %}
+                                                <p>Style attribute: {{ project_logo.style_attribute }}</p>
                                                 <a class="btn btn-outline-primary disabled"
                                                    style="width: 150px">{{ project_logo.status }}</a>
                                             </div>
