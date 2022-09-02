@@ -15,7 +15,7 @@ class ProjectLogo(models.Model):
     logo_colors = models.TextField(max_length=1000, blank=True)
     service_name = models.ForeignKey(ServiceLogo, on_delete=models.CASCADE, null=True, blank=True)
     ready_logo = models.ForeignKey(ReadyLogo, on_delete=models.CASCADE, null=True, blank=True)
-    client_name = models.ForeignKey(UserExtend, on_delete=models.CASCADE, null=True, blank=True)
+    client_name = models.ForeignKey(UserExtend, on_delete=models.CASCADE, null=True)
     project_description = models.TextField(max_length=1000)
     optional_project_image_1 = models.ImageField(upload_to='projects/', null=True, blank=True)
     other_notes = models.TextField(max_length=1000, blank=True)

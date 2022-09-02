@@ -3,9 +3,9 @@ from datetime import date
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, \
     SetPasswordForm
-from django.forms import TextInput, EmailInput, Select, DateInput
+from django.forms import TextInput, EmailInput, Select, DateInput, Textarea
 
-from userextend.models import UserExtend
+from userextend.models import UserExtend, UserProfile
 
 
 class UserExtendForm(UserCreationForm):
@@ -71,6 +71,22 @@ class UserExtendUpdateForm(forms.ModelForm):
             self.errors['date_of_birth'] = self.error_class([msg])
 
         return cleaned_data
+
+
+class UserExtendUpdateBioForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['company', 'bio', 'profile_image']
+
+        widgets = {
+            'company': TextInput(attrs={'placeholder': 'Please enter your company name', 'class': 'form-control'}),
+            'bio': Textarea(attrs={'placeholder': 'Please enter your bio', 'class': 'form-control'}),
+
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['profile_image'].widget.attrs['class'] = 'form-control'
 
 
 class AuthenticationLoginForm(AuthenticationForm):

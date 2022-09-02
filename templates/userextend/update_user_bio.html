@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Update bio
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 gy-4 mb-4">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Update bio</h3>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-outline-primary" style="width: 100px"
+                               href="{% url 'profile-user' userprofile.user_id %}">Cancel</a>
+                            <button type="submit" class="btn btn-outline-primary float-end"
+                                    style="width: 100px">Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

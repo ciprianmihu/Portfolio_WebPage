@@ -1,3 +1,3 @@
 # Portfolio_WebPage
 
-Informatii despre proiect
+Presentation webpage for a graphic designer where he can interact with its clients.
