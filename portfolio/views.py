@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from portfolio.forms import PortfolioLogoForm
@@ -33,8 +33,10 @@ class PortfolioUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
     template_name = 'portfolio/update_portfolio_logo.html'
     model = PortfolioLogo
     form_class = PortfolioLogoForm
-    success_url = reverse_lazy('portfolio')
     permission_required = 'portfolio.change_portfoliologo'
+
+    def get_success_url(self):
+        return reverse('detail-portfolio-logo', kwargs={'pk': self.object.id})
 
 
 class PortfolioDetailView(DetailView):

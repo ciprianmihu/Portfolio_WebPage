@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from ready_made.forms import ReadyMadeLogoForm
@@ -33,8 +33,10 @@ class ReadeMadeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
     template_name = 'ready_made/update_ready_logo.html'
     model = ReadyLogo
     form_class = ReadyMadeLogoForm
-    success_url = reverse_lazy('ready-made')
     permission_required = 'ready_made.change_readylogo'
+
+    def get_success_url(self):
+        return reverse('detail-ready-logo', kwargs={'pk': self.object.id})
 
 
 class ReadyMadeDetailView(DetailView):

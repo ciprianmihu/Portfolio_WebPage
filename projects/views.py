@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.core.mail import send_mail
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.template.loader import render_to_string
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
+from FinalProject.settings import EMAIL_HOST_USER
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm
 from projects.models import ProjectLogo
@@ -58,6 +61,13 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         if form.is_valid() and not form.errors:
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
+
+            # subject = 'New project created'
+            # message = None
+            # html_message1 = render_to_string('project_email.html', {'new_project_logo': new_project_logo})
+            #
+            # send_mail(subject, message, EMAIL_HOST_USER, [], html_message=html_message1)
+
             return redirect('projects')
 
 
@@ -85,14 +95,18 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'projects/update_project_logo.html'
     model = ProjectLogo
     form_class = ProjectLogoForm
-    success_url = reverse_lazy('projects')
+
+    def get_success_url(self):
+        return reverse('detail-project-logo', kwargs={'pk': self.object.id})
 
 
 class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
     template_name = 'projects/update_project_logo.html'
     model = ProjectLogo
     form_class = ProjectLogoClientForm
-    success_url = reverse_lazy('projects')
+
+    def get_success_url(self):
+        return reverse('detail-project-logo', kwargs={'pk': self.object.id})
 
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):

@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, UpdateView
 
 from FinalProject.settings import EMAIL_HOST_USER
@@ -47,14 +47,18 @@ class UserExtendUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'userextend/update_user.html'
     model = UserExtend
     form_class = UserExtendUpdateForm
-    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        return reverse('profile-user', kwargs={'pk': self.request.user.id})
 
 
 class UserExtendUpdateBioView(LoginRequiredMixin, UpdateView):
     template_name = 'userextend/update_user_bio.html'
     model = UserProfile
     form_class = UserExtendUpdateBioForm
-    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        return reverse('profile-user', kwargs={'pk': self.request.user.id})
 
 
 @login_required
