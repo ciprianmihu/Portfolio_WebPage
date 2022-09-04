@@ -24,8 +24,10 @@ class ProjectLogo(models.Model):
     classic_or_modern = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     mature_or_youthful = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     feminine_or_masculine = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
-    playful_or_sophisticated = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
-    economical_or_luxurious = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
+    playful_or_sophisticated = models.IntegerField(default=0,
+                                                   validators=[MinValueValidator(-100), MaxValueValidator(100)])
+    economical_or_luxurious = models.IntegerField(default=0,
+                                                  validators=[MinValueValidator(-100), MaxValueValidator(100)])
     geometric_or_organic = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     abstract_or_literal = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
 
@@ -36,3 +38,26 @@ class ProjectLogo(models.Model):
     def __str__(self):
         return f'{self.project_name}'
 
+
+class ProjectActivity(models.Model):
+    owner = models.ForeignKey(UserExtend, on_delete=models.CASCADE, null=True)
+    message = models.TextField(max_length=500, null=True)
+    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f'{self.owner}'
+
+
+class ProjectFile(models.Model):
+    project_file = models.ImageField(upload_to='projects/files/', null=True)
+    title = models.CharField(max_length=100)
+    file_description = models.TextField(max_length=500)
+    status_options = (('Reference', 'Reference'), ('In progress', 'In progress'), ('Declined', 'Declined'),
+                      ('Final', 'Final'))
+    status = models.CharField(max_length=11, choices=status_options, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
+
+    def __str__(self):
+        return f'{self.title}'

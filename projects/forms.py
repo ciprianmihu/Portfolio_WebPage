@@ -2,7 +2,7 @@ from django import forms
 from django.forms import TextInput, Textarea, Select
 from django.forms.widgets import NumberInput
 
-from projects.models import ProjectLogo
+from projects.models import ProjectLogo, ProjectFile
 
 
 class RangeInput(NumberInput):
@@ -73,3 +73,19 @@ class ProjectLogoClientForm(forms.ModelForm):
             'geometric_or_organic': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
             'abstract_or_literal': RangeInput(attrs={'max': 100, 'min': -100, 'class': 'form-range'}),
         }
+
+
+class ProjectFileForm(forms.ModelForm):
+    class Meta:
+        model = ProjectFile
+        fields = ['project_file', 'title', 'file_description', 'status']
+
+        widgets = {
+            'title': TextInput(attrs={'placeholder': 'Please enter a title', 'class': 'form-control'}),
+            'file_description': Textarea(attrs={'placeholder': 'Please enter a description', 'class': 'form-control'}),
+            'status': Select(attrs={'class': 'form-select'})
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['project_file'].widget.attrs['class'] = 'form-control'

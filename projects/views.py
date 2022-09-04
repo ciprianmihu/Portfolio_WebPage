@@ -6,11 +6,30 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
-import userextend
 from FinalProject.settings import EMAIL_HOST_USER
 from projects.filters import ProjectsFilter
-from projects.forms import ProjectLogoForm, ProjectLogoClientForm
-from projects.models import ProjectLogo
+from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm
+from projects.models import ProjectLogo, ProjectFile
+
+
+class ProjectCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/create_project_logo.html'
+    model = ProjectLogo
+    form_class = ProjectLogoForm
+    success_url = reverse_lazy('projects')
+
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_logo = form.save(commit=False)
+            new_project_logo.save()
+
+            subject = 'New project created.'
+            message = None
+            html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
+
+            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+
+            return redirect('projects')
 
 
 class ProjectListView(LoginRequiredMixin, ListView):
@@ -52,43 +71,8 @@ class ProjectListView(LoginRequiredMixin, ListView):
         return data
 
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'projects/create_project_logo.html'
-    model = ProjectLogo
-    form_class = ProjectLogoForm
-    success_url = reverse_lazy('projects')
-
-    def form_valid(self, form):
-        if form.is_valid() and not form.errors:
-            new_project_logo = form.save(commit=False)
-            new_project_logo.save()
-
-            # subject = 'New project created.'
-            # message = None
-            # html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
-            #
-            # send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
-
-            return redirect('projects')
-
-
 class ProjectDetailView(LoginRequiredMixin, DetailView):
     template_name = 'projects/detail_project_logo.html'
-    model = ProjectLogo
-
-
-class ProjectActivityView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/activity_project_logo.html'
-    model = ProjectLogo
-
-
-class ProjectFilesView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/files_project_logo.html'
-    model = ProjectLogo
-
-
-class ProjectPaymentsView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/payments_project_logo.html'
     model = ProjectLogo
 
 
@@ -100,26 +84,18 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('detail-project-logo', kwargs={'pk': self.object.id})
 
-    # def get_queryset(self):
-    #     queryset = super(ProjectUpdateView, self).get_queryset()
-    #     client_name = self.request.GET.get('client_name')
-    #     if client_name:
-    #         queryset = queryset.filter(client_name=client_name)
-    #     filter_queryset = queryset.filter(client_name=self.request.user)
-    #     return filter_queryset
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_logo = form.save(commit=False)
+            new_project_logo.save()
 
-    # def form_valid(self, form):
-    #     if form.is_valid() and not form.errors:
-    #         new_project_logo = form.save(commit=False)
-    #         new_project_logo.save()
-    #
-    #         subject = 'Your project has been updated.'
-    #         message = None
-    #         html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
-    #
-    #         send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
-    #
-    #         return redirect('projects')
+            subject = 'Your project has been updated.'
+            message = None
+            html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
+
+            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+
+            return redirect('projects')
 
 
 class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
@@ -130,18 +106,18 @@ class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('detail-project-logo', kwargs={'pk': self.object.id})
 
-    # def form_valid(self, form):
-    #     if form.is_valid() and not form.errors:
-    #         new_project_logo = form.save(commit=False)
-    #         new_project_logo.save()
-    #
-    #         subject = 'Your project has been updated by the client.'
-    #         message = None
-    #         html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
-    #
-    #         send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
-    #
-    #         return redirect('projects')
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_logo = form.save(commit=False)
+            new_project_logo.save()
+
+            subject = 'Your project has been updated by the client.'
+            message = None
+            html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
+
+            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+
+            return redirect('projects')
 
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -157,3 +133,73 @@ def delete_project_logo(request, pk):
     ProjectLogo.objects.filter(id=pk).delete()
 
     return redirect('projects')
+
+
+class ProjectActivityCreateView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/activity/activity_project_logo.html'
+    model = ProjectLogo
+
+
+class ProjectPaymentsView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/payments/payments_project_logo.html'
+    model = ProjectLogo
+
+
+class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/files/create_project_logo_file.html'
+    model = ProjectFile
+    form_class = ProjectFileForm
+    success_url = reverse_lazy('files-project-logo')
+
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_file = form.save(commit=False)
+            new_project_file.save()
+
+            return redirect('files-project-logo')
+
+
+class ProjectFilesListView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/files/files_project_logo.html'
+    model = ProjectLogo
+
+    def get_queryset(self):
+        queryset = super(ProjectFilesListView, self).get_queryset()
+        status = self.request.GET.get('status')
+        if status:
+            queryset = queryset.filter(status=status)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        data = super(ProjectFilesListView, self).get_context_data(**kwargs)
+
+        files = ProjectFile.objects.all()
+        data['count_all'] = files.count()
+        data['count_reference'] = files.filter(status='Reference').count()
+        data['count_in_progress'] = files.filter(status='In progress').count()
+        data['count_declined'] = files.filter(status='Declined').count()
+        data['count_final'] = files.filter(status='Final').count()
+
+        return data
+
+
+class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/files/detail_project_logo_file.html'
+    model = ProjectFile
+
+
+class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'projects/files/update_project_logo_file.html'
+    model = ProjectFile
+    form_class = ProjectFileForm
+
+    def get_success_url(self):
+        return reverse('detail-files-project-logo', kwargs={'pk': self.object.id})
+
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_file = form.save(commit=False)
+            new_project_file.save()
+
+            return redirect('detail-files-project-logo')

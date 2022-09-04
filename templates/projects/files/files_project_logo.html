@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Project files
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md m-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
+                                <a class="btn btn-outline-primary disabled"
+                                   style="width: 100px">{{ projectlogo.status }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md mx-4 mb-4">
+                        <a class="btn btn-outline-primary me-2" href="{% url 'detail-project-logo' projectlogo.id %}"
+                           style="width: 150px">Overview</a>
+                        <a class="btn btn-outline-primary me-2" href="{% url 'activity-project-logo' projectlogo.id %}"
+                           style="width: 150px">Activity</a>
+                        <a class="btn btn-primary me-2" href="{% url 'files-project-logo' projectlogo.id %}"
+                           style="width: 150px">Files</a>
+                        <a class="btn btn-outline-primary" href="{% url 'payments-project-logo' projectlogo.id %}"
+                           style="width: 150px">Payments</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            {% if user.is_superuser %}
+                <div class="container-fluid pb-5 d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card" style="width: 200px">
+                                <a class="btn btn-outline-primary px-2"
+                                   href="{% url 'create-files-project-logo' projectlogo.id %}">
+                                    Add a file</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="container-fluid">
+                <div class="row mb-4">
+                    <div class="col-md-2 ms-2 my-2">
+                        <div class="card mb-4" style="min-width: 140px">
+                            <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
+                                <h3 class="card-text">Files</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <a class="text-dark" href="{% url 'files-project-logo' projectlogo.id %}"
+                                       style="text-decoration: none">All files ({{ count_all }})</a>
+                                </p>
+                                <p class="card-text">
+                                    <a class="text-dark"
+                                       href="{% url 'files-project-logo' projectlogo.id %}?status=Reference"
+                                       style="text-decoration: none">Reference ({{ count_reference }})</a></p>
+                                <p class="card-text">
+                                    <a class="text-dark"
+                                       href="{% url 'files-project-logo' projectlogo.id %}?status=In progress"
+                                       style="text-decoration: none">In progress ({{ count_in_progress }})</a></p>
+                                <p class="card-text">
+                                    <a class="text-dark"
+                                       href="{% url 'files-project-logo' projectlogo.id %}?status=Declined"
+                                       style="text-decoration: none">Declined ({{ count_declined }})</a></p>
+                                <p class="card-text">
+                                    <a class="text-dark"
+                                       href="{% url 'files-project-logo' projectlogo.id %}?status=Final"
+                                       style="text-decoration: none">Final ({{ count_final }})</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md me-2 my-2">
+                        {% if all_projects_files %}
+                            {% for project_logo_file in all_projects_file %}
+                                <div class="col-md-3">
+                                    <div class="card mb-3 shadow">
+                                        <a href="{% url 'detail-project-logo' project_logo_file %}">
+                                            <img class="card-img-top"
+                                                 src="{{ project_logo_file.project_file.url }}"
+                                                 alt="Card image cap">
+                                        </a>
+                                        <div class="card-body">
+                                            <p class="card-text text-center">{{ project_logo_file }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card mb-4" style="min-width: 140px">
+                                <div class="card-header text-center border border-0">
+                                    <h3 class="card-text">No files found</h3>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

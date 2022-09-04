@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Project detail
+{% endblock %}
+
+{% block content %}
+    <main role="main">
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="min-width: 200px">
+                            <img class="card-img"
+                                 src="{{ projectfile.project_file.url }}"
+                                 alt="Card image cap">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4" style="min-width: 200px">
+                            <div class="card-header">
+                                <h3 class="card-text">File info:</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">{{ projectfile.file_description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
