@@ -63,11 +63,11 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
 
-            subject = 'New project created.'
-            message = None
-            html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
-
-            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            # subject = 'New project created.'
+            # message = None
+            # html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
+            #
+            # send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
 
             return redirect('projects')
 
@@ -108,18 +108,18 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     #     filter_queryset = queryset.filter(client_name=self.request.user)
     #     return filter_queryset
 
-    def form_valid(self, form):
-        if form.is_valid() and not form.errors:
-            new_project_logo = form.save(commit=False)
-            new_project_logo.save()
-
-            subject = 'Your project has been updated.'
-            message = None
-            html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
-
-            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
-
-            return redirect('projects')
+    # def form_valid(self, form):
+    #     if form.is_valid() and not form.errors:
+    #         new_project_logo = form.save(commit=False)
+    #         new_project_logo.save()
+    #
+    #         subject = 'Your project has been updated.'
+    #         message = None
+    #         html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
+    #
+    #         send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+    #
+    #         return redirect('projects')
 
 
 class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
@@ -130,18 +130,18 @@ class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('detail-project-logo', kwargs={'pk': self.object.id})
 
-    def form_valid(self, form):
-        if form.is_valid() and not form.errors:
-            new_project_logo = form.save(commit=False)
-            new_project_logo.save()
-
-            subject = 'Your project has been updated by the client.'
-            message = None
-            html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
-
-            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
-
-            return redirect('projects')
+    # def form_valid(self, form):
+    #     if form.is_valid() and not form.errors:
+    #         new_project_logo = form.save(commit=False)
+    #         new_project_logo.save()
+    #
+    #         subject = 'Your project has been updated by the client.'
+    #         message = None
+    #         html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
+    #
+    #         send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+    #
+    #         return redirect('projects')
 
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
