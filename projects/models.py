@@ -61,3 +61,12 @@ class ProjectFile(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class CommentProjectFile(models.Model):
+    project_file = models.ForeignKey(ProjectFile, related_name='comments', on_delete=models.CASCADE)
+    comment = models.TextField(max_length=300, null=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.project_file.title}'

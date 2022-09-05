@@ -93,7 +93,10 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
             message = None
             html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
 
-            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            if self.request.user.is_superuser:
+                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            else:
+                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
 
             return redirect('projects')
 
@@ -115,7 +118,10 @@ class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
             message = None
             html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
 
-            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            if self.request.user.is_superuser:
+                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            else:
+                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
 
             return redirect('projects')
 
@@ -162,6 +168,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
 class ProjectFilesListView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/files_project_logo.html'
     model = ProjectLogo
+
     # context_object_name = 'all_project_files'
 
     def get_queryset(self):
