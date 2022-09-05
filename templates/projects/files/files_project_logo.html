@@ -14,8 +14,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
-                                <a class="btn btn-outline-primary disabled"
-                                   style="width: 100px">{{ projectlogo.status }}</a>
+                                <a class="btn btn-outline-primary"
+                                   style="width: 100px; pointer-events: none;">{{ projectlogo.status }}</a>
                             </div>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                     <div class="col-md-2 ms-2 my-2">
                         <div class="card mb-4" style="min-width: 140px">
                             <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
-                                <h3 class="card-text">Files</h3>
+                                <h3 class="card-text">Project files</h3>
                             </div>
                             <div class="card-body">
                                 <p class="card-text">
@@ -82,11 +82,11 @@
                         </div>
                     </div>
                     <div class="col-md me-2 my-2">
-                        {% if all_projects_files %}
-                            {% for project_logo_file in all_projects_file %}
+                        {% if all_project_files %}
+                            {% for project_logo_file in all_project_files %}
                                 <div class="col-md-3">
                                     <div class="card mb-3 shadow">
-                                        <a href="{% url 'detail-project-logo' project_logo_file %}">
+                                        <a href="{% url 'detail-files-project-logo' project_logo_file.id %}">
                                             <img class="card-img-top"
                                                  src="{{ project_logo_file.project_file.url }}"
                                                  alt="Card image cap">

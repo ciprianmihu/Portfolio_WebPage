@@ -162,6 +162,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
 class ProjectFilesListView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/files_project_logo.html'
     model = ProjectLogo
+    # context_object_name = 'all_project_files'
 
     def get_queryset(self):
         queryset = super(ProjectFilesListView, self).get_queryset()
@@ -180,6 +181,8 @@ class ProjectFilesListView(LoginRequiredMixin, DetailView):
         data['count_in_progress'] = files.filter(status='In progress').count()
         data['count_declined'] = files.filter(status='Declined').count()
         data['count_final'] = files.filter(status='Final').count()
+
+        data['all_project_files'] = self.get_queryset()
 
         return data
 

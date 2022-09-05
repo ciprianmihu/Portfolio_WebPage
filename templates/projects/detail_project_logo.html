@@ -14,8 +14,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
-                                <a class="btn btn-outline-primary disabled"
-                                   style="width: 100px">{{ projectlogo.status }}</a>
+                                <a class="btn btn-outline-primary"
+                                   style="width: 100px; pointer-events: none;">{{ projectlogo.status }}</a>
                             </div>
                         </div>
                     </div>
@@ -230,14 +230,18 @@
                         {% if user.is_superuser %}
                             <div class="card border border-0">
                                 <div class="col">
-                                    <a class="btn btn-outline-primary me-2" href="#" style="width: 150px">Create a
-                                        quote</a>
-                                    <a class="btn btn-outline-primary me-2" href="#" style="width: 150px">Send a
-                                        message</a>
+                                    <a class="btn btn-outline-primary me-2"
+                                       href="{% url 'payments-project-logo' projectlogo.id %}" style="width: 150px">
+                                        Create a quote</a>
+                                    <a class="btn btn-outline-primary me-2"
+                                       href="{% url 'activity-project-logo' projectlogo.id %}" style="width: 150px">
+                                        Send a message</a>
                                 </div>
                             </div>
                         {% else %}
-                            <a class="btn btn-outline-primary me-2" href="#" style="width: 150px">Send a message</a>
+                            <a class="btn btn-outline-primary me-2"
+                               href="{% url 'activity-project-logo' projectlogo.id %}" style="width: 150px">
+                                Send a message</a>
                         {% endif %}
                     </div>
                 </div>
