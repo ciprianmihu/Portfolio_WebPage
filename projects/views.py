@@ -155,24 +155,24 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
     template_name = 'projects/files/create_project_logo_file.html'
     model = ProjectFile
     form_class = ProjectFileForm
-    success_url = reverse_lazy('files-project-logo')
 
-    def form_valid(self, form):
-        if form.is_valid() and not form.errors:
-            new_project_file = form.save(commit=False)
-            new_project_file.save()
+    def get_success_url(self):
+        return reverse('files-project-logo', kwargs={'pk': self.object.id})
 
-            return redirect('files-project-logo')
+    # def form_valid(self, form):
+    #     if form.is_valid() and not form.errors:
+    #         new_project_file = form.save(commit=False)
+    #         new_project_file.save()
+    #
+    #         return reverse('files-project-logo', kwargs={'pk': self.object.id})
 
 
-class ProjectFilesListView(LoginRequiredMixin, DetailView):
+class ProjectFilesView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/files_project_logo.html'
     model = ProjectLogo
 
-    # context_object_name = 'all_project_files'
-
     def get_queryset(self):
-        queryset = super(ProjectFilesListView, self).get_queryset()
+        queryset = super(ProjectFilesView, self).get_queryset()
         status = self.request.GET.get('status')
         if status:
             queryset = queryset.filter(status=status)
@@ -180,16 +180,14 @@ class ProjectFilesListView(LoginRequiredMixin, DetailView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        data = super(ProjectFilesListView, self).get_context_data(**kwargs)
-
-        files = ProjectFile.objects.all()
+        data = super(ProjectFilesView, self).get_context_data(**kwargs)
+        files = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
+        print(self.kwargs.get('pk'))
         data['count_all'] = files.count()
         data['count_reference'] = files.filter(status='Reference').count()
         data['count_in_progress'] = files.filter(status='In progress').count()
         data['count_declined'] = files.filter(status='Declined').count()
         data['count_final'] = files.filter(status='Final').count()
-
-        data['all_project_files'] = self.get_queryset()
 
         return data
 
@@ -197,19 +195,3 @@ class ProjectFilesListView(LoginRequiredMixin, DetailView):
 class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/detail_project_logo_file.html'
     model = ProjectFile
-
-
-class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'projects/files/update_project_logo_file.html'
-    model = ProjectFile
-    form_class = ProjectFileForm
-
-    def get_success_url(self):
-        return reverse('detail-files-project-logo', kwargs={'pk': self.object.id})
-
-    def form_valid(self, form):
-        if form.is_valid() and not form.errors:
-            new_project_file = form.save(commit=False)
-            new_project_file.save()
-
-            return redirect('detail-files-project-logo')

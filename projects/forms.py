@@ -78,9 +78,10 @@ class ProjectLogoClientForm(forms.ModelForm):
 class ProjectFileForm(forms.ModelForm):
     class Meta:
         model = ProjectFile
-        fields = ['project_file', 'title', 'file_description', 'status']
+        fields = ['project', 'project_file', 'title', 'file_description', 'status']
 
         widgets = {
+            'project': Select(attrs={'class': 'form-select'}),
             'title': TextInput(attrs={'placeholder': 'Please enter a title', 'class': 'form-control'}),
             'file_description': Textarea(attrs={'placeholder': 'Please enter a description', 'class': 'form-control'}),
             'status': Select(attrs={'class': 'form-select'})

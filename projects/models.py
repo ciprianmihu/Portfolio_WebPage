@@ -49,6 +49,7 @@ class ProjectActivity(models.Model):
 
 
 class ProjectFile(models.Model):
+    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
     project_file = models.ImageField(upload_to='projects/files/', null=True)
     title = models.CharField(max_length=100)
     file_description = models.TextField(max_length=500)

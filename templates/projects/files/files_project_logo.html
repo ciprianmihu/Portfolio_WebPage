@@ -18,6 +18,7 @@
                                    style="width: 100px; pointer-events: none;">{{ projectlogo.status }}</a>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -43,7 +44,7 @@
                         <div class="col">
                             <div class="card" style="width: 200px">
                                 <a class="btn btn-outline-primary px-2"
-                                   href="{% url 'create-files-project-logo' projectlogo.id %}">
+                                   href="{% url 'create-files-project-logo'%}">
                                     Add a file</a>
                             </div>
                         </div>
@@ -82,8 +83,8 @@
                         </div>
                     </div>
                     <div class="col-md me-2 my-2">
-                        {% if all_project_files %}
-                            {% for project_logo_file in all_project_files %}
+                        {% if projectlogo.projectfile_set.all %}
+                            {% for project_logo_file in projectlogo.projectfile_set.all %}
                                 <div class="col-md-3">
                                     <div class="card mb-3 shadow">
                                         <a href="{% url 'detail-files-project-logo' project_logo_file.id %}">
@@ -92,7 +93,7 @@
                                                  alt="Card image cap">
                                         </a>
                                         <div class="card-body">
-                                            <p class="card-text text-center">{{ project_logo_file }}</p>
+                                            <p class="card-text text-center">{{ project_logo_file.status }}</p>
                                         </div>
                                     </div>
                                 </div>
