@@ -8,7 +8,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 
 from FinalProject.settings import EMAIL_HOST_USER
 from projects.filters import ProjectsFilter
-from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm
+from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm
 from projects.models import ProjectLogo, ProjectFile
 
 
@@ -114,7 +114,7 @@ class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
 
-            subject = 'Your project has been updated by the client.'
+            subject = 'Your project has been updated.'
             message = None
             html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
 
@@ -141,7 +141,7 @@ def delete_project_logo(request, pk):
     return redirect('projects')
 
 
-class ProjectActivityCreateView(LoginRequiredMixin, DetailView):
+class ProjectActivityView(LoginRequiredMixin, DetailView):
     template_name = 'projects/activity/activity_project_logo.html'
     model = ProjectLogo
 
@@ -182,7 +182,6 @@ class ProjectFilesView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         data = super(ProjectFilesView, self).get_context_data(**kwargs)
         files = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
-        print(self.kwargs.get('pk'))
         data['count_all'] = files.count()
         data['count_reference'] = files.filter(status='Reference').count()
         data['count_in_progress'] = files.filter(status='In progress').count()
@@ -195,3 +194,12 @@ class ProjectFilesView(LoginRequiredMixin, DetailView):
 class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/detail_project_logo_file.html'
     model = ProjectFile
+
+
+class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'projects/files/update_project_logo_file.html'
+    model = ProjectFile
+    form_class = ProjectFileUpdateForm
+
+    def get_success_url(self):
+        return reverse('files-project-logo', kwargs={'pk': self.object.id})

@@ -8,7 +8,7 @@
 {% block content %}
     <main role="main">
         <section>
-            <div class="container-fluid">
+            <div class="container mx-auto m-4">
                 <div class="row">
                     <div class="col">
                         <div class="card" style="min-width: 200px">
@@ -20,10 +20,20 @@
                     <div class="col">
                         <div class="card mb-4" style="min-width: 200px">
                             <div class="card-header">
-                                <h3 class="card-text">File info:</h3>
+                                <h3 class="card-text">File info: {{ projectfile.title }}</h3>
                             </div>
                             <div class="card-body">
-                                <p class="card-text">{{ projectfile.file_description }}</p>
+                                <p class="card-text">File desciption: {{ projectfile.file_description }}</p>
+                                <p class="card-text">Status: {{ projectfile.status }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-outline-primary float-start"
+                                   href="{% url 'files-project-logo' projectfile.project_id %}"
+                                   role="button" style="width: 150px">Go back</a>
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'update-files-project-logo' projectfile.id %}"
+                                       class="btn btn-outline-primary float-end" style="width: 150px">Edit file</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

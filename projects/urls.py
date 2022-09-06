@@ -11,11 +11,12 @@ urlpatterns = [
     path('update_project_client/<int:pk>/', views.ProjectUpdateClientView.as_view(), name='update-project-client'),
     path('delete_project_logo/<int:pk>/', views.ProjectDeleteView.as_view(), name='delete-project-logo'),
     path('delete_project_logo_modal/<int:pk>/', views.delete_project_logo, name='delete-project-logo-modal'),
-    path('activity_project_logo/<int:pk>/', views.ProjectActivityCreateView.as_view(), name='activity-project-logo'),
+    path('activity_project_logo/<int:pk>/', views.ProjectActivityView.as_view(), name='activity-project-logo'),
     path('payments_project_logo/<int:pk>/', views.ProjectPaymentsView.as_view(), name='payments-project-logo'),
     path('files_project_logo/<int:pk>/', views.ProjectFilesView.as_view(), name='files-project-logo'),
     path('create_files_project_logo/', views.ProjectFilesCreateView.as_view(), name='create-files-project-logo'),
-    path('detail_files_project_logo/<int:pk>/', views.ProjectFilesDetailView.as_view(), name='detail-files-project-logo')
+    path('detail_files_project_logo/<int:pk>/', views.ProjectFilesDetailView.as_view(), name='detail-files-project-logo'),
+    path('update_files_project_logo/<int:pk>/', views.ProjectFilesUpdateView.as_view(), name='update-files-project-logo'),
 
 ]
 

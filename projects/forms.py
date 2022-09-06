@@ -90,3 +90,15 @@ class ProjectFileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['project_file'].widget.attrs['class'] = 'form-control'
+
+
+class ProjectFileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = ProjectFile
+        fields = ['title', 'file_description', 'status']
+
+        widgets = {
+            'title': TextInput(attrs={'placeholder': 'Please enter a title', 'class': 'form-control'}),
+            'file_description': Textarea(attrs={'placeholder': 'Please enter a description', 'class': 'form-control'}),
+            'status': Select(attrs={'class': 'form-select'})
+        }
