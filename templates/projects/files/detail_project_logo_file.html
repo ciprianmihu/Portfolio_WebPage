@@ -33,6 +33,9 @@
                                 {% if user.is_superuser %}
                                     <a href="{% url 'update-files-project-logo' projectfile.id %}"
                                        class="btn btn-outline-primary float-end" style="width: 150px">Edit file</a>
+                                {% else %}
+                                    <a href="{% url 'update-c-files-project-logo' projectfile.id %}"
+                                       class="btn btn-outline-primary float-end" style="width: 150px">Edit status</a>
                                 {% endif %}
                             </div>
                         </div>

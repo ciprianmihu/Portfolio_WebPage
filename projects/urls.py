@@ -15,8 +15,12 @@ urlpatterns = [
     path('payments_project_logo/<int:pk>/', views.ProjectPaymentsView.as_view(), name='payments-project-logo'),
     path('files_project_logo/<int:pk>/', views.ProjectFilesView.as_view(), name='files-project-logo'),
     path('create_files_project_logo/', views.ProjectFilesCreateView.as_view(), name='create-files-project-logo'),
-    path('detail_files_project_logo/<int:pk>/', views.ProjectFilesDetailView.as_view(), name='detail-files-project-logo'),
-    path('update_files_project_logo/<int:pk>/', views.ProjectFilesUpdateView.as_view(), name='update-files-project-logo'),
+    path('detail_files_project_logo/<int:pk>/', views.ProjectFilesDetailView.as_view(),
+         name='detail-files-project-logo'),
+    path('update_files_project_logo/<int:pk>/', views.ProjectFilesUpdateView.as_view(),
+         name='update-files-project-logo'),
+    path('update_c_files_project_logo/<int:pk>/', views.ProjectFilesClientUpdateView.as_view(),
+         name='update-c-files-project-logo'),
 
 ]
 

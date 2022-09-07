@@ -17,5 +17,8 @@ class ReadyLogo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     uploaded_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['id']
+
     def __str__(self):
         return f'{self.logo_name}'

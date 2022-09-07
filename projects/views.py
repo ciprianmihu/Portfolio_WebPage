@@ -8,7 +8,8 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 
 from FinalProject.settings import EMAIL_HOST_USER
 from projects.filters import ProjectsFilter
-from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm
+from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
+    ProjectFileClientUpdateForm
 from projects.models import ProjectLogo, ProjectFile
 
 
@@ -157,7 +158,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
     form_class = ProjectFileForm
 
     def get_success_url(self):
-        return reverse('files-project-logo', kwargs={'pk': self.object.id})
+        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
 
     # def form_valid(self, form):
     #     if form.is_valid() and not form.errors:
@@ -171,22 +172,20 @@ class ProjectFilesView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/files_project_logo.html'
     model = ProjectLogo
 
-    def get_queryset(self):
-        queryset = super(ProjectFilesView, self).get_queryset()
-        status = self.request.GET.get('status')
-        if status:
-            queryset = queryset.filter(status=status)
-
-        return queryset
-
     def get_context_data(self, **kwargs):
+        status = self.request.GET.get('status')
         data = super(ProjectFilesView, self).get_context_data(**kwargs)
-        files = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
-        data['count_all'] = files.count()
-        data['count_reference'] = files.filter(status='Reference').count()
-        data['count_in_progress'] = files.filter(status='In progress').count()
-        data['count_declined'] = files.filter(status='Declined').count()
-        data['count_final'] = files.filter(status='Final').count()
+        all_files = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
+        if status:
+            files = ProjectFile.objects.filter(project=self.kwargs.get('pk')).filter(status=status)
+        else:
+            files = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
+        data['files'] = files
+        data['count_all'] = all_files.count()
+        data['count_reference'] = all_files.filter(status='Reference').count()
+        data['count_in_progress'] = all_files.filter(status='In progress').count()
+        data['count_declined'] = all_files.filter(status='Declined').count()
+        data['count_final'] = all_files.filter(status='Final').count()
 
         return data
 
@@ -202,4 +201,13 @@ class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProjectFileUpdateForm
 
     def get_success_url(self):
-        return reverse('files-project-logo', kwargs={'pk': self.object.id})
+        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+
+
+class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = 'projects/files/update_project_logo_file.html'
+    model = ProjectFile
+    form_class = ProjectFileClientUpdateForm
+
+    def get_success_url(self):
+        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})

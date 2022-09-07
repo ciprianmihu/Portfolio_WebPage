@@ -68,7 +68,7 @@
                                        style="text-decoration: none">Reference ({{ count_reference }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark"
-                                       href="{% url 'files-project-logo' projectlogo.id %}?status=In progress"
+                                       href="{% url 'files-project-logo' projectlogo.id %}?status=In%20progress"
                                        style="text-decoration: none">In progress ({{ count_in_progress }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark"
@@ -83,8 +83,8 @@
                     </div>
                     <div class="col-md me-2 my-2">
                         <div class="row gy-4">
-                            {% if projectlogo.projectfile_set.all %}
-                                {% for project_logo_file in projectlogo.projectfile_set.all %}
+                            {% if files %}
+                                {% for project_logo_file in files %}
                                     <div class="col-md-2">
                                         <div class="card mb-3 shadow" style="min-width: 150px">
                                             <a href="{% url 'detail-files-project-logo' project_logo_file.id %}">
