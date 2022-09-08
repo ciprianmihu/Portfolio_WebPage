@@ -8,7 +8,7 @@ urlpatterns = [
     path('create_project_logo/', views.ProjectCreateView.as_view(), name='create-project-logo'),
     path('detail_project_logo/<int:pk>/', views.ProjectDetailView.as_view(), name='detail-project-logo'),
     path('update_project_logo/<int:pk>/', views.ProjectUpdateView.as_view(), name='update-project-logo'),
-    path('update_project_client/<int:pk>/', views.ProjectUpdateClientView.as_view(), name='update-project-client'),
+    path('update_project_client/<int:pk>/', views.ProjectClientUpdateView.as_view(), name='update-project-client'),
     path('delete_project_logo/<int:pk>/', views.ProjectDeleteView.as_view(), name='delete-project-logo'),
     path('delete_project_logo_modal/<int:pk>/', views.delete_project_logo, name='delete-project-logo-modal'),
     path('activity_project_logo/<int:pk>/', views.ProjectActivityView.as_view(), name='activity-project-logo'),
@@ -21,7 +21,6 @@ urlpatterns = [
          name='update-files-project-logo'),
     path('update_c_files_project_logo/<int:pk>/', views.ProjectFilesClientUpdateView.as_view(),
          name='update-c-files-project-logo'),
-
 ]
 
 if settings.DEBUG:

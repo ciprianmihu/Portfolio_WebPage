@@ -39,15 +39,6 @@ class ProjectLogo(models.Model):
         return f'{self.project_name}'
 
 
-class ProjectActivity(models.Model):
-    owner = models.ForeignKey(UserExtend, on_delete=models.CASCADE, null=True)
-    message = models.TextField(max_length=500, null=True)
-    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
-
-    def __str__(self):
-        return f'{self.owner}'
-
-
 class ProjectFile(models.Model):
     project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
     project_file = models.ImageField(upload_to='projects/files/', null=True)
@@ -65,9 +56,18 @@ class ProjectFile(models.Model):
 
 
 class CommentProjectFile(models.Model):
-    project_file = models.ForeignKey(ProjectFile, related_name='comments', on_delete=models.CASCADE)
+    project_file = models.ForeignKey(ProjectFile, on_delete=models.CASCADE)
     comment = models.TextField(max_length=300, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.project_file.title}'
+
+
+class ProjectActivity(models.Model):
+    owner = models.ForeignKey(UserExtend, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
+    message = models.TextField(max_length=500, null=True)
+
+    def __str__(self):
+        return f'{self.owner}'

@@ -8,8 +8,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 
 from FinalProject.settings import EMAIL_HOST_USER
 from projects.filters import ProjectsFilter
-from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
-    ProjectFileClientUpdateForm
+from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm
 from projects.models import ProjectLogo, ProjectFile
 
 
@@ -102,7 +101,7 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
             return redirect('projects')
 
 
-class ProjectUpdateClientView(LoginRequiredMixin, UpdateView):
+class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'projects/update_project_logo.html'
     model = ProjectLogo
     form_class = ProjectLogoClientForm
@@ -142,11 +141,6 @@ def delete_project_logo(request, pk):
     return redirect('projects')
 
 
-class ProjectActivityView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/activity/activity_project_logo.html'
-    model = ProjectLogo
-
-
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):
     template_name = 'projects/payments/payments_project_logo.html'
     model = ProjectLogo
@@ -165,7 +159,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
     #         new_project_file = form.save(commit=False)
     #         new_project_file.save()
     #
-    #         return reverse('files-project-logo', kwargs={'pk': self.object.id})
+    #         return redirect(reverse('files-project-logo', kwargs={'pk': self.object.id}))
 
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
@@ -198,7 +192,7 @@ class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
 class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'projects/files/update_project_logo_file.html'
     model = ProjectFile
-    form_class = ProjectFileUpdateForm
+    form_class = ProjectFileForm
 
     def get_success_url(self):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
@@ -207,7 +201,12 @@ class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
 class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'projects/files/update_project_logo_file.html'
     model = ProjectFile
-    form_class = ProjectFileClientUpdateForm
+    form_class = ProjectFileUpdateForm
 
     def get_success_url(self):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+
+
+class ProjectActivityView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/activity/activity_project_logo.html'
+    model = ProjectLogo
