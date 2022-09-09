@@ -42,7 +42,7 @@
                             <div class="card mb-4">
                                 <div class="card-header border border-0">
                                     <span class="card-text float-start">{{ activity.message }}</span>
-                                    <span class="card-text float-end">{{ activity.date_added }}</span>
+                                    <span class="card-text float-end">Modified by {{ activity.owner.first_name }} on {{ activity.date_added }}</span>
                                 </div>
                             </div>
                         {% endfor %}

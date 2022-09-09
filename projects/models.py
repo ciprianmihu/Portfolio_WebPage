@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -58,6 +59,7 @@ class ProjectFile(models.Model):
 class CommentProjectFile(models.Model):
     project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
     project_file = models.ForeignKey(ProjectFile, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comment = models.TextField(max_length=300, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
@@ -66,7 +68,8 @@ class CommentProjectFile(models.Model):
 
 
 class ProjectActivity(models.Model):
-    project = models.OneToOneField(ProjectLogo, on_delete=models.CASCADE, null=True)
+    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     message = models.TextField(max_length=500, null=True)
     date_added = models.DateTimeField(auto_now_add=True, null=True)
 

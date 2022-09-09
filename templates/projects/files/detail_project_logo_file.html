@@ -44,7 +44,7 @@
                                 <div class="card mb-4">
                                     <div class="card-header border border-0">
                                         <span class="card-text float-start">{{ file_comment.comment }}</span>
-                                        <span class="card-text float-end">Added: {{ file_comment.date_added }}</span>
+                                        <span class="card-text float-end">Added by {{ file_comment.owner.first_name }} at {{ file_comment.date_added }}</span>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -56,7 +56,7 @@
                             </div>
                         {% endif %}
                         <a href="{% url 'create-files-project-logo-comment' projectfile.id %}"
-                                       class="btn btn-outline-primary float-end" style="width: 150px">Add a comment</a>
+                           class="btn btn-outline-primary float-end" style="width: 150px">Add a comment</a>
                     </div>
                 </div>
             </div>

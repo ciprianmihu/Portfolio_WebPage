@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import TextInput, Textarea, Select
-from django.forms.widgets import NumberInput
+from django.forms.widgets import NumberInput, HiddenInput
 
 from projects.models import ProjectLogo, ProjectFile, CommentProjectFile
 
@@ -81,7 +81,7 @@ class ProjectFileForm(forms.ModelForm):
         fields = ['project', 'project_file', 'title', 'file_description', 'status']
 
         widgets = {
-            'project': Select(attrs={'class': 'form-select'}),
+            'project': HiddenInput(attrs={'class': 'form-select', 'readonly': 'readonly'}),
             'title': TextInput(attrs={'placeholder': 'Please enter a title', 'class': 'form-control'}),
             'file_description': Textarea(attrs={'placeholder': 'Please enter a description', 'class': 'form-control'}),
             'status': Select(attrs={'class': 'form-select'})
@@ -105,10 +105,11 @@ class ProjectFileUpdateForm(forms.ModelForm):
 class CommentProjectFileForm(forms.ModelForm):
     class Meta:
         model = CommentProjectFile
-        fields = ['project', 'project_file', 'comment']
+        fields = ['project', 'project_file', 'owner', 'comment']
 
         widgets = {
-            'project': Select(attrs={'class': 'form-select'}),
-            'project_file': Select(attrs={'class': 'form-select'}),
+            'project': HiddenInput(attrs={'class': 'form-select'}),
+            'owner': HiddenInput(attrs={'class': 'form-select'}),
+            'project_file': HiddenInput(attrs={'class': 'form-select'}),
             'comment': TextInput(attrs={'placeholder': 'Please enter a comment', 'class': 'form-control'}),
         }

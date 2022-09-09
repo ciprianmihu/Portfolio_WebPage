@@ -6,11 +6,12 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
-from FinalProject.settings import EMAIL_HOST_USER
+from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
     CommentProjectFileForm
 from projects.models import ProjectLogo, ProjectFile, CommentProjectFile, ProjectActivity
+from userextend.models import UserExtend
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
@@ -25,6 +26,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
             new_project_logo.save()
             ProjectActivity.objects.create(
                 project=new_project_logo,
+                owner=self.request.user,
                 message='Your project has been created'
             )
 
@@ -32,7 +34,8 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
             message = None
             html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
 
-            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            # send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email], html_message=html_message1)
 
             return redirect('projects')
 
@@ -93,8 +96,9 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         if form.is_valid() and not form.errors:
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
-            ProjectActivity.objects.update(
+            ProjectActivity.objects.create(
                 project=new_project_logo,
+                owner=self.request.user,
                 message='Your project has been updated'
             )
 
@@ -103,9 +107,11 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
             html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
 
             if self.request.user.is_superuser:
-                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+                send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
+                          html_message=html_message1)
             else:
-                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                          html_message=html_message1)
 
             return redirect('projects')
 
@@ -124,6 +130,7 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
             new_project_logo.save()
             ProjectActivity.objects.create(
                 project=new_project_logo,
+                owner=self.request.user,
                 message='Your project has been updated'
             )
 
@@ -132,9 +139,11 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
             html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
 
             if self.request.user.is_superuser:
-                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+                send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
+                          html_message=html_message1)
             else:
-                send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                          html_message=html_message1)
 
             return redirect('projects')
 
@@ -159,15 +168,13 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
     model = ProjectFile
     form_class = ProjectFileForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'initial': {'project': self.kwargs.get('pk')}})
+        return kwargs
+
     def get_success_url(self):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
-
-    # def form_valid(self, form):
-    #     if form.is_valid() and not form.errors:
-    #         new_project_file = form.save(commit=False)
-    #         new_project_file.save()
-    #
-    #         return redirect(reverse('files-project-logo', kwargs={'pk': self.object.id}))
 
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
@@ -229,7 +236,7 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         data = super(ProjectFilesCommentCreateView, self).get_context_data(**kwargs)
-        project_file = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
+        project_file = ProjectFile.objects.get(id=self.kwargs.get('pk'))
         data['project_file'] = project_file
         projects = ProjectLogo.objects.all()
         if self.request.user.is_superuser:
@@ -239,8 +246,16 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
 
         return data
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        print('zzz', self.request.user.id, self.request.user.pk)
+        kwargs.update({'initial': {'owner': self.request.user.id,
+                                   'project': ProjectFile.objects.get(id=self.kwargs.get('pk')).project.id,
+                                   'project_file': self.kwargs.get('pk')}})
+        return kwargs
+
     def get_success_url(self):
-        return reverse('files-project-logo', kwargs={'pk': self.object.id})
+        return reverse('detail-files-project-logo', kwargs={'pk': self.object.project_file.id})
 
 
 class ProjectActivityView(LoginRequiredMixin, DetailView):
