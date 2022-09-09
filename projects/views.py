@@ -10,7 +10,7 @@ from FinalProject.settings import EMAIL_HOST_USER
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
     CommentProjectFileForm
-from projects.models import ProjectLogo, ProjectFile, CommentProjectFile
+from projects.models import ProjectLogo, ProjectFile, CommentProjectFile, ProjectActivity
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
@@ -23,6 +23,10 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         if form.is_valid() and not form.errors:
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
+            ProjectActivity.objects.create(
+                project=new_project_logo,
+                message='Your project has been created'
+            )
 
             subject = 'New project created.'
             message = None
@@ -89,6 +93,10 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         if form.is_valid() and not form.errors:
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
+            ProjectActivity.objects.update(
+                project=new_project_logo,
+                message='Your project has been updated'
+            )
 
             subject = 'Your project has been updated.'
             message = None
@@ -114,6 +122,10 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
         if form.is_valid() and not form.errors:
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
+            ProjectActivity.objects.create(
+                project=new_project_logo,
+                message='Your project has been updated'
+            )
 
             subject = 'Your project has been updated.'
             message = None
@@ -234,6 +246,13 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
 class ProjectActivityView(LoginRequiredMixin, DetailView):
     template_name = 'projects/activity/activity_project_logo.html'
     model = ProjectLogo
+
+    def get_context_data(self, **kwargs):
+        data = super(ProjectActivityView, self).get_context_data(**kwargs)
+        activities = ProjectActivity.objects.filter(project=self.kwargs.get('pk'))
+        data['activities'] = activities
+
+        return data
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):

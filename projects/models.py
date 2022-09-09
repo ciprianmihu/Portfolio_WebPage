@@ -66,9 +66,9 @@ class CommentProjectFile(models.Model):
 
 
 class ProjectActivity(models.Model):
-    owner = models.ForeignKey(UserExtend, on_delete=models.CASCADE, null=True)
-    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
+    project = models.OneToOneField(ProjectLogo, on_delete=models.CASCADE, null=True)
     message = models.TextField(max_length=500, null=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return f'{self.owner}'
+        return f'{self.message}'
