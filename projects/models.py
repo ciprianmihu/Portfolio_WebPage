@@ -42,8 +42,8 @@ class ProjectLogo(models.Model):
 class ProjectFile(models.Model):
     project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
     project_file = models.ImageField(upload_to='projects/files/', null=True)
-    title = models.CharField(max_length=100)
-    file_description = models.TextField(max_length=500)
+    title = models.CharField(max_length=100, null=True)
+    file_description = models.TextField(max_length=500, null=True)
     status_options = (('Reference', 'Reference'), ('In progress', 'In progress'), ('Declined', 'Declined'),
                       ('Final', 'Final'))
     status = models.CharField(max_length=11, choices=status_options, null=True)
@@ -56,12 +56,13 @@ class ProjectFile(models.Model):
 
 
 class CommentProjectFile(models.Model):
-    project_file = models.ForeignKey(ProjectFile, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
+    project_file = models.ForeignKey(ProjectFile, on_delete=models.CASCADE, null=True)
     comment = models.TextField(max_length=300, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.project_file.title}'
+        return f'{self.comment}'
 
 
 class ProjectActivity(models.Model):

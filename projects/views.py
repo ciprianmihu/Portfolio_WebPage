@@ -8,8 +8,9 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 
 from FinalProject.settings import EMAIL_HOST_USER
 from projects.filters import ProjectsFilter
-from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm
-from projects.models import ProjectLogo, ProjectFile
+from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
+    CommentProjectFileForm
+from projects.models import ProjectLogo, ProjectFile, CommentProjectFile
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
@@ -141,11 +142,6 @@ def delete_project_logo(request, pk):
     return redirect('projects')
 
 
-class ProjectPaymentsView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/payments/payments_project_logo.html'
-    model = ProjectLogo
-
-
 class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
     template_name = 'projects/files/create_project_logo_file.html'
     model = ProjectFile
@@ -188,6 +184,13 @@ class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/detail_project_logo_file.html'
     model = ProjectFile
 
+    def get_context_data(self, **kwargs):
+        data = super(ProjectFilesDetailView, self).get_context_data(**kwargs)
+        comments = CommentProjectFile.objects.filter(project_file=self.kwargs.get('pk'))
+        data['comments'] = comments
+
+        return data
+
 
 class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'projects/files/update_project_logo_file.html'
@@ -207,6 +210,32 @@ class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
 
 
+class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/comments/create_project_logo_file_comment.html'
+    model = CommentProjectFile
+    form_class = CommentProjectFileForm
+
+    def get_context_data(self, **kwargs):
+        data = super(ProjectFilesCommentCreateView, self).get_context_data(**kwargs)
+        project_file = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
+        data['project_file'] = project_file
+        projects = ProjectLogo.objects.all()
+        if self.request.user.is_superuser:
+            data['projects'] = projects
+        else:
+            data['projects'] = projects.filter(client_name=self.request.user)
+
+        return data
+
+    def get_success_url(self):
+        return reverse('files-project-logo', kwargs={'pk': self.object.id})
+
+
 class ProjectActivityView(LoginRequiredMixin, DetailView):
     template_name = 'projects/activity/activity_project_logo.html'
+    model = ProjectLogo
+
+
+class ProjectPaymentsView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/payments/payments_project_logo.html'
     model = ProjectLogo

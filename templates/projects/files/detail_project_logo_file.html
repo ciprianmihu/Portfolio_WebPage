@@ -34,11 +34,29 @@
                                     <a href="{% url 'update-files-project-logo' projectfile.id %}"
                                        class="btn btn-outline-primary float-end" style="width: 150px">Edit file</a>
                                 {% else %}
-                                    <a href="{% url 'update-c-files-project-logo' projectfile.id %}"
+                                    <a href="{% url 'client-files-project-logo' projectfile.id %}"
                                        class="btn btn-outline-primary float-end" style="width: 150px">Edit status</a>
                                 {% endif %}
                             </div>
                         </div>
+                        {% if comments %}
+                            {% for file_comment in comments %}
+                                <div class="card mb-4">
+                                    <div class="card-header border border-0">
+                                        <span class="card-text float-start">{{ file_comment.comment }}</span>
+                                        <span class="card-text float-end">Added: {{ file_comment.date_added }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card mb-4" style="min-width: 140px">
+                                <div class="card-header text-center border border-0">
+                                    <h3 class="card-text">No comments found</h3>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <a href="{% url 'create-files-project-logo-comment' projectfile.id %}"
+                                       class="btn btn-outline-primary float-end" style="width: 150px">Add a comment</a>
                     </div>
                 </div>
             </div>

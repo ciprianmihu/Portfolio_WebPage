@@ -19,8 +19,10 @@ urlpatterns = [
          name='detail-files-project-logo'),
     path('update_files_project_logo/<int:pk>/', views.ProjectFilesUpdateView.as_view(),
          name='update-files-project-logo'),
-    path('update_c_files_project_logo/<int:pk>/', views.ProjectFilesClientUpdateView.as_view(),
-         name='update-c-files-project-logo'),
+    path('client_files_project_logo/<int:pk>/', views.ProjectFilesClientUpdateView.as_view(),
+         name='client-files-project-logo'),
+    path('create_files_project_logo_comment/<int:pk>/', views.ProjectFilesCommentCreateView.as_view(),
+         name='create-files-project-logo-comment'),
 ]
 
 if settings.DEBUG:

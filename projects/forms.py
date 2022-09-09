@@ -2,7 +2,7 @@ from django import forms
 from django.forms import TextInput, Textarea, Select
 from django.forms.widgets import NumberInput
 
-from projects.models import ProjectLogo, ProjectFile
+from projects.models import ProjectLogo, ProjectFile, CommentProjectFile
 
 
 class RangeInput(NumberInput):
@@ -99,4 +99,16 @@ class ProjectFileUpdateForm(forms.ModelForm):
 
         widgets = {
             'status': Select(attrs={'class': 'form-select'})
+        }
+
+
+class CommentProjectFileForm(forms.ModelForm):
+    class Meta:
+        model = CommentProjectFile
+        fields = ['project', 'project_file', 'comment']
+
+        widgets = {
+            'project': Select(attrs={'class': 'form-select'}),
+            'project_file': Select(attrs={'class': 'form-select'}),
+            'comment': TextInput(attrs={'placeholder': 'Please enter a comment', 'class': 'form-control'}),
         }

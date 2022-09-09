@@ -91,16 +91,15 @@
                                                      src="{{ project_logo_file.project_file.url }}"
                                                      alt="Card image cap"></a>
                                             <div class="card-footer">
-                                                <a href="#" class="btn btn-outline-primary float-start"
-                                                   style="width: 150px; pointer-events: none;">{{ project_logo_file.status }}</a>
+                                                <span class="card-text">{{ project_logo_file.status }}</span>
                                                 <div class="dropdown float-end">
                                                     <button class="btn btn-outline-primary dropdown-toggle"
-                                                            type="button"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            type="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
                                                     </button>
                                                     <ul class="dropdown-menu">
                                                         <li>
-                                                            <a href="{% url 'update-c-files-project-logo' project_logo_file.id %}"
+                                                            <a href="{% url 'client-files-project-logo' project_logo_file.id %}"
                                                                class="dropdown-item">Change status</a></li>
                                                     </ul>
                                                 </div>
