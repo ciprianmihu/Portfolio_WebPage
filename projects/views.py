@@ -9,8 +9,8 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
-    CommentProjectFileForm
-from projects.models import ProjectLogo, ProjectFile, CommentProjectFile, ProjectActivity
+    CommentProjectFileForm, ProjectMessageForm
+from projects.models import ProjectLogo, ProjectFile, CommentProjectFile, ProjectActivity, ProjectActivityMessage
 from userextend.models import UserExtend
 
 
@@ -145,7 +145,7 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
 
-            return redirect('projects')
+            return redirect(reverse('detail-project-logo', kwargs={'pk': self.object.id}))
 
 
 class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -248,7 +248,6 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        print('zzz', self.request.user.id, self.request.user.pk)
         kwargs.update({'initial': {'owner': self.request.user.id,
                                    'project': ProjectFile.objects.get(id=self.kwargs.get('pk')).project.id,
                                    'project_file': self.kwargs.get('pk')}})
@@ -266,8 +265,55 @@ class ProjectActivityView(LoginRequiredMixin, DetailView):
         data = super(ProjectActivityView, self).get_context_data(**kwargs)
         activities = ProjectActivity.objects.filter(project=self.kwargs.get('pk'))
         data['activities'] = activities
+        messages = ProjectActivityMessage.objects.filter(project=self.kwargs.get('pk'))
+        data['messages'] = messages
 
         return data
+
+
+class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/messages/create_project_logo_message.html'
+    model = ProjectActivityMessage
+    form_class = ProjectMessageForm
+
+    def get_context_data(self, **kwargs):
+        data = super(ProjectMessageCreateView, self).get_context_data(**kwargs)
+        project = ProjectLogo.objects.get(id=self.kwargs.get('pk'))
+        data['project'] = project
+        projects = ProjectLogo.objects.all()
+        if self.request.user.is_superuser:
+            data['projects'] = projects
+        else:
+            data['projects'] = projects.filter(client_name=self.request.user)
+
+        return data
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'initial': {'owner': self.request.user.id,
+                                   'project': ProjectLogo.objects.get(id=self.kwargs.get('pk')).id}})
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('activity-project-logo', kwargs={'pk': self.object.project.id})
+
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_message = form.save(commit=False)
+            new_project_message.save()
+
+            subject = 'You have a message.'
+            message = None
+            html_message1 = render_to_string('email_project_message.html', {'new_project_message': new_project_message})
+
+            if self.request.user.is_superuser:
+                send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
+                          html_message=html_message1)
+            else:
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                          html_message=html_message1)
+
+            return redirect(reverse('activity-project-logo', kwargs={'pk': self.object.project.id}))
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):

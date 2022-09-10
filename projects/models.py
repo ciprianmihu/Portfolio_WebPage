@@ -75,3 +75,14 @@ class ProjectActivity(models.Model):
 
     def __str__(self):
         return f'{self.message}'
+
+
+class ProjectActivityMessage(models.Model):
+    project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    title = models.TextField(max_length=150, null=True)
+    message = models.TextField(max_length=500, null=True)
+    date_added = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return f'{self.message}'

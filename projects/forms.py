@@ -2,7 +2,7 @@ from django import forms
 from django.forms import TextInput, Textarea, Select
 from django.forms.widgets import NumberInput, HiddenInput
 
-from projects.models import ProjectLogo, ProjectFile, CommentProjectFile
+from projects.models import ProjectLogo, ProjectFile, CommentProjectFile, ProjectActivityMessage
 
 
 class RangeInput(NumberInput):
@@ -111,5 +111,18 @@ class CommentProjectFileForm(forms.ModelForm):
             'project': HiddenInput(attrs={'class': 'form-select'}),
             'owner': HiddenInput(attrs={'class': 'form-select'}),
             'project_file': HiddenInput(attrs={'class': 'form-select'}),
-            'comment': TextInput(attrs={'placeholder': 'Please enter a comment', 'class': 'form-control'}),
+            'comment': Textarea(attrs={'placeholder': 'Please enter a comment', 'class': 'form-control'}),
+        }
+
+
+class ProjectMessageForm(forms.ModelForm):
+    class Meta:
+        model = ProjectActivityMessage
+        fields = ['project', 'owner', 'title', 'message']
+
+        widgets = {
+            'project': HiddenInput(attrs={'class': 'form-select'}),
+            'owner': HiddenInput(attrs={'class': 'form-select'}),
+            'title': TextInput(attrs={'placeholder': 'Please enter a title', 'class': 'form-control'}),
+            'message': Textarea(attrs={'placeholder': 'Please enter a message', 'class': 'form-control'}),
         }

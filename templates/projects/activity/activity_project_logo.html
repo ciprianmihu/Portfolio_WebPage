@@ -37,22 +37,57 @@
             </div>
             <div class="container-fluid">
                 <div class="row m-4">
-                    {% if activities %}
-                        {% for activity in activities %}
-                            <div class="card mb-4">
-                                <div class="card-header border border-0">
-                                    <span class="card-text float-start">{{ activity.message }}</span>
-                                    <span class="card-text float-end">Modified by {{ activity.owner.first_name }} on {{ activity.date_added }}</span>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="card mb-4" style="min-width: 140px">
-                            <div class="card-header text-center border border-0">
-                                <h3 class="card-text">No activity found</h3>
+                    <div class="col-md-6 float-start">
+                        <div class="card mb-4">
+                            <div class="card-header border border-0">
+                                <h3 class="card-text text-center">Activities</h3>
                             </div>
                         </div>
-                    {% endif %}
+                        {% if activities %}
+                            {% for activity in activities %}
+                                <div class="card mb-4">
+                                    <div class="card-header border border-0">
+                                        <span class="card-text float-start">{{ activity.message }}.</span>
+                                        <span class="card-text float-end">By {{ activity.owner.first_name }} on {{ activity.date_added }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card mb-4" style="min-width: 140px">
+                                <div class="card-header text-center border border-0">
+                                    <h3 class="card-text">No activity found</h3>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 float-end">
+                        <div class="card mb-4">
+                            <div class="card-header border border-0">
+                                <h3 class="card-text text-center">Messages</h3>
+                            </div>
+                        </div>
+                        {% if messages %}
+                            {% for proj_message in messages %}
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <span class="card-text float-start">{{ proj_message.title }}</span>
+                                        <span class="card-text float-end">By {{ proj_message.owner.first_name }} on {{ proj_message.date_added }}</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">{{ proj_message.message }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card mb-4" style="min-width: 140px">
+                                <div class="card-header text-center border border-0">
+                                    <h3 class="card-text">No messages found</h3>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <a href="{% url 'create-project-logo-message' projectlogo.id %}"
+                           class="btn btn-outline-primary float-end" style="width: 150px">Add a message</a>
+                    </div>
                 </div>
             </div>
         </section>
