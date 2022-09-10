@@ -34,8 +34,8 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
             message = None
             html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
 
-            # send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
-            send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email], html_message=html_message1)
+            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
+            # send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email], html_message=html_message1)
 
             return redirect('projects')
 
@@ -313,7 +313,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
 
-            return redirect(reverse('activity-project-logo', kwargs={'pk': self.object.project.id}))
+            return redirect(reverse_lazy('activity-project-logo', kwargs={'pk': self.object.project.id}))
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):
