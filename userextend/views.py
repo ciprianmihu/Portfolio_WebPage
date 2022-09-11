@@ -26,7 +26,7 @@ class UserExtendCreateView(CreateView):
 
             subject = 'Create a new account'
             message = None
-            html_message1 = render_to_string('email.html', {'new_user': new_user})
+            html_message1 = render_to_string('emails/email.html', {'new_user': new_user})
 
             send_mail(subject, message, EMAIL_HOST_USER, [new_user.email], html_message=html_message1)
 

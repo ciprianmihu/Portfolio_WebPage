@@ -31,10 +31,10 @@
                                    href="{% url 'files-project-logo' projectfile.project_id %}"
                                    role="button" style="width: 150px">Go back</a>
                                 {% if user.is_superuser %}
-                                    <a href="{% url 'update-files-project-logo' projectfile.id %}"
+                                    <a href="{% url 'update-project-logo-files' projectfile.id %}"
                                        class="btn btn-outline-primary float-end" style="width: 150px">Edit file</a>
                                 {% else %}
-                                    <a href="{% url 'client-files-project-logo' projectfile.id %}"
+                                    <a href="{% url 'update-project-logo-files-c' projectfile.id %}"
                                        class="btn btn-outline-primary float-end" style="width: 150px">Edit status</a>
                                 {% endif %}
                             </div>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <a href="{% url 'create-files-project-logo-comment' projectfile.id %}"
+                        <a href="{% url 'create-project-logo-files-comment' projectfile.id %}"
                            class="btn btn-outline-primary float-end" style="width: 150px">Add a comment</a>
                     </div>
                 </div>

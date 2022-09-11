@@ -9,8 +9,8 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
-    CommentProjectFileForm, ProjectMessageForm
-from projects.models import ProjectLogo, ProjectFile, CommentProjectFile, ProjectActivity, ProjectActivityMessage
+    ProjectFileCommentForm, ProjectMessageForm
+from projects.models import ProjectLogo, ProjectFile, ProjectFileComment, ProjectActivity, ProjectActivityMessage
 from userextend.models import UserExtend
 
 
@@ -33,7 +33,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 
             subject = 'New project created.'
             message = None
-            html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
+            html_message1 = render_to_string('emails/email_project.html', {'new_project_logo': new_project_logo})
 
             send_mail(subject, message, EMAIL_HOST_USER, [client_email.email], html_message=html_message1)
 
@@ -104,7 +104,7 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
             subject = 'Your project has been updated.'
             message = None
-            html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
+            html_message1 = render_to_string('emails/email_project_update.html', {'new_project_logo': new_project_logo})
 
             if self.request.user.is_superuser:
                 send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
@@ -136,7 +136,7 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
 
             subject = 'Your project has been updated.'
             message = None
-            html_message1 = render_to_string('email_project_update.html', {'new_project_logo': new_project_logo})
+            html_message1 = render_to_string('emails/email_project_update.html', {'new_project_logo': new_project_logo})
 
             if self.request.user.is_superuser:
                 send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
@@ -217,7 +217,7 @@ class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         data = super(ProjectFilesDetailView, self).get_context_data(**kwargs)
-        comments = CommentProjectFile.objects.filter(project_file=self.kwargs.get('pk'))
+        comments = ProjectFileComment.objects.filter(project_file=self.kwargs.get('pk'))
         data['comments'] = comments
 
         return data
@@ -243,8 +243,8 @@ class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
 
 class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'projects/comments/create_project_logo_file_comment.html'
-    model = CommentProjectFile
-    form_class = CommentProjectFileForm
+    model = ProjectFileComment
+    form_class = ProjectFileCommentForm
 
     def get_context_data(self, **kwargs):
         data = super(ProjectFilesCommentCreateView, self).get_context_data(**kwargs)
@@ -266,7 +266,7 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('detail-files-project-logo', kwargs={'pk': self.object.project_file.id})
+        return reverse('detail-project-logo-files', kwargs={'pk': self.object.project_file.id})
 
 
 class ProjectActivityView(LoginRequiredMixin, DetailView):
@@ -316,7 +316,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
     #
     #         subject = 'You have a message.'
     #         message = None
-    #         html_message1 = render_to_string('email_project_message.html', {'new_project_message': new_project_message})
+    #         html_message1 = render_to_string('emails/email_project_message.html', {'new_project_message': new_project_message})
     #
     #         if self.request.user.is_superuser:
     #             send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],

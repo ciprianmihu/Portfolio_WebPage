@@ -56,7 +56,7 @@ class ProjectFile(models.Model):
         return f'{self.title}'
 
 
-class CommentProjectFile(models.Model):
+class ProjectFileComment(models.Model):
     project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
     project_file = models.ForeignKey(ProjectFile, on_delete=models.CASCADE, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
