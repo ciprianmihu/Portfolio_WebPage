@@ -84,7 +84,7 @@
                         <div class="row gy-4">
                             {% if files %}
                                 {% for project_logo_file in files %}
-                                    <div class="col-md-2">
+                                    <div class="col-sm-2">
                                         <div class="card mb-3 shadow" style="min-width: 150px">
                                             <a href="{% url 'detail-project-logo-files' project_logo_file.id %}">
                                                 <img class="card-img-top"
@@ -92,17 +92,12 @@
                                                      alt="Card image cap"></a>
                                             <div class="card-footer">
                                                 <span class="card-text">{{ project_logo_file.status }}</span>
-                                                <div class="dropdown float-end">
-                                                    <button class="btn btn-outline-primary dropdown-toggle"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <a href="{% url 'update-project-logo-files-c' project_logo_file.id %}"
-                                                               class="dropdown-item">Change status</a></li>
-                                                    </ul>
-                                                </div>
+                                                <a href="{% url 'update-project-logo-files-c' project_logo_file.id %}"
+                                                   class="btn btn-outline-primary float-end"
+                                                   data-bs-toggle="tooltip" title="Change status">Δ</a>
+                                                <a href="{{ project_logo_file.project_file.url }}"
+                                                   class="btn btn-outline-primary float-end me-2" download
+                                                   data-bs-toggle="tooltip" title="Download">∇</a>
                                             </div>
                                         </div>
                                     </div>

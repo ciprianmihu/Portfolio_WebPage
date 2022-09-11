@@ -55,6 +55,8 @@
                                 </div>
                             </div>
                         {% endif %}
+                        <a href="{{ projectfile.project_file.url }}" download
+                           class="btn btn-outline-primary float-start" style="width: 150px">Download</a>
                         <a href="{% url 'create-project-logo-files-comment' projectfile.id %}"
                            class="btn btn-outline-primary float-end" style="width: 150px">Add a comment</a>
                     </div>
