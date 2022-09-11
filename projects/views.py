@@ -24,6 +24,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
         if form.is_valid() and not form.errors:
             new_project_logo = form.save(commit=False)
             new_project_logo.save()
+            client_email = form.cleaned_data['client_name']
             ProjectActivity.objects.create(
                 project=new_project_logo,
                 owner=self.request.user,
@@ -34,8 +35,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
             message = None
             html_message1 = render_to_string('email_project.html', {'new_project_logo': new_project_logo})
 
-            send_mail(subject, message, EMAIL_HOST_USER, [self.request.user.email], html_message=html_message1)
-            # send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email], html_message=html_message1)
+            send_mail(subject, message, EMAIL_HOST_USER, [client_email.email], html_message=html_message1)
 
             return redirect('projects')
 
@@ -176,6 +176,18 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
 
+    # def form_valid(self, form):
+    #     if form.is_valid() and not form.errors:
+    #         new_project_file = form.save(commit=False)
+    #         new_project_file.save()
+    #         ProjectActivity.objects.create(
+    #             project=self.get_form_kwargs, #ma pot folosi de get_form_kwargs de mai sus?
+    #             owner=self.request.user,
+    #             message='A file has been added.'
+    #         )
+    #
+    #         return redirect(reverse('files-project-logo', kwargs={'pk': self.object.id}))
+
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/files_project_logo.html'
@@ -297,25 +309,32 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('activity-project-logo', kwargs={'pk': self.object.project.id})
 
-    def form_valid(self, form):
-        if form.is_valid() and not form.errors:
-            new_project_message = form.save(commit=False)
-            new_project_message.save()
-
-            subject = 'You have a message.'
-            message = None
-            html_message1 = render_to_string('email_project_message.html', {'new_project_message': new_project_message})
-
-            if self.request.user.is_superuser:
-                send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
-                          html_message=html_message1)
-            else:
-                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
-                          html_message=html_message1)
-
-            return redirect(reverse_lazy('activity-project-logo', kwargs={'pk': self.object.project.id}))
+    # def form_valid(self, form):
+    #     if form.is_valid() and not form.errors:
+    #         new_project_message = form.save(commit=False)
+    #         new_project_message.save()
+    #
+    #         subject = 'You have a message.'
+    #         message = None
+    #         html_message1 = render_to_string('email_project_message.html', {'new_project_message': new_project_message})
+    #
+    #         if self.request.user.is_superuser:
+    #             send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
+    #                       html_message=html_message1)
+    #         else:
+    #             send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+    #                       html_message=html_message1)
+    #
+    #         return redirect(reverse_lazy('activity-project-logo', kwargs={'pk': self.object.project.id}))
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):
     template_name = 'projects/payments/payments_project_logo.html'
     model = ProjectLogo
+
+    def get_context_data(self, **kwargs):
+        data = super(ProjectPaymentsView, self).get_context_data(**kwargs)
+        payments = ProjectActivity.objects.filter(project=self.kwargs.get('pk'))
+        data['payments'] = payments
+
+        return data
