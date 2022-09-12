@@ -2,7 +2,7 @@ from django import forms
 from django.forms import TextInput, Textarea, Select
 from django.forms.widgets import NumberInput, HiddenInput
 
-from projects.models import ProjectLogo, ProjectFile, ProjectFileComment, ProjectActivityMessage
+from projects.models import ProjectLogo, ProjectFile, ProjectFileComment, ProjectActivityMessage, ProjectPayment
 
 
 class RangeInput(NumberInput):
@@ -126,4 +126,16 @@ class ProjectMessageForm(forms.ModelForm):
             'owner': HiddenInput(attrs={'class': 'form-select'}),
             'title': TextInput(attrs={'placeholder': 'Please enter a title', 'class': 'form-control'}),
             'message': Textarea(attrs={'placeholder': 'Please enter a message', 'class': 'form-control'}),
+        }
+
+
+class ProjectPaymentForm(forms.ModelForm):
+    class Meta:
+        model = ProjectPayment
+        fields = ['project', 'owner', 'price']
+
+        widgets = {
+            'project': HiddenInput(attrs={'class': 'form-select'}),
+            'owner': HiddenInput(attrs={'class': 'form-select'}),
+            'price': TextInput(attrs={'placeholder': 'Please enter price', 'class': 'form-control'}),
         }

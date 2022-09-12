@@ -9,8 +9,9 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
-    ProjectFileCommentForm, ProjectMessageForm
-from projects.models import ProjectLogo, ProjectFile, ProjectFileComment, ProjectActivity, ProjectActivityMessage
+    ProjectFileCommentForm, ProjectMessageForm, ProjectPaymentForm
+from projects.models import ProjectLogo, ProjectFile, ProjectFileComment, ProjectActivity, ProjectActivityMessage, \
+    ProjectPayment
 from userextend.models import UserExtend
 
 
@@ -320,8 +321,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
             html_message1 = render_to_string('emails/email_project_message.html', {'new_project_message': new_project_message})
 
             if self.request.user.is_superuser:
-                send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email],
-                          html_message=html_message1)
+                send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email], html_message=html_message1)
             else:
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
@@ -335,7 +335,52 @@ class ProjectPaymentsView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         data = super(ProjectPaymentsView, self).get_context_data(**kwargs)
-        payments = ProjectActivity.objects.filter(project=self.kwargs.get('pk'))
+        payments = ProjectPayment.objects.filter(project=self.kwargs.get('pk'))
         data['payments'] = payments
 
         return data
+
+
+class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/payments/create_project_logo_payment.html'
+    model = ProjectPayment
+    form_class = ProjectPaymentForm
+
+    def get_context_data(self, **kwargs):
+        data = super(ProjectPaymentCreateView, self).get_context_data(**kwargs)
+        project = ProjectLogo.objects.get(id=self.kwargs.get('pk'))
+        data['project'] = project
+        projects = ProjectLogo.objects.all()
+        if self.request.user.is_superuser:
+            data['projects'] = projects
+        else:
+            data['projects'] = projects.filter(client_name=self.request.user)
+
+        return data
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'initial': {'owner': self.request.user.id,
+                                   'project': ProjectLogo.objects.get(id=self.kwargs.get('pk')).id}})
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('payments-project-logo', kwargs={'pk': self.object.project.id})
+
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_payment = form.save(commit=False)
+            new_project_payment.save()
+            project = form.cleaned_data['project']
+
+            subject = 'You have a payment pending.'
+            message = None
+            html_message1 = render_to_string('emails/email_project_payment.html', {'new_project_payment': new_project_payment})
+
+            if self.request.user.is_superuser:
+                send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email], html_message=html_message1)
+            else:
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                          html_message=html_message1)
+
+            return redirect('projects')

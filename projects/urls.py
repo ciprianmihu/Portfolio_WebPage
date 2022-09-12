@@ -26,6 +26,8 @@ urlpatterns = [
          name='create-project-logo-files-comment'),
     path('create_project_logo_message/<int:pk>/', views.ProjectMessageCreateView.as_view(),
          name='create-project-logo-message'),
+    path('create_project_logo_payment/<int:pk>/', views.ProjectPaymentCreateView.as_view(),
+         name='create-project-logo-payment'),
 ]
 
 if settings.DEBUG:
