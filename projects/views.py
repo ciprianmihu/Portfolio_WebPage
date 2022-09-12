@@ -177,17 +177,19 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
 
-    # def form_valid(self, form):
-    #     if form.is_valid() and not form.errors:
-    #         new_project_file = form.save(commit=False)
-    #         new_project_file.save()
-    #         ProjectActivity.objects.create(
-    #             project=self.get_form_kwargs, #ma pot folosi de get_form_kwargs de mai sus?
-    #             owner=self.request.user,
-    #             message='A file has been added.'
-    #         )
-    #
-    #         return redirect(reverse('files-project-logo', kwargs={'pk': self.object.id}))
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_file = form.save(commit=False)
+            new_project_file.save()
+            project = form.cleaned_data['project']
+            ProjectActivity.objects.create(
+                project=project,
+                owner=self.request.user,
+                message='A file has been added'
+            )
+
+            # return redirect(reverse('files-project-logo', kwargs={'pk': self.object.id}))
+            return redirect('projects')
 
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
@@ -326,6 +328,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
 
+            # return redirect(reverse('activity-project-logo', kwargs={'pk': self.object.id}))
             return redirect('projects')
 
 
@@ -372,6 +375,11 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
             new_project_payment = form.save(commit=False)
             new_project_payment.save()
             project = form.cleaned_data['project']
+            ProjectActivity.objects.create(
+                project=project,
+                owner=self.request.user,
+                message='A quote has been created'
+            )
 
             subject = 'You have a payment pending.'
             message = None
@@ -383,4 +391,5 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
 
+            # return redirect(reverse('payments-project-logo', kwargs={'pk': self.object.id}))
             return redirect('projects')
