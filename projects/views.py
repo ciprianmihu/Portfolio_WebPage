@@ -309,23 +309,24 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('activity-project-logo', kwargs={'pk': self.object.project.id})
 
-    # def form_valid(self, form):
-    #     if form.is_valid() and not form.errors:
-    #         new_project_message = form.save(commit=False)
-    #         new_project_message.save()
-    #
-    #         subject = 'You have a message.'
-    #         message = None
-    #         html_message1 = render_to_string('emails/email_project_message.html', {'new_project_message': new_project_message})
-    #
-    #         if self.request.user.is_superuser:
-    #             send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
-    #                       html_message=html_message1)
-    #         else:
-    #             send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
-    #                       html_message=html_message1)
-    #
-    #         return redirect(reverse_lazy('activity-project-logo', kwargs={'pk': self.object.project.id}))
+    def form_valid(self, form):
+        if form.is_valid() and not form.errors:
+            new_project_message = form.save(commit=False)
+            new_project_message.save()
+            project = form.cleaned_data['project']
+
+            subject = 'You have a message.'
+            message = None
+            html_message1 = render_to_string('emails/email_project_message.html', {'new_project_message': new_project_message})
+
+            if self.request.user.is_superuser:
+                send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email],
+                          html_message=html_message1)
+            else:
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                          html_message=html_message1)
+
+            return redirect('projects')
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):

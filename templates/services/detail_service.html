@@ -32,9 +32,9 @@
                             </div>
                             <div class="card-footer">
                                 {% if perms.services.change_servicelogo or perms.services.delete_servicelogo %}
-                                    <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"
+                                    <a class="btn btn-outline-primary float-start my-1" href="{% url 'services' %}"
                                        role="button" style="width: 150px">Go back</a>
-                                    <div class="dropdown float-end">
+                                    <div class="dropdown float-end my-1">
                                         <button type="button" class="btn btn-outline-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown" style="width: 150px">Actions
                                         </button>
@@ -50,10 +50,10 @@
                                         </ul>
                                     </div>
                                 {% else %}
-                                    <a class="btn btn-outline-primary float-start" href="{% url 'contact' %}"
+                                    <a class="btn btn-outline-primary float-start my-1" href="{% url 'contact' %}"
                                        role="button" data-bs-toggle="tooltip" title="Hooray!"
                                        style="width: 150px">Request service</a>
-                                    <div class="btn-group float-end">
+                                    <div class="btn-group float-end my-1" style="width: 150px">
                                         <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"
                                            role="button" data-bs-toggle="tooltip" title="Previous service!">❮</a>
                                         <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"

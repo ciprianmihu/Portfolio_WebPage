@@ -24,13 +24,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md mx-4 mb-4">
-                        <a class="btn btn-primary me-2" href="{% url 'detail-project-logo' projectlogo.id %}"
+                        <a class="btn btn-primary me-2 my-1" href="{% url 'detail-project-logo' projectlogo.id %}"
                            style="width: 150px">Overview</a>
-                        <a class="btn btn-outline-primary me-2" href="{% url 'activity-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'activity-project-logo' projectlogo.id %}"
                            style="width: 150px">Activity</a>
-                        <a class="btn btn-outline-primary me-2" href="{% url 'files-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'files-project-logo' projectlogo.id %}"
                            style="width: 150px">Files</a>
-                        <a class="btn btn-outline-primary" href="{% url 'payments-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary my-1" href="{% url 'payments-project-logo' projectlogo.id %}"
                            style="width: 150px">Payments</a>
                     </div>
                 </div>
@@ -214,14 +214,14 @@
                                        style="pointer-events: none;">
                             </div>
                             <div class="card-footer">
-                                <a class="btn btn-outline-primary float-start" href="{% url 'projects' %}"
+                                <a class="btn btn-outline-primary float-start my-1 me-1" href="{% url 'projects' %}"
                                    role="button" style="width: 150px">Go back</a>
                                 {% if user.is_superuser %}
-                                    <a class="btn btn-outline-primary float-end"
+                                    <a class="btn btn-outline-primary float-end my-1"
                                        href="{% url 'update-project-logo' projectlogo.id %}" style="width: 150px">Edit
                                         project</a>
                                 {% else %}
-                                    <a class="btn btn-outline-primary float-end"
+                                    <a class="btn btn-outline-primary float-end my-1"
                                        href="{% url 'update-project-client' projectlogo.id %}" style="width: 150px">Edit
                                         project</a>
                                 {% endif %}
@@ -233,13 +233,13 @@
                                     <a class="btn btn-outline-primary me-2"
                                        href="{% url 'payments-project-logo' projectlogo.id %}" style="width: 150px">
                                         Create a quote</a>
-                                    <a class="btn btn-outline-primary me-2"
+                                    <a class="btn btn-outline-primary float-end"
                                        href="{% url 'activity-project-logo' projectlogo.id %}" style="width: 150px">
                                         Send a message</a>
                                 </div>
                             </div>
                         {% else %}
-                            <a class="btn btn-outline-primary me-2"
+                            <a class="btn btn-outline-primary float-end"
                                href="{% url 'activity-project-logo' projectlogo.id %}" style="width: 150px">
                                 Send a message</a>
                         {% endif %}

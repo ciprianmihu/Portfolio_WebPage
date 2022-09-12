@@ -105,21 +105,21 @@
                             </div>
                             <div class="card-footer">
                                 {% if perms.ready_made.change_readylogo or perms.ready_made.delete_readyologo %}
-                                    <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
+                                    <a class="btn btn-outline-primary float-start my-1" href="{% url 'ready-made' %}"
                                        role="button" style="width: 150px">Go back</a>
                                 {% else %}
                                     {% if user.is_authenticated %}
-                                        <a class="btn btn-outline-primary float-start" href="{% url 'contact' %}"
+                                        <a class="btn btn-outline-primary float-start my-1" href="{% url 'contact' %}"
                                            role="button" data-bs-toggle="tooltip" title="Hooray!"
                                            style="width: 150px">Buy this logo</a>
                                     {% else %}
-                                        <a class="btn btn-outline-primary float-start" href="{% url 'login' %}"
+                                        <a class="btn btn-outline-primary float-start my-1" href="{% url 'login' %}"
                                            role="button" data-bs-toggle="tooltip" title="Hooray!"
                                            style="width: 150px">Buy this logo</a>
                                     {% endif %}
                                 {% endif %}
                                 {% if perms.ready_made.change_readylogo or perms.ready_made.delete_readyologo %}
-                                    <div class="dropdown float-end">
+                                    <div class="dropdown float-end my-1">
                                         <button type="button" class="btn btn-outline-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown" style="width: 150px">Actions
                                         </button>
@@ -134,7 +134,7 @@
                                         </ul>
                                     </div>
                                 {% else %}
-                                    <div class="btn-group float-end">
+                                    <div class="btn-group float-end my-1" style="width: 150px">
                                         <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
                                            role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
                                         <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"

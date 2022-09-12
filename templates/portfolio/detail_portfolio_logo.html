@@ -103,10 +103,10 @@
                                 <p class="card-text">Logo overview: {{ portfoliologo.logo_description }}</p>
                             </div>
                             <div class="card-footer">
-                                <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
+                                <a class="btn btn-outline-primary float-start my-1" href="{% url 'portfolio' %}"
                                    role="button" style="width: 150px">Go back</a>
                                 {% if perms.portfolio.change_portfoliologo or perms.portfolio.delete_portfoliologo %}
-                                    <div class="dropdown float-end">
+                                    <div class="dropdown float-end my-1">
                                         <button type="button" class="btn btn-outline-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown" style="width: 150px">Actions
                                         </button>
@@ -121,7 +121,7 @@
                                         </ul>
                                     </div>
                                 {% else %}
-                                    <div class="btn-group float-end">
+                                    <div class="btn-group float-end my-1">
                                         <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
                                            role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
                                         <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"

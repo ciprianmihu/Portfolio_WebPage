@@ -78,7 +78,7 @@ class ProjectLogoClientForm(forms.ModelForm):
 class ProjectFileForm(forms.ModelForm):
     class Meta:
         model = ProjectFile
-        fields = ['project', 'project_file', 'title', 'file_description', 'status']
+        fields = ['project', 'project_file', 'project_final_file', 'title', 'file_description', 'status']
 
         widgets = {
             'project': HiddenInput(attrs={'class': 'form-select', 'readonly': 'readonly'}),
@@ -90,6 +90,7 @@ class ProjectFileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['project_file'].widget.attrs['class'] = 'form-control'
+        self.fields['project_final_file'].widget.attrs['class'] = 'form-control'
 
 
 class ProjectFileUpdateForm(forms.ModelForm):

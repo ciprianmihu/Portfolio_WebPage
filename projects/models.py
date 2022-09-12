@@ -43,6 +43,7 @@ class ProjectLogo(models.Model):
 class ProjectFile(models.Model):
     project = models.ForeignKey(ProjectLogo, on_delete=models.CASCADE, null=True)
     project_file = models.ImageField(upload_to='projects/files/', null=True)
+    project_final_file = models.FileField(upload_to='projects/finalfiles/', null=True, blank=True)
     title = models.CharField(max_length=100, null=True)
     file_description = models.TextField(max_length=500, null=True)
     status_options = (('Reference', 'Reference'), ('In progress', 'In progress'), ('Declined', 'Declined'),
