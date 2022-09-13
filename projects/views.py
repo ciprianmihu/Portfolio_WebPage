@@ -23,8 +23,7 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
-            new_project_logo = form.save(commit=False)
-            new_project_logo.save()
+            new_project_logo = form.save()
             client_email = form.cleaned_data['client_name']
             ProjectActivity.objects.create(
                 project=new_project_logo,
@@ -95,8 +94,7 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
-            new_project_logo = form.save(commit=False)
-            new_project_logo.save()
+            new_project_logo = form.save()
             ProjectActivity.objects.create(
                 project=new_project_logo,
                 owner=self.request.user,
@@ -127,8 +125,7 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
-            new_project_logo = form.save(commit=False)
-            new_project_logo.save()
+            new_project_logo = form.save()
             ProjectActivity.objects.create(
                 project=new_project_logo,
                 owner=self.request.user,
@@ -178,9 +175,8 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
+        response = super().form_valid(form)
         if form.is_valid() and not form.errors:
-            new_project_file = form.save(commit=False)
-            new_project_file.save()
             project = form.cleaned_data['project']
             ProjectActivity.objects.create(
                 project=project,
@@ -188,8 +184,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
                 message='A file has been added'
             )
 
-            # return redirect(reverse('files-project-logo', kwargs={'pk': self.object.id}))
-            return super().form_valid(form)
+        return response
 
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
@@ -246,11 +241,10 @@ class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
 
 @login_required
 @permission_required('portfolio.delete_projectlogo')
-def delete_project_file(request, pk):
+def delete_project_file(request, project_id, pk):
     ProjectFile.objects.filter(id=pk).delete()
 
-    # return redirect(reverse('files-project-logo', kwargs={'pk': self.object.project.id}))
-    return redirect('projects')
+    return redirect('files-project-logo', pk=project_id)
 
 
 class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
@@ -323,8 +317,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
-            new_project_message = form.save(commit=False)
-            new_project_message.save()
+            new_project_message = form.save()
             project = form.cleaned_data['project']
 
             subject = 'You have a message.'
@@ -337,7 +330,6 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
 
-            # return redirect(reverse('activity-project-logo', kwargs={'pk': self.object.id}))
             return super().form_valid(form)
 
 
@@ -381,8 +373,7 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
-            new_project_payment = form.save(commit=False)
-            new_project_payment.save()
+            new_project_payment = form.save()
             project = form.cleaned_data['project']
             ProjectActivity.objects.create(
                 project=project,
@@ -400,5 +391,4 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
 
-            # return redirect(reverse('payments-project-logo', kwargs={'pk': self.object.id}))
             return super().form_valid(form)

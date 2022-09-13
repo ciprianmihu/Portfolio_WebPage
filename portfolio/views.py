@@ -43,6 +43,13 @@ class PortfolioDetailView(DetailView):
     template_name = 'portfolio/detail_portfolio_logo.html'
     model = PortfolioLogo
 
+    def get_context_data(self, **kwargs):
+        data = super(PortfolioDetailView, self).get_context_data(**kwargs)
+        logo_ids = PortfolioLogo.objects.all().values_list('pk', flat=True)
+        data['logo_ids'] = logo_ids
+
+        return data
+
 
 class PortfolioDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'portfolio/delete_portfolio_logo.html'

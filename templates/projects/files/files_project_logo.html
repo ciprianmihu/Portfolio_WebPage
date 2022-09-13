@@ -92,12 +92,14 @@
                                                 <img class="card-img-top"
                                                      src="{{ project_logo_file.project_file.url }}"
                                                      alt="Card image cap"></a>
+                                            <div class="card-img-overlay"
+                                                 style="pointer-events: none">{{ forloop.counter }}</div>
                                             <div class="card-footer">
                                                 <span class="card-text">{{ project_logo_file.status }}</span>
                                                 <div class="btn-group float-end">
                                                     {% if user.is_superuser %}
                                                         <button type="button" class="btn btn-outline-primary"
-                                                                data-bs-toggle="tooltip" title="Delete">
+                                                                data-bs-toggle="tooltip" title="Delete file">
                                                             <a data-bs-toggle="modal" title="Delete"
                                                                data-bs-target="#projectfile_{{ project_logo_file.id }}">∇</a>
                                                         </button>
@@ -147,7 +149,7 @@
                                                         </div>
                                                         <div class="col">
                                                             <span class="float-end">
-                                                                <a href="{% url "delete-project-logo-file-modal" project_logo_file.id %}"
+                                                                <a href="{% url "delete-project-logo-file-modal" project_id=projectlogo.id pk=project_logo_file.id %}"
                                                                    class="btn btn-outline-danger"
                                                                    style="width: 100px">Yes</a>
                                                             </span>
