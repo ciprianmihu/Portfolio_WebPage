@@ -95,18 +95,64 @@
                                             <div class="card-footer">
                                                 <span class="card-text">{{ project_logo_file.status }}</span>
                                                 <div class="btn-group float-end">
-                                                    {% if project_logo_file.project_final_file %}
-                                                        <a href="{{ project_logo_file.project_final_file.url }}"
-                                                           class="btn btn-outline-primary float-end" download
-                                                           data-bs-toggle="tooltip" title="Download">∇</a>
-                                                    {% elif project_logo_file.project_file %}
-                                                        <a href="{{ project_logo_file.project_file.url }}"
-                                                           class="btn btn-outline-primary float-end" download
-                                                           data-bs-toggle="tooltip" title="Download">∇</a>
+                                                    {% if user.is_superuser %}
+                                                        <button type="button" class="btn btn-outline-primary"
+                                                                data-bs-toggle="tooltip" title="Delete">
+                                                            <a data-bs-toggle="modal" title="Delete"
+                                                               data-bs-target="#projectfile_{{ project_logo_file.id }}">∇</a>
+                                                        </button>
+                                                    {% else %}
+                                                        {% if project_logo_file.project_final_file %}
+                                                            <a href="{{ project_logo_file.project_final_file.url }}"
+                                                               class="btn btn-outline-primary float-end" download
+                                                               data-bs-toggle="tooltip" title="Download">∇</a>
+                                                        {% elif project_logo_file.project_file %}
+                                                            <a href="{{ project_logo_file.project_file.url }}"
+                                                               class="btn btn-outline-primary float-end" download
+                                                               data-bs-toggle="tooltip" title="Download">∇</a>
+                                                        {% endif %}
                                                     {% endif %}
                                                     <a href="{% url 'update-project-logo-files-c' project_logo_file.id %}"
                                                        class="btn btn-outline-primary float-end"
                                                        data-bs-toggle="tooltip" title="Change status">Δ</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- dropdown delete modal section -->
+                                        <div class="modal fade" id="projectfile_{{ project_logo_file.id }}"
+                                             tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <h5 class="modal-title col-md-6 offset-md-3"
+                                                            id="exampleModalLabel">
+                                                            Delete</h5>
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-center">
+                                                        Are you sure you want to delete
+                                                        file?
+                                                    </div>
+                                                    <div class="row modal-footer">
+                                                        <div class="col">
+                                                            <span class="float-start">
+                                                                <button type="button"
+                                                                        class="btn btn-outline-primary"
+                                                                        data-bs-dismiss="modal"
+                                                                        style="width: 100px">No</button>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col">
+                                                            <span class="float-end">
+                                                                <a href="{% url "delete-project-logo-file-modal" project_logo_file.id %}"
+                                                                   class="btn btn-outline-danger"
+                                                                   style="width: 100px">Yes</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

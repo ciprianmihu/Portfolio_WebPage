@@ -22,6 +22,7 @@ urlpatterns = [
          name='update-project-logo-files'),
     path('update_project_logo_files_c/<int:pk>/', views.ProjectFilesClientUpdateView.as_view(),
          name='update-project-logo-files-c'),
+    path('delete_project_logo_file_modal/<int:pk>/', views.delete_project_file, name='delete-project-logo-file-modal'),
     path('create_project_logo_comment_file/<int:pk>/', views.ProjectFilesCommentCreateView.as_view(),
          name='create-project-logo-files-comment'),
     path('create_project_logo_message/<int:pk>/', views.ProjectMessageCreateView.as_view(),

@@ -157,7 +157,7 @@ class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
 
 
 @login_required
-@permission_required('portfolio.delete_projectlogo')
+@permission_required('projects.delete_projectfile')
 def delete_project_logo(request, pk):
     ProjectLogo.objects.filter(id=pk).delete()
 
@@ -189,7 +189,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
             )
 
             # return redirect(reverse('files-project-logo', kwargs={'pk': self.object.id}))
-            return redirect('projects')
+            return super().form_valid(form)
 
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
@@ -242,6 +242,15 @@ class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+
+
+@login_required
+@permission_required('portfolio.delete_projectlogo')
+def delete_project_file(request, pk):
+    ProjectFile.objects.filter(id=pk).delete()
+
+    # return redirect(reverse('files-project-logo', kwargs={'pk': self.object.project.id}))
+    return redirect('projects')
 
 
 class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
@@ -329,7 +338,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
                           html_message=html_message1)
 
             # return redirect(reverse('activity-project-logo', kwargs={'pk': self.object.id}))
-            return redirect('projects')
+            return super().form_valid(form)
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):
@@ -392,4 +401,4 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
                           html_message=html_message1)
 
             # return redirect(reverse('payments-project-logo', kwargs={'pk': self.object.id}))
-            return redirect('projects')
+            return super().form_valid(form)
