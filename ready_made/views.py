@@ -43,6 +43,17 @@ class ReadyMadeDetailView(DetailView):
     template_name = 'ready_made/detail_ready_logo.html'
     model = ReadyLogo
 
+    def get_context_data(self, **kwargs):
+        data = super(ReadyMadeDetailView, self).get_context_data(**kwargs)
+        logo_ids = list(ReadyLogo.objects.all().values_list('pk', flat=True))
+        data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id)-1]
+        try:
+            data['next_logo_id'] = logo_ids[logo_ids.index(self.object.id)+1]
+        except IndexError:
+            data['next_logo_id'] = logo_ids[0]
+
+        return data
+
 
 class ReadyMadeDeleteVIew(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'ready_made/delete_ready_logo.html'

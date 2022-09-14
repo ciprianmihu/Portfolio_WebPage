@@ -116,17 +116,20 @@
                                             <li>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                         data-bs-target="#portfoliologo_{{ portfoliologo.id }}">
-                                                    Delete logo</button>
+                                                    Delete logo
+                                                </button>
                                             </li>
                                         </ul>
                                     </div>
                                 {% else %}
                                     <div class="btn-group float-end my-1">
-                                        <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
+                                        <a class="btn btn-outline-primary float-start"
+                                           href="{% url 'detail-portfolio-logo' previous_logo_id %}"
                                            role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
                                         <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
                                            role="button">View all</a>
-                                        <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
+                                        <a class="btn btn-outline-primary float-start"
+                                           href="{% url 'detail-portfolio-logo' next_logo_id %}"
                                            role="button" data-bs-toggle="tooltip" title="Next logo!">❯</a>
                                     </div>
                                 {% endif %}
@@ -151,7 +154,7 @@
                                         <div class="col">
                                     <span class="float-start">
                                         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
-                                        style="width: 100px">No</button>
+                                                style="width: 100px">No</button>
                                     </span>
                                         </div>
                                         <div class="col">

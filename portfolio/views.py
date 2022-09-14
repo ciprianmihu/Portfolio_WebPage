@@ -45,8 +45,12 @@ class PortfolioDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         data = super(PortfolioDetailView, self).get_context_data(**kwargs)
-        logo_ids = PortfolioLogo.objects.all().values_list('pk', flat=True)
-        data['logo_ids'] = logo_ids
+        logo_ids = list(PortfolioLogo.objects.all().values_list('pk', flat=True))
+        data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id)-1]
+        try:
+            data['next_logo_id'] = logo_ids[logo_ids.index(self.object.id)+1]
+        except IndexError:
+            data['next_logo_id'] = logo_ids[0]
 
         return data
 

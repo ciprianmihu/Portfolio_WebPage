@@ -135,11 +135,11 @@
                                     </div>
                                 {% else %}
                                     <div class="btn-group float-end my-1" style="width: 150px">
-                                        <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'detail-ready-logo' previous_logo_id %}"
                                            role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
                                         <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
                                            role="button">View all</a>
-                                        <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
+                                        <a class="btn btn-outline-primary float-start" href="{% url 'detail-ready-logo' next_logo_id %}"
                                            role="button" data-bs-toggle="tooltip" title="Next logo!">❯</a>
                                     </div>
                                 {% endif %}
