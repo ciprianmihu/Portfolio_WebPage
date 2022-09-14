@@ -9,7 +9,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
-    ProjectFileCommentForm, ProjectMessageForm, ProjectPaymentForm
+    ProjectFileCommentForm, ProjectMessageForm, ProjectPaymentForm, ProjectFileClientForm
 from projects.models import ProjectLogo, ProjectFile, ProjectFileComment, ProjectActivity, ProjectActivityMessage, \
     ProjectPayment
 from userextend.models import UserExtend
@@ -187,6 +187,32 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
         return response
 
 
+class ProjectFilesClientCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'projects/files/create_project_logo_file.html'
+    model = ProjectFile
+    form_class = ProjectFileClientForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'initial': {'project': self.kwargs.get('pk')}})
+        return kwargs
+
+    def get_success_url(self):
+        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if form.is_valid() and not form.errors:
+            project = form.cleaned_data['project']
+            ProjectActivity.objects.create(
+                project=project,
+                owner=self.request.user,
+                message='A file has been added'
+            )
+
+        return response
+
+
 class ProjectFilesView(LoginRequiredMixin, DetailView):
     template_name = 'projects/files/files_project_logo.html'
     model = ProjectLogo
@@ -217,6 +243,13 @@ class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
         data = super(ProjectFilesDetailView, self).get_context_data(**kwargs)
         comments = ProjectFileComment.objects.filter(project_file=self.kwargs.get('pk'))
         data['comments'] = comments
+
+        logo_ids = list(ProjectFile.objects.all().values_list('pk', flat=True))
+        data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id) - 1]
+        try:
+            data['next_logo_id'] = logo_ids[logo_ids.index(self.object.id) + 1]
+        except IndexError:
+            data['next_logo_id'] = logo_ids[0]
 
         return data
 
@@ -322,7 +355,8 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
 
             subject = 'You have a message.'
             message = None
-            html_message1 = render_to_string('emails/email_project_message.html', {'new_project_message': new_project_message})
+            html_message1 = render_to_string('emails/email_project_message.html',
+                                             {'new_project_message': new_project_message})
 
             if self.request.user.is_superuser:
                 send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email], html_message=html_message1)
@@ -383,7 +417,8 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
 
             subject = 'You have a payment pending.'
             message = None
-            html_message1 = render_to_string('emails/email_project_payment.html', {'new_project_payment': new_project_payment})
+            html_message1 = render_to_string('emails/email_project_payment.html',
+                                             {'new_project_payment': new_project_payment})
 
             if self.request.user.is_superuser:
                 send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email], html_message=html_message1)

@@ -93,7 +93,19 @@
                     <div class="col">
                         <div class="card" style="min-width: 200px">
                             <div class="card-header">
-                                <h3 class="card-text">Overview</h3>
+                                <div class="d-inline-flex">
+                                    <h3 class="card-text">Overview</h3>
+                                </div>
+                                <div class="btn-group float-end my-1">
+                                    <a class="btn btn-outline-primary float-start"
+                                       href="{% url 'detail-portfolio-logo' previous_logo_id %}"
+                                       role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
+                                    <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
+                                       role="button">View all</a>
+                                    <a class="btn btn-outline-primary float-start"
+                                       href="{% url 'detail-portfolio-logo' next_logo_id %}"
+                                       role="button" data-bs-toggle="tooltip" title="Next logo!">❯</a>
+                                </div>
                             </div>
                             <div class="card-body">
                                 <h3 class="card-title">Logo for: {{ portfoliologo.company_name }}</h3>
@@ -102,10 +114,8 @@
                                 <p class="card-text">Company industry: {{ portfoliologo.company_industry }}</p>
                                 <p class="card-text">Logo overview: {{ portfoliologo.logo_description }}</p>
                             </div>
-                            <div class="card-footer">
-                                <a class="btn btn-outline-primary float-start my-1" href="{% url 'portfolio' %}"
-                                   role="button" style="width: 150px">Go back</a>
-                                {% if perms.portfolio.change_portfoliologo or perms.portfolio.delete_portfoliologo %}
+                            {% if user.is_superuser %}
+                                <div class="card-footer">
                                     <div class="dropdown float-end my-1">
                                         <button type="button" class="btn btn-outline-primary dropdown-toggle"
                                                 data-bs-toggle="dropdown" style="width: 150px">Actions
@@ -121,19 +131,8 @@
                                             </li>
                                         </ul>
                                     </div>
-                                {% else %}
-                                    <div class="btn-group float-end my-1">
-                                        <a class="btn btn-outline-primary float-start"
-                                           href="{% url 'detail-portfolio-logo' previous_logo_id %}"
-                                           role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
-                                        <a class="btn btn-outline-primary float-start" href="{% url 'portfolio' %}"
-                                           role="button">View all</a>
-                                        <a class="btn btn-outline-primary float-start"
-                                           href="{% url 'detail-portfolio-logo' next_logo_id %}"
-                                           role="button" data-bs-toggle="tooltip" title="Next logo!">❯</a>
-                                    </div>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                         </div>
                         <!-- dropdown delete modal section -->
                         <div class="modal fade" id="portfoliologo_{{ portfoliologo.id }}" tabindex="-1"

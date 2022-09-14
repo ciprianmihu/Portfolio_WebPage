@@ -39,18 +39,20 @@
             </div>
         </section>
         <section>
-            {% if user.is_superuser %}
-                <div class="container-fluid pb-5 d-flex justify-content-center">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card" style="width: 200px">
-                                <a class="btn btn-outline-primary px-2"
-                                   href="{% url 'create-project-logo-files' projectlogo.id %}">Add a file</a>
-                            </div>
+            <div class="container-fluid pb-5 d-flex justify-content-center">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 200px">
+                            <a class="btn btn-outline-primary px-2"
+                                    {% if user.is_superuser %}
+                               href="{% url 'create-project-logo-files' projectlogo.id %}">Add a file</a>
+                                    {% else %}
+                                        href="{% url 'create-project-logo-files-c' projectlogo.id %}">Add a file</a>
+                                    {% endif %}
                         </div>
                     </div>
                 </div>
-            {% endif %}
+            </div>
             <div class="container-fluid">
                 <div class="row mb-4">
                     <div class="col-md-2 ms-2 my-2">

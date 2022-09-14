@@ -32,6 +32,17 @@ class ServiceDetailView(LoginRequiredMixin, DetailView):
     template_name = 'services/detail_service.html'
     model = ServiceLogo
 
+    def get_context_data(self, **kwargs):
+        data = super(ServiceDetailView, self).get_context_data(**kwargs)
+        service_ids = list(ServiceLogo.objects.all().values_list('pk', flat=True))
+        data['previous_service_id'] = service_ids[service_ids.index(self.object.id)-1]
+        try:
+            data['next_service_id'] = service_ids[service_ids.index(self.object.id)+1]
+        except IndexError:
+            data['next_service_id'] = service_ids[0]
+
+        return data
+
 
 class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'services/update_service.html'
