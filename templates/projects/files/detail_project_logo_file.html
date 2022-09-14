@@ -60,8 +60,11 @@
                                             status</a>
                                     </div>
                                 {% endif %}
+                            <a href="{% url 'create-project-logo-files-comment' projectfile.id %}"
+                               class="btn btn-outline-primary float-start my-1" style="width: 150px">Add a comment</a>
                             </div>
                         </div>
+
                         {% if comments %}
                             {% for file_comment in comments %}
                                 <div class="card mb-4">
@@ -78,8 +81,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <a href="{% url 'create-project-logo-files-comment' projectfile.id %}"
-                           class="btn btn-outline-primary float-end" style="width: 150px">Add a comment</a>
+
                     </div>
                 </div>
             </div>

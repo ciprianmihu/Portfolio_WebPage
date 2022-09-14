@@ -24,14 +24,28 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md mx-4 mb-4">
-                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'detail-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary me-2 my-1"
+                           href="{% url 'detail-project-logo' projectlogo.id %}"
                            style="width: 150px">Overview</a>
                         <a class="btn btn-primary me-2 my-1" href="{% url 'activity-project-logo' projectlogo.id %}"
                            style="width: 150px">Activity</a>
-                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'files-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary me-2 my-1"
+                           href="{% url 'files-project-logo' projectlogo.id %}"
                            style="width: 150px">Files</a>
                         <a class="btn btn-outline-primary my-1" href="{% url 'payments-project-logo' projectlogo.id %}"
                            style="width: 150px">Payments</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container-fluid pb-1 d-flex justify-content-center">
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 150px">
+                            <a href="{% url 'create-project-logo-message' projectlogo.id %}"
+                               class="btn btn-outline-primary float-end">Send a message</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,8 +99,6 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <a href="{% url 'create-project-logo-message' projectlogo.id %}"
-                           class="btn btn-outline-primary float-end" style="width: 150px">Send a message</a>
                     </div>
                 </div>
             </div>
