@@ -86,10 +86,10 @@
                         </div>
                     </div>
                     <div class="col-md me-2 my-2">
-                        <div class="row gy-4">
+                        <div class="row">
                             {% if files %}
                                 {% for project_logo_file in files %}
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-2 gb-4 gx-4">
                                         <div class="card mb-3 shadow" style="min-width: 150px">
                                             <a href="{% url 'detail-project-logo-files' projectlogo.id project_logo_file.id %}">
                                                 <img class="card-img-top"

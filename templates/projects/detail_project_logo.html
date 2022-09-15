@@ -231,16 +231,16 @@
                             <div class="card border border-0">
                                 <div class="col">
                                     <a class="btn btn-outline-primary me-2"
-                                       href="{% url 'payments-project-logo' projectlogo.id %}" style="width: 150px">
+                                       href="{% url 'create-project-logo-payment' projectlogo.id %}" style="width: 150px">
                                         Create a quote</a>
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'activity-project-logo' projectlogo.id %}" style="width: 150px">
+                                       href="{% url 'create-project-logo-message' projectlogo.id %}" style="width: 150px">
                                         Send a message</a>
                                 </div>
                             </div>
                         {% else %}
                             <a class="btn btn-outline-primary float-end"
-                               href="{% url 'activity-project-logo' projectlogo.id %}" style="width: 150px">
+                               href="{% url 'create-project-logo-message' projectlogo.id %}" style="width: 150px">
                                 Send a message</a>
                         {% endif %}
                     </div>
