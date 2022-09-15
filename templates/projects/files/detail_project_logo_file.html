@@ -25,13 +25,13 @@
                                 </div>
                                 <div class="btn-group float-end my-1">
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'detail-project-logo-files' previous_logo_id %}"
+                                       href="{% url 'detail-project-logo-files' projectfile.project.id previous_file_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Previous file!">❮</a>
                                     <a class="btn btn-outline-primary float-end"
                                        href="{% url 'files-project-logo' projectfile.project_id %}"
                                        role="button">View all</a>
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'detail-project-logo-files' next_logo_id %}"
+                                       href="{% url 'detail-project-logo-files' projectfile.project.id next_file_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Next file!">❯</a>
                                 </div>
                             </div>
