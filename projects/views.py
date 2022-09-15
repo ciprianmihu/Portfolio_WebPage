@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib import messages
 
 from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
 from projects.filters import ProjectsFilter
@@ -244,7 +245,7 @@ class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
         comments = ProjectFileComment.objects.filter(project_file=self.kwargs.get('pk'))
         data['comments'] = comments
 
-        project = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
+        # project = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
         logo_ids = list(ProjectFile.objects.all().values_list('pk', flat=True))
         data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id) - 1]
         try:

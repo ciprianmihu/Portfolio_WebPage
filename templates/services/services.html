@@ -90,7 +90,7 @@
                                                                 Are you sure you want to delete
                                                                 service: {{ service.service_name }}?
                                                             </div>
-                                                            <div class="row modal-footer">
+                                                            <div class="modal-footer">
                                                                 <div class="col">
                                                                     <span class="float-start">
                                                                         <button type="button"
@@ -98,8 +98,6 @@
                                                                                 data-bs-dismiss="modal"
                                                                                 style="width: 100px">No</button>
                                                                     </span>
-                                                                </div>
-                                                                <div class="col">
                                                                     <span class="float-end">
                                                                         <a href="{% url "delete-service-logo-modal" service.id %}"
                                                                            class="btn btn-outline-danger"

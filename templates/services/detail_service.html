@@ -22,11 +22,13 @@
                                     <h3 class="card-text">Overview</h3>
                                 </div>
                                 <div class="btn-group float-end my-1" style="width: 150px">
-                                    <a class="btn btn-outline-primary float-start" href="{% url 'detail-service-logo' previous_service_id %}"
+                                    <a class="btn btn-outline-primary float-start"
+                                       href="{% url 'detail-service-logo' previous_service_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Previous service!">❮</a>
                                     <a class="btn btn-outline-primary float-start" href="{% url 'services' %}"
                                        role="button">View all</a>
-                                    <a class="btn btn-outline-primary float-start" href="{% url 'detail-service-logo' next_service_id %}"
+                                    <a class="btn btn-outline-primary float-start"
+                                       href="{% url 'detail-service-logo' next_service_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Next service!">❯</a>
                                 </div>
                             </div>
@@ -80,18 +82,17 @@
                                         <br>
                                         {{ servicelogo.service_name }}?
                                     </div>
-                                    <div class="row modal-footer">
+                                    <div class="modal-footer">
                                         <div class="col">
-                                    <span class="float-start">
-                                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
-                                                style="width: 100px">No</button>
-                                    </span>
-                                        </div>
-                                        <div class="col">
-                                    <span class="float-end">
-                                        <a href="{% url "delete-service-logo-modal" servicelogo.id %}"
-                                           class="btn btn-outline-danger" style="width: 100px">Yes</a>
-                                    </span>
+                                            <span class="float-start">
+                                                <button type="button" class="btn btn-outline-primary"
+                                                        data-bs-dismiss="modal"
+                                                        style="width: 100px">No</button>
+                                            </span>
+                                            <span class="float-end">
+                                                <a href="{% url "delete-service-logo-modal" servicelogo.id %}"
+                                                   class="btn btn-outline-danger" style="width: 100px">Yes</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
