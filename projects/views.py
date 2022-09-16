@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
 from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
 from projects.filters import ProjectsFilter
@@ -90,7 +90,7 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProjectLogoForm
 
     def get_success_url(self):
-        return reverse('detail-project-logo', kwargs={'pk': self.object.id})
+        return reverse('detail-project', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
@@ -121,7 +121,7 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProjectLogoClientForm
 
     def get_success_url(self):
-        return reverse('detail-project-logo', kwargs={'pk': self.object.id})
+        return reverse('detail-project', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
@@ -143,14 +143,7 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
                           html_message=html_message1)
 
-            return redirect(reverse('detail-project-logo', kwargs={'pk': self.object.id}))
-
-
-class ProjectDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    template_name = 'projects/delete_project_logo.html'
-    model = ProjectLogo
-    success_url = reverse_lazy('projects')
-    permission_required = 'portfolio.delete_projectlogo'
+            return redirect(reverse('detail-project', kwargs={'pk': self.object.id}))
 
 
 @login_required
@@ -172,7 +165,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+        return reverse('files-project', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -198,7 +191,7 @@ class ProjectFilesClientCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+        return reverse('files-project', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -260,7 +253,7 @@ class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProjectFileForm
 
     def get_success_url(self):
-        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+        return reverse('files-project', kwargs={'pk': self.object.project.id})
 
 
 class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
@@ -269,7 +262,7 @@ class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
     form_class = ProjectFileUpdateForm
 
     def get_success_url(self):
-        return reverse('files-project-logo', kwargs={'pk': self.object.project.id})
+        return reverse('files-project', kwargs={'pk': self.object.project.id})
 
 
 @login_required
@@ -277,7 +270,7 @@ class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
 def delete_project_file(request, project_id, pk):
     ProjectFile.objects.filter(id=pk).delete()
 
-    return redirect('files-project-logo', pk=project_id)
+    return redirect('files-project', pk=project_id)
 
 
 class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
@@ -305,7 +298,7 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('detail-project-logo-files', kwargs={'pk': self.object.project_file.id})
+        return reverse('detail-project-file', kwargs={'pk': self.object.project_file.id})
 
 
 class ProjectActivityView(LoginRequiredMixin, DetailView):
@@ -346,7 +339,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('activity-project-logo', kwargs={'pk': self.object.project.id})
+        return reverse('activity-project', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
@@ -403,7 +396,7 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('payments-project-logo', kwargs={'pk': self.object.project.id})
+        return reverse('payments-project', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:

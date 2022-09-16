@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3 my-4 was-validated">
-                    <div class="card mb-2">
+                    <div class="card mb-2 shadow">
                         <div class="card-header">
                             <h3 class="text-center">Update file</h3>
                         </div>
@@ -20,7 +20,7 @@
                             </div>
                             <div class="card-footer">
                                 <a class="btn btn-outline-primary" style="width: 100px"
-                                   href="{% url 'files-project-logo' projectfile.project_id %}">Cancel</a>
+                                   href="{% url 'files-project' projectfile.project_id %}">Cancel</a>
                                 <button type="submit" class="btn btn-outline-primary float-end"
                                         style="width: 100px">Save
                                 </button>

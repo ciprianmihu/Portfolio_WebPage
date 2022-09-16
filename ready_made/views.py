@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 
 from ready_made.forms import ReadyMadeLogoForm
 from ready_made.models import ReadyLogo
@@ -46,20 +46,13 @@ class ReadyMadeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         data = super(ReadyMadeDetailView, self).get_context_data(**kwargs)
         logo_ids = list(ReadyLogo.objects.all().values_list('pk', flat=True))
-        data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id)-1]
+        data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id) - 1]
         try:
-            data['next_logo_id'] = logo_ids[logo_ids.index(self.object.id)+1]
+            data['next_logo_id'] = logo_ids[logo_ids.index(self.object.id) + 1]
         except IndexError:
             data['next_logo_id'] = logo_ids[0]
 
         return data
-
-
-class ReadyMadeDeleteVIew(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    template_name = 'ready_made/delete_ready_logo.html'
-    model = ReadyLogo
-    success_url = reverse_lazy('ready-made')
-    permission_required = 'ready_made.delete_readylogo'
 
 
 @login_required
@@ -68,4 +61,3 @@ def delete_ready_logo(request, pk):
     ReadyLogo.objects.filter(id=pk).delete()
 
     return redirect('ready-made')
-

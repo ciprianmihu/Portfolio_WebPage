@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md m-4">
-                        <div class="card">
+                        <div class="card shadow">
                             <div class="card-body">
                                 <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
                                 <a class="btn btn-outline-primary"
@@ -24,13 +24,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md mx-4">
-                        <a class="btn btn-primary me-2 my-1" href="{% url 'detail-project-logo' projectlogo.id %}"
+                        <a class="btn btn-primary me-2 my-1" href="{% url 'detail-project' projectlogo.id %}"
                            style="width: 150px">Overview</a>
-                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'activity-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'activity-project' projectlogo.id %}"
                            style="width: 150px">Activity</a>
-                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'files-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary me-2 my-1" href="{% url 'files-project' projectlogo.id %}"
                            style="width: 150px">Files</a>
-                        <a class="btn btn-outline-primary my-1" href="{% url 'payments-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary my-1" href="{% url 'payments-project' projectlogo.id %}"
                            style="width: 150px">Payments</a>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
             <div class="container mx-auto m-4">
                 <div class="row">
                     <div class="col">
-                        <div class="card" style="min-width: 200px">
+                        <div class="card shadow" style="min-width: 200px">
                             {% if projectlogo.optional_project_image_1 %}
                                 <img class="card-img"
                                      src="{{ projectlogo.optional_project_image_1.url }}"
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card mb-4" style="min-width: 200px">
+                        <div class="card mb-4 shadow" style="min-width: 200px">
                             <div class="card-header">
                                 <h3 class="card-text">Project brief:</h3>
                             </div>
@@ -218,7 +218,7 @@
                                    role="button" style="width: 150px">Go back</a>
                                 {% if user.is_superuser %}
                                     <a class="btn btn-outline-primary float-end my-1"
-                                       href="{% url 'update-project-logo' projectlogo.id %}" style="width: 150px">Edit
+                                       href="{% url 'update-project' projectlogo.id %}" style="width: 150px">Edit
                                         project</a>
                                 {% else %}
                                     <a class="btn btn-outline-primary float-end my-1"
@@ -231,16 +231,16 @@
                             <div class="card border border-0">
                                 <div class="col">
                                     <a class="btn btn-outline-primary me-2"
-                                       href="{% url 'create-project-logo-payment' projectlogo.id %}" style="width: 150px">
+                                       href="{% url 'create-project-payment' projectlogo.id %}" style="width: 150px">
                                         Create a quote</a>
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'create-project-logo-message' projectlogo.id %}" style="width: 150px">
+                                       href="{% url 'create-project-message' projectlogo.id %}" style="width: 150px">
                                         Send a message</a>
                                 </div>
                             </div>
                         {% else %}
                             <a class="btn btn-outline-primary float-end"
-                               href="{% url 'create-project-logo-message' projectlogo.id %}" style="width: 150px">
+                               href="{% url 'create-project-message' projectlogo.id %}" style="width: 150px">
                                 Send a message</a>
                         {% endif %}
                     </div>

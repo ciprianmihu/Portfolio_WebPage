@@ -11,27 +11,27 @@
             <div class="container mx-auto m-4">
                 <div class="row">
                     <div class="col">
-                        <div class="card" style="min-width: 200px">
+                        <div class="card shadow" style="min-width: 200px">
                             <img class="card-img"
                                  src="{{ projectfile.project_file.url }}"
                                  alt="Card image cap">
                         </div>
                     </div>
                     <div class="col">
-                        <div class="card mb-4" style="min-width: 200px">
+                        <div class="card mb-4 shadow" style="min-width: 200px">
                             <div class="card-header">
                                 <div class="d-inline-flex">
                                     <h3 class="card-text">File info: {{ projectfile.title }}</h3>
                                 </div>
                                 <div class="btn-group float-end my-1">
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'detail-project-logo-files' projectfile.project.id previous_file_id %}"
+                                       href="{% url 'detail-project-file' projectfile.project.id previous_file_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Previous file!">❮</a>
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'files-project-logo' projectfile.project_id %}"
+                                       href="{% url 'files-project' projectfile.project_id %}"
                                        role="button">View all</a>
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'detail-project-logo-files' projectfile.project.id next_file_id %}"
+                                       href="{% url 'detail-project-file' projectfile.project.id next_file_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Next file!">❯</a>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="card-footer">
                                 {% if user.is_superuser %}
-                                    <a href="{% url 'update-project-logo-files' projectfile.id %}"
+                                    <a href="{% url 'update-project-file' projectfile.id %}"
                                        class="btn btn-outline-primary float-end my-1" style="width: 100px">Edit
                                         file</a>
                                 {% else %}
@@ -55,18 +55,18 @@
                                                class="btn btn-outline-primary float-start"
                                                style="width: 100px">Download</a>
                                         {% endif %}
-                                        <a href="{% url 'update-project-logo-files-c' projectfile.id %}"
+                                        <a href="{% url 'update-project-file-c' projectfile.id %}"
                                            class="btn btn-outline-primary float-end" style="width: 100px">Edit
                                             status</a>
                                     </div>
                                 {% endif %}
-                            <a href="{% url 'create-project-logo-files-comment' projectfile.id %}"
+                            <a href="{% url 'create-project-file-comment' projectfile.id %}"
                                class="btn btn-outline-primary float-start my-1" style="width: 150px">Add a comment</a>
                             </div>
                         </div>
                         {% if comments %}
                             {% for file_comment in comments %}
-                                <div class="card mb-4">
+                                <div class="card mb-4 shadow">
                                     <div class="card-header border border-0">
                                         <span class="card-text float-start">{{ file_comment.comment }}</span>
                                         <span class="card-text float-end">Added by {{ file_comment.owner.first_name }} at {{ file_comment.date_added }}</span>
@@ -74,7 +74,7 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <div class="card mb-4" style="min-width: 140px">
+                            <div class="card mb-4 shadow" style="min-width: 140px">
                                 <div class="card-header text-center border border-0">
                                     <h3 class="card-text">No comments found</h3>
                                 </div>

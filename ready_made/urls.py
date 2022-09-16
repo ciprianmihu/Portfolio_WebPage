@@ -9,7 +9,6 @@ urlpatterns = [
     path('create_ready_logo/', views.ReadeMadeCreateView.as_view(), name='create-ready-logo'),
     path('update_ready_logo/<int:pk>/', views.ReadeMadeUpdateView.as_view(), name='update-ready-logo'),
     path('detail_ready_logo/<int:pk>/', views.ReadyMadeDetailView.as_view(), name='detail-ready-logo'),
-    path('delete_ready_logo/<int:pk>/', views.ReadyMadeDeleteVIew.as_view(), name='delete-ready-logo'),
     path('delete_ready_logo_modal/<int:pk>/', views.delete_ready_logo, name='delete-ready-logo-modal'),
 ]
 

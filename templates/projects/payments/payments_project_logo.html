@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md m-4">
-                        <div class="card">
+                        <div class="card shadow">
                             <div class="card-body">
                                 <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
                                 <a class="btn btn-outline-primary"
@@ -25,15 +25,15 @@
                 <div class="row">
                     <div class="col-md mx-4 mb-4">
                         <a class="btn btn-outline-primary me-2 my-1"
-                           href="{% url 'detail-project-logo' projectlogo.id %}"
+                           href="{% url 'detail-project' projectlogo.id %}"
                            style="width: 150px">Overview</a>
                         <a class="btn btn-outline-primary me-2 my-1"
-                           href="{% url 'activity-project-logo' projectlogo.id %}"
+                           href="{% url 'activity-project' projectlogo.id %}"
                            style="width: 150px">Activity</a>
                         <a class="btn btn-outline-primary me-2 my-1"
-                           href="{% url 'files-project-logo' projectlogo.id %}"
+                           href="{% url 'files-project' projectlogo.id %}"
                            style="width: 150px">Files</a>
-                        <a class="btn btn-primary my-1" href="{% url 'payments-project-logo' projectlogo.id %}"
+                        <a class="btn btn-primary my-1" href="{% url 'payments-project' projectlogo.id %}"
                            style="width: 150px">Payments</a>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <div class="col">
                             <div class="card" style="width: 150px">
                                 <a class="btn btn-outline-primary px-2"
-                                   href="{% url 'create-project-logo-payment' projectlogo.id %}">Create a qoute</a>
+                                   href="{% url 'create-project-payment' projectlogo.id %}">Create a qoute</a>
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                        <div class="card mb-4" style="min-width: 140px">
+                        <div class="card mb-4 shadow" style="min-width: 140px">
                             <div class="card-header text-center border border-0">
                                 <h3 class="card-text">No payments found</h3>
                             </div>

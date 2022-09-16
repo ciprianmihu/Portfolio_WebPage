@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="card" style="width: 200px">
-                                <a class="btn btn-outline-primary px-2" href="{% url 'create-project-logo' %}">
+                                <a class="btn btn-outline-primary px-2" href="{% url 'create-project' %}">
                                     Start a new project</a>
                             </div>
                         </div>
@@ -31,8 +31,8 @@
             {% endif %}
             <div class="container-fluid">
                 <div class="row mb-4">
-                    <div class="col-md-2 ms-2 my-2">
-                        <div class="card mb-4" style="min-width: 140px">
+                    <div class="col-md-2 ms-2">
+                        <div class="card mb-4 shadow" style="min-width: 140px">
                             <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
                                 <h3 class="card-text">Your projects</h3>
                             </div>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         {% if user.is_superuser %}
-                            <div class="card" style="min-width: 140px">
+                            <div class="card shadow" style="min-width: 140px">
                                 <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
                                     <h3 class="card-text">Filter projects</h3>
                                 </div>
@@ -75,10 +75,10 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-md me-2 my-2">
+                    <div class="col-md me-2">
                         {% if all_projects %}
                             {% for project_logo in all_projects %}
-                                <div class="card mb-4" style="min-width: 140px">
+                                <div class="card mb-4 shadow" style="min-width: 140px">
                                     <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
                                         <h3 class="card-text">{{ project_logo.project_name }}</h3>
                                     </div>
@@ -86,7 +86,7 @@
                                         <div class="row">
                                             <div class="col-md-2 m-2" style="min-width: 140px;min-height: 140px">
                                                 <div class="card">
-                                                    <a href="{% url 'detail-project-logo' project_logo.id %}">
+                                                    <a href="{% url 'detail-project' project_logo.id %}">
                                                         {% if project_logo.optional_project_image_1 %}
                                                             <img class="card-img"
                                                                  src="{{ project_logo.optional_project_image_1.url }}"
@@ -132,15 +132,15 @@
                                                             data-bs-toggle="dropdown" style="width: 150px">Actions
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a href="{% url 'detail-project-logo' project_logo.id %}"
+                                                        <li><a href="{% url 'detail-project' project_logo.id %}"
                                                                class="dropdown-item">Overview</a></li>
-                                                        <li><a href="{% url 'activity-project-logo' project_logo.id %}"
+                                                        <li><a href="{% url 'activity-project' project_logo.id %}"
                                                                class="dropdown-item">Activity</a></li>
-                                                        <li><a href="{% url 'files-project-logo' project_logo.id %}"
+                                                        <li><a href="{% url 'files-project' project_logo.id %}"
                                                                class="dropdown-item">Files</a></li>
                                                         {% if user.is_superuser %}
                                                             <li>
-                                                                <a href="{% url 'update-project-logo' project_logo.id %}"
+                                                                <a href="{% url 'update-project' project_logo.id %}"
                                                                    class="dropdown-item">Edit project</a></li>
                                                         {% else %}
                                                             <li>
@@ -185,7 +185,7 @@
                                                                                 style="width: 100px">No</button>
                                                                     </span>
                                                                     <span class="float-end">
-                                                                        <a href="{% url "delete-project-logo-modal" project_logo.id %}"
+                                                                        <a href="{% url "delete-project-modal" project_logo.id %}"
                                                                            class="btn btn-outline-danger"
                                                                            style="width: 100px">Yes</a>
                                                                     </span>
@@ -200,7 +200,7 @@
                                 </div>
                             {% endfor %}
                         {% else %}
-                            <div class="card mb-4" style="min-width: 140px">
+                            <div class="card mb-4 shadow" style="min-width: 140px">
                                 <div class="card-header text-center border border-0">
                                     <h3 class="card-text">No projects found</h3>
                                 </div>

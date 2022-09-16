@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 
 from portfolio.forms import PortfolioLogoForm
 from portfolio.models import PortfolioLogo
@@ -46,20 +46,13 @@ class PortfolioDetailView(DetailView):
     def get_context_data(self, **kwargs):
         data = super(PortfolioDetailView, self).get_context_data(**kwargs)
         logo_ids = list(PortfolioLogo.objects.all().values_list('pk', flat=True))
-        data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id)-1]
+        data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id) - 1]
         try:
-            data['next_logo_id'] = logo_ids[logo_ids.index(self.object.id)+1]
+            data['next_logo_id'] = logo_ids[logo_ids.index(self.object.id) + 1]
         except IndexError:
             data['next_logo_id'] = logo_ids[0]
 
         return data
-
-
-class PortfolioDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    template_name = 'portfolio/delete_portfolio_logo.html'
-    model = PortfolioLogo
-    success_url = reverse_lazy('portfolio')
-    permission_required = 'portfolio.delete_portfoliologo'
 
 
 @login_required

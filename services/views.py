@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 
 from services.forms import ServiceForm
 from services.models import ServiceLogo
@@ -35,9 +35,9 @@ class ServiceDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         data = super(ServiceDetailView, self).get_context_data(**kwargs)
         service_ids = list(ServiceLogo.objects.all().values_list('pk', flat=True))
-        data['previous_service_id'] = service_ids[service_ids.index(self.object.id)-1]
+        data['previous_service_id'] = service_ids[service_ids.index(self.object.id) - 1]
         try:
-            data['next_service_id'] = service_ids[service_ids.index(self.object.id)+1]
+            data['next_service_id'] = service_ids[service_ids.index(self.object.id) + 1]
         except IndexError:
             data['next_service_id'] = service_ids[0]
 
@@ -52,13 +52,6 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
     def get_success_url(self):
         return reverse('detail-service-logo', kwargs={'pk': self.object.id})
-
-
-class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    template_name = 'services/delete_service.html'
-    model = ServiceLogo
-    success_url = reverse_lazy('services')
-    permission_required = 'services.delete_servicelogo'
 
 
 @login_required

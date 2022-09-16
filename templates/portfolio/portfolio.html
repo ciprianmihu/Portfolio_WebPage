@@ -30,11 +30,11 @@
                     </div>
                 </div>
             {% endif %}
-            <div class="container py-5">
-                <div class="row gy-4">
+            <div class="container">
+                <div class="row">
                     {% for portfolio_logo in all_portfolio_logos %}
                         <div class="col-md-3">
-                            <div class="card mb-3 shadow">
+                            <div class="card mb-4 shadow">
                                 <a href="{% url 'detail-portfolio-logo' portfolio_logo.id %}">
                                     <img class="card-img-top"
                                          src="{{ portfolio_logo.logo_image_1.url }}"

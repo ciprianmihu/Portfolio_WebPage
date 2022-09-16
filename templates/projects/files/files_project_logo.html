@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md m-4">
-                        <div class="card">
+                        <div class="card shadow">
                             <div class="card-body">
                                 <h3 class="card-text">Project name: {{ projectlogo.project_name }}</h3>
                                 <a class="btn btn-outline-primary"
@@ -25,14 +25,14 @@
                 <div class="row">
                     <div class="col-md mx-4 mb-4">
                         <a class="btn btn-outline-primary me-2 my-1"
-                           href="{% url 'detail-project-logo' projectlogo.id %}"
+                           href="{% url 'detail-project' projectlogo.id %}"
                            style="width: 150px">Overview</a>
                         <a class="btn btn-outline-primary me-2 my-1"
-                           href="{% url 'activity-project-logo' projectlogo.id %}"
+                           href="{% url 'activity-project' projectlogo.id %}"
                            style="width: 150px">Activity</a>
-                        <a class="btn btn-primary me-2 my-1" href="{% url 'files-project-logo' projectlogo.id %}"
+                        <a class="btn btn-primary me-2 my-1" href="{% url 'files-project' projectlogo.id %}"
                            style="width: 150px">Files</a>
-                        <a class="btn btn-outline-primary my-1" href="{% url 'payments-project-logo' projectlogo.id %}"
+                        <a class="btn btn-outline-primary my-1" href="{% url 'payments-project' projectlogo.id %}"
                            style="width: 150px">Payments</a>
                     </div>
                 </div>
@@ -45,10 +45,10 @@
                         <div class="card" style="width: 150px">
                             {% if user.is_superuser %}
                                 <a class="btn btn-outline-primary px-2"
-                                   href="{% url 'create-project-logo-files' projectlogo.id %}">Add a file</a>
+                                   href="{% url 'create-project-file' projectlogo.id %}">Add a file</a>
                             {% else %}
                                 <a class="btn btn-outline-primary px-2"
-                                   href="{% url 'create-project-logo-files-c' projectlogo.id %}">Add a file</a>
+                                   href="{% url 'create-project-file-c' projectlogo.id %}">Add a file</a>
                             {% endif %}
                         </div>
                     </div>
@@ -57,30 +57,30 @@
             <div class="container-fluid">
                 <div class="row mb-4">
                     <div class="col-md-2 ms-2 my-2">
-                        <div class="card mb-4" style="min-width: 140px">
+                        <div class="card mb-4 shadow" style="min-width: 140px">
                             <div class="card-header text-center bg-secondary bg-opacity-50 border border-0">
                                 <h3 class="card-text">Project files</h3>
                             </div>
                             <div class="card-body">
                                 <p class="card-text">
-                                    <a class="text-dark" href="{% url 'files-project-logo' projectlogo.id %}"
+                                    <a class="text-dark" href="{% url 'files-project' projectlogo.id %}"
                                        style="text-decoration: none">All files ({{ count_all }})</a>
                                 </p>
                                 <p class="card-text">
                                     <a class="text-dark"
-                                       href="{% url 'files-project-logo' projectlogo.id %}?status=Reference"
+                                       href="{% url 'files-project' projectlogo.id %}?status=Reference"
                                        style="text-decoration: none">Reference ({{ count_reference }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark"
-                                       href="{% url 'files-project-logo' projectlogo.id %}?status=In%20progress"
+                                       href="{% url 'files-project' projectlogo.id %}?status=In%20progress"
                                        style="text-decoration: none">In progress ({{ count_in_progress }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark"
-                                       href="{% url 'files-project-logo' projectlogo.id %}?status=Declined"
+                                       href="{% url 'files-project' projectlogo.id %}?status=Declined"
                                        style="text-decoration: none">Declined ({{ count_declined }})</a></p>
                                 <p class="card-text">
                                     <a class="text-dark"
-                                       href="{% url 'files-project-logo' projectlogo.id %}?status=Final"
+                                       href="{% url 'files-project' projectlogo.id %}?status=Final"
                                        style="text-decoration: none">Final ({{ count_final }})</a></p>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                 {% for project_logo_file in files %}
                                     <div class="col-lg-2 gb-4 gx-4">
                                         <div class="card mb-3 shadow" style="min-width: 150px">
-                                            <a href="{% url 'detail-project-logo-files' projectlogo.id project_logo_file.id %}">
+                                            <a href="{% url 'detail-project-file' projectlogo.id project_logo_file.id %}">
                                                 <img class="card-img-top"
                                                      src="{{ project_logo_file.project_file.url }}"
                                                      alt="Card image cap"></a>
@@ -117,7 +117,7 @@
                                                                data-bs-toggle="tooltip" title="Download">∇</a>
                                                         {% endif %}
                                                     {% endif %}
-                                                    <a href="{% url 'update-project-logo-files-c' project_logo_file.id %}"
+                                                    <a href="{% url 'update-project-file-c' project_logo_file.id %}"
                                                        class="btn btn-outline-primary float-end"
                                                        data-bs-toggle="tooltip" title="Change status">Δ</a>
                                                 </div>
@@ -150,7 +150,7 @@
                                                                         style="width: 100px">No</button>
                                                             </span>
                                                             <span class="float-end">
-                                                                <a href="{% url "delete-project-logo-file-modal" project_id=projectlogo.id pk=project_logo_file.id %}"
+                                                                <a href="{% url "delete-project-file-modal" project_id=projectlogo.id pk=project_logo_file.id %}"
                                                                    class="btn btn-outline-danger"
                                                                    style="width: 100px">Yes</a>
                                                             </span>
