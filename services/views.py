@@ -51,7 +51,7 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     permission_required = 'services.change_servicelogo'
 
     def get_success_url(self):
-        return reverse('detail-service-logo', kwargs={'pk': self.object.id})
+        return reverse('detail-service', kwargs={'pk': self.object.id})
 
 
 @login_required
