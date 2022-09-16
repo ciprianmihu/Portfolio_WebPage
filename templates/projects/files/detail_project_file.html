@@ -28,7 +28,7 @@
                                        href="{% url 'detail-project-file' projectfile.project.id previous_file_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Previous file!">❮</a>
                                     <a class="btn btn-outline-primary float-end"
-                                       href="{% url 'files-project' projectfile.project_id %}"
+                                       href="{% url 'project-files' projectfile.project_id %}"
                                        role="button">View all</a>
                                     <a class="btn btn-outline-primary float-end"
                                        href="{% url 'detail-project-file' projectfile.project.id next_file_id %}"

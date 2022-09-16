@@ -134,9 +134,9 @@
                                                     <ul class="dropdown-menu">
                                                         <li><a href="{% url 'detail-project' project_logo.id %}"
                                                                class="dropdown-item">Overview</a></li>
-                                                        <li><a href="{% url 'activity-project' project_logo.id %}"
+                                                        <li><a href="{% url 'project-activity' project_logo.id %}"
                                                                class="dropdown-item">Activity</a></li>
-                                                        <li><a href="{% url 'files-project' project_logo.id %}"
+                                                        <li><a href="{% url 'project-files' project_logo.id %}"
                                                                class="dropdown-item">Files</a></li>
                                                         {% if user.is_superuser %}
                                                             <li>

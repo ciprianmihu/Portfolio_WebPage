@@ -16,7 +16,7 @@ from userextend.models import UserExtend
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'projects/create_project_logo.html'
+    template_name = 'projects/create_project.html'
     model = ProjectLogo
     form_class = ProjectLogoForm
     success_url = reverse_lazy('projects')
@@ -80,12 +80,12 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/detail_project_logo.html'
+    template_name = 'projects/detail_project.html'
     model = ProjectLogo
 
 
 class ProjectUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'projects/update_project_logo.html'
+    template_name = 'projects/update_project.html'
     model = ProjectLogo
     form_class = ProjectLogoForm
 
@@ -116,7 +116,7 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'projects/update_project_logo.html'
+    template_name = 'projects/update_project.html'
     model = ProjectLogo
     form_class = ProjectLogoClientForm
 
@@ -155,7 +155,7 @@ def delete_project_logo(request, pk):
 
 
 class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'projects/files/create_project_logo_file.html'
+    template_name = 'projects/files/create_project_file.html'
     model = ProjectFile
     form_class = ProjectFileForm
 
@@ -165,7 +165,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('files-project', kwargs={'pk': self.object.project.id})
+        return reverse('project-files', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -181,7 +181,7 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectFilesClientCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'projects/files/create_project_logo_file.html'
+    template_name = 'projects/files/create_project_file.html'
     model = ProjectFile
     form_class = ProjectFileClientForm
 
@@ -191,7 +191,7 @@ class ProjectFilesClientCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('files-project', kwargs={'pk': self.object.project.id})
+        return reverse('project-files', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -207,7 +207,7 @@ class ProjectFilesClientCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/files/files_project_logo.html'
+    template_name = 'projects/files/files_project.html'
     model = ProjectLogo
 
     def get_context_data(self, **kwargs):
@@ -229,7 +229,7 @@ class ProjectFilesView(LoginRequiredMixin, DetailView):
 
 
 class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/files/detail_project_logo_file.html'
+    template_name = 'projects/files/detail_project_file.html'
     model = ProjectFile
 
     def get_context_data(self, **kwargs):
@@ -248,21 +248,21 @@ class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
 
 
 class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'projects/files/update_project_logo_file.html'
+    template_name = 'projects/files/update_project_file.html'
     model = ProjectFile
     form_class = ProjectFileForm
 
     def get_success_url(self):
-        return reverse('files-project', kwargs={'pk': self.object.project.id})
+        return reverse('project-files', kwargs={'pk': self.object.project.id})
 
 
 class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = 'projects/files/update_project_logo_file.html'
+    template_name = 'projects/files/update_project_file.html'
     model = ProjectFile
     form_class = ProjectFileUpdateForm
 
     def get_success_url(self):
-        return reverse('files-project', kwargs={'pk': self.object.project.id})
+        return reverse('project-files', kwargs={'pk': self.object.project.id})
 
 
 @login_required
@@ -270,11 +270,11 @@ class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
 def delete_project_file(request, project_id, pk):
     ProjectFile.objects.filter(id=pk).delete()
 
-    return redirect('files-project', pk=project_id)
+    return redirect('project-files', pk=project_id)
 
 
 class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'projects/comments/create_project_logo_file_comment.html'
+    template_name = 'projects/comments/create_project_file_comment.html'
     model = ProjectFileComment
     form_class = ProjectFileCommentForm
 
@@ -302,7 +302,7 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectActivityView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/activity/activity_project_logo.html'
+    template_name = 'projects/activity/activity_project.html'
     model = ProjectLogo
 
     def get_context_data(self, **kwargs):
@@ -316,7 +316,7 @@ class ProjectActivityView(LoginRequiredMixin, DetailView):
 
 
 class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'projects/messages/create_project_logo_message.html'
+    template_name = 'projects/messages/create_project_message.html'
     model = ProjectActivityMessage
     form_class = ProjectMessageForm
 
@@ -339,7 +339,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('activity-project', kwargs={'pk': self.object.project.id})
+        return reverse('project-activity', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
@@ -361,7 +361,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/payments/payments_project_logo.html'
+    template_name = 'projects/payments/payments_project.html'
     model = ProjectLogo
 
     def get_context_data(self, **kwargs):
@@ -373,7 +373,7 @@ class ProjectPaymentsView(LoginRequiredMixin, DetailView):
 
 
 class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
-    template_name = 'projects/payments/create_project_logo_payment.html'
+    template_name = 'projects/payments/create_project_payment.html'
     model = ProjectPayment
     form_class = ProjectPaymentForm
 
@@ -396,7 +396,7 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('payments-project', kwargs={'pk': self.object.project.id})
+        return reverse('project-payments', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
         if form.is_valid() and not form.errors:
