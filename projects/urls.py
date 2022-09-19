@@ -21,7 +21,7 @@ urlpatterns = [
     path('update_project_file_c/<int:pk>/', views.ProjectFilesClientUpdateView.as_view(), name='update-project-file-c'),
     path('project/<int:project_id>/delete_project_file_modal/<int:pk>/', views.delete_project_file,
          name='delete-project-file-modal'),
-    path('create_project_comment_file/<int:pk>/', views.ProjectFilesCommentCreateView.as_view(),
+    path('create_project_file_comment/<int:pk>/', views.ProjectFilesCommentCreateView.as_view(),
          name='create-project-file-comment'),
     path('create_project_message/<int:pk>/', views.ProjectMessageCreateView.as_view(), name='create-project-message'),
     path('create_project_payment/<int:pk>/', views.ProjectPaymentCreateView.as_view(), name='create-project-payment'),

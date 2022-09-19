@@ -90,13 +90,16 @@
                             {% if files %}
                                 {% for project_logo_file in files %}
                                     <div class="col-lg-2 gb-4 gx-4">
+                                        <div class="mb-1">
+                                            <a href="{% url 'detail-project-file' projectlogo.id project_logo_file.id %}"
+                                            style="text-decoration: none">#{{ forloop.counter }}</a></div>
                                         <div class="card mb-3 shadow" style="min-width: 150px">
                                             <a href="{% url 'detail-project-file' projectlogo.id project_logo_file.id %}">
                                                 <img class="card-img-top"
                                                      src="{{ project_logo_file.project_file.url }}"
                                                      alt="Card image cap"></a>
-                                            <div class="card-img-overlay"
-                                                 style="pointer-events: none">{{ forloop.counter }}</div>
+{#                                            <div class="card-img-overlay"#}
+{#                                                 style="pointer-events: none">{{ forloop.counter }}</div>#}
                                             <div class="card-footer">
                                                 <span class="card-text">{{ project_logo_file.status }}</span>
                                                 <div class="btn-group float-end">
