@@ -298,7 +298,7 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('detail-project-file', kwargs={'pk': self.object.project_file.id})
+        return reverse('detail-project-file', kwargs={'project_id': self.object.project.id, 'pk': self.object.project_file.id})
 
 
 class ProjectActivityView(LoginRequiredMixin, DetailView):

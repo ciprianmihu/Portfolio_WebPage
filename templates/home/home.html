@@ -21,13 +21,13 @@
                 </div>
                 <!-- Carousel inner -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="6000">
+                    <div class="carousel-item active" data-bs-interval="5000">
                         <img src="{% static 'images/Carousel_Cip_1_1.png' %}" alt="Slide 1" class="d-block w-100">
                     </div>
-                    <div class="carousel-item" data-bs-interval="3000">
+                    <div class="carousel-item" data-bs-interval="4000">
                         <img src="{% static 'images/Carousel_Cip_1_2.png' %}" alt="Slide 2" class="d-block w-100">
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-bs-interval="3000">
                         <img src="{% static 'images/Carousel_Cip_1_3.png' %}" alt="Slide 3" class="d-block w-100">
                     </div>
                     <!-- Left and right controls/icons -->
@@ -138,12 +138,12 @@
                                 {% if user.is_authenticated %}
                                     <a href="{% url 'services' %}">
                                         <img class="card-img-top"
-                                             src="{% static "images/Recent work/Allebone_1.png" %}"
+                                             src="{% static "images/Recent work/Athena_1.png" %}"
                                              alt="Card image cap"></a>
                                 {% else %}
                                     <a href="{% url 'login' %}">
                                         <img class="card-img-top"
-                                             src="{% static "images/Recent work/Allebone_1.png" %}"
+                                             src="{% static "images/Recent work/Athena_1.png" %}"
                                              alt="Card image cap"></a>
                                 {% endif %}
                                 <div class="card-body">
@@ -161,12 +161,12 @@
                                 {% if user.is_authenticated %}
                                     <a href="{% url 'services' %}">
                                         <img class="card-img-top"
-                                             src="{% static "images/Recent work/Ankylo_1.png" %}"
+                                             src="{% static "images/Recent work/Cargostore_1.png" %}"
                                              alt="Card image cap"></a>
                                 {% else %}
                                     <a href="{% url 'login' %}">
                                         <img class="card-img-top"
-                                             src="{% static "images/Recent work/Ankylo_1.png" %}"
+                                             src="{% static "images/Recent work/Cargostore_1.png" %}"
                                              alt="Card image cap"></a>
                                 {% endif %}
                                 <div class="card-body">
@@ -184,12 +184,12 @@
                                 {% if user.is_authenticated %}
                                     <a href="{% url 'services' %}">
                                         <img class="card-img-top"
-                                             src="{% static "images/Recent work/MG_Capital_1.png" %}"
+                                             src="{% static "images/Recent work/Hash_1.png" %}"
                                              alt="Card image cap"></a>
                                 {% else %}
                                     <a href="{% url 'login' %}">
                                         <img class="card-img-top"
-                                             src="{% static "images/Recent work/MG_Capital_1.png" %}"
+                                             src="{% static "images/Recent work/Hash_1.png" %}"
                                              alt="Card image cap"></a>
                                 {% endif %}
                                 <div class="card-body">
@@ -206,7 +206,7 @@
                             <div class="card mb-3 shadow">
                                 <a href="{% url 'ready-made' %}">
                                     <img class="card-img-top"
-                                         src="{% static "images/Recent work/vuldb_1.png" %}"
+                                         src="{% static "images/Recent work/Aeostra_1.png" %}"
                                          alt="Card image cap"></a>
                                 <div class="card-body">
                                     <p class="card-text text-center">READY MADE</p>
