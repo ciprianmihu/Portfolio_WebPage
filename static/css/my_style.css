@@ -7,3 +7,14 @@
     text-align: center;
 }
 
+.inner{
+    overflow: hidden; !important;
+}
+
+.inner img{
+    transition: all 1.5s ease; !important;
+}
+
+.inner:hover img{
+    transform: scale(1.5); !important;
+}
