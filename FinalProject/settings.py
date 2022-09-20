@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -99,14 +100,14 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 DATABASES = {
     'default': {
 
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'ENGINE': os.environ['DB_ENGINE'],
-        # 'NAME': os.environ['DB_NAME'],
-        # 'USER': os.environ['DB_USER'],
-        # 'PASSWORD': os.environ['DB_PASSWORD'],
-        # 'HOST': os.environ['DB_HOST'],
-        # 'PORT': os.environ['DB_PORT'],
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ['DB_ENGINE'],
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
 
     }
 }
@@ -140,6 +141,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -163,6 +165,8 @@ LOGOUT_REDIRECT_URL = '/login/'
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # trimite mail in consola
 # SMTP = SIMPLE MAIL TRANSFER PROTOCOL - un protocol folosit pentru trimiterea de mailuri
 
+DEFAULT_FROM_EMAIL = 'admin@florisdent.ro'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
@@ -170,9 +174,11 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_USE_SSL = True
 
-# SOCIAL_AUTH_GITHUB_KEY = os.environ.get('SOCIAL_AUTH_GITHUB_KEY')
-# SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('SOCIAL_AUTH_GITHUB_SECRET')
-# SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
-# SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('SOCIAL_AUTH_GITHUB_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 
 # TLS - Transport Layer Security - protocoale criptografice care permit comunicatii sigure
+
+django_heroku.settings(locals())
