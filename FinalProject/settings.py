@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+
+import dj_database_url
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -97,20 +99,37 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+
+#         'ENGINE': os.environ['DB_ENGINE'],
+#         'NAME': os.environ['DB_NAME'],
+#         'USER': os.environ['DB_USER'],
+#         'PASSWORD': os.environ['DB_PASSWORD'],
+#         'HOST': os.environ['DB_HOST'],
+#         'PORT': os.environ['DB_PORT'],
+#
+#     }
+# }
+
+MAX_CONN_AGE = 600
+
 DATABASES = {
-    'default': {
-
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': os.environ['DB_ENGINE'],
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
-        'PORT': os.environ['DB_PORT'],
-
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3")
     }
 }
+
+if "DATABASE_URL" in os.environ:
+    # Configure Django for DATABASE_URL environment variable.
+    DATABASES["default"] = dj_database_url.config(
+        conn_max_age=MAX_CONN_AGE, ssl_require=True)
+
+    # # Enable test database if found in CI environment.
+    # if "CI" in os.environ:
+    #     DATABASES["default"]["TEST"] = DATABASES["default"]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
