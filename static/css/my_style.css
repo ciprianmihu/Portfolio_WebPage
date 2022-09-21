@@ -12,9 +12,9 @@
 }
 
 .inner img{
-    transition: all 1.5s ease; !important;
+    transition: all 1s ease; !important;
 }
 
 .inner:hover img{
-    transform: scale(1.5); !important;
+    transform: scale(2.1); !important;
 }

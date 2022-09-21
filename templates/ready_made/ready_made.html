@@ -35,11 +35,13 @@
                     {% for ready_logo in all_ready_logos %}
                         <div class="col-md-3">
                             <div class="card mb-4 shadow">
-                                <a href="{% url 'detail-ready-logo' ready_logo.id %}">
-                                    <img class="card-img-top"
-                                         src="{{ ready_logo.logo_image_1.url }}"
-                                         alt="Card image cap">
-                                </a>
+                                <div class="inner">
+                                    <a href="{% url 'detail-ready-logo' ready_logo.id %}">
+                                        <img class="card-img-top"
+                                             src="{{ ready_logo.logo_image_1.url }}"
+                                             alt="Card image cap">
+                                    </a>
+                                </div>
                                 <div class="card-body">
                                     <p class="card-text text-center">{{ ready_logo.logo_name.upper }}</p>
                                 </div>

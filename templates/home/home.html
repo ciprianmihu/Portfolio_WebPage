@@ -58,12 +58,14 @@
             <div class="container py-4">
                 <div class="row gy-4">
                     <div class="col-md-3">
-                        <div class="card mb-3 shadow inner">
-                            <a href="{% url 'portfolio' %}">
-                                <img class="card-img-top"
-                                     src="{% static "images/Recent work/Allebone_1.png" %}"
-                                     alt="Card image cap">
-                            </a>
+                        <div class="card mb-3 shadow">
+                            <div class="inner">
+                                <a href="{% url 'portfolio' %}">
+                                    <img class="card-img-top"
+                                         src="{% static "images/Recent work/Allebone_1.png" %}"
+                                         alt="Card image cap">
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <p class="card-text text-center">ALLEBONE</p>
                             </div>
@@ -71,11 +73,13 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card mb-3 shadow">
-                            <a href="{% url 'portfolio' %}">
-                                <img class="card-img-top"
-                                     src="{% static "images/Recent work/Ankylo_1.png" %}"
-                                     alt="Card image cap">
-                            </a>
+                            <div class="inner">
+                                <a href="{% url 'portfolio' %}">
+                                    <img class="card-img-top"
+                                         src="{% static "images/Recent work/Ankylo_1.png" %}"
+                                         alt="Card image cap">
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <p class="card-text text-center">ANKYLO TOOLS</p>
                             </div>
@@ -83,11 +87,13 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card mb-3 shadow">
-                            <a href="{% url 'portfolio' %}">
-                                <img class="card-img-top"
-                                     src="{% static "images/Recent work/MG_Capital_1.png" %}"
-                                     alt="Card image cap">
-                            </a>
+                            <div class="inner">
+                                <a href="{% url 'portfolio' %}">
+                                    <img class="card-img-top"
+                                         src="{% static "images/Recent work/MG_Capital_1.png" %}"
+                                         alt="Card image cap">
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <p class="card-text text-center">MG CAPITAL</p>
                             </div>
@@ -95,11 +101,13 @@
                     </div>
                     <div class="col-md-3">
                         <div class="card mb-3 shadow">
-                            <a href="{% url 'portfolio' %}">
-                                <img class="card-img-top"
-                                     src="{% static "images/Recent work/vuldb_1.png" %}"
-                                     alt="Card image cap">
-                            </a>
+                            <div class="inner">
+                                <a href="{% url 'portfolio' %}">
+                                    <img class="card-img-top"
+                                         src="{% static "images/Recent work/vuldb_1.png" %}"
+                                         alt="Card image cap">
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <p class="card-text text-center">VULDB</p>
                             </div>
@@ -136,15 +144,19 @@
                              data-bs-content="My top expertise. I create awesome logos that will connect, inform and inspire across all sectors.">
                             <div class="card mb-3 shadow">
                                 {% if user.is_authenticated %}
-                                    <a href="{% url 'services' %}">
-                                        <img class="card-img-top"
-                                             src="{% static "images/Recent work/Athena_1.png" %}"
-                                             alt="Card image cap"></a>
+                                    <div class="inner">
+                                        <a href="{% url 'services' %}">
+                                            <img class="card-img-top"
+                                                 src="{% static "images/Recent work/Athena_1.png" %}"
+                                                 alt="Card image cap"></a>
+                                    </div>
                                 {% else %}
-                                    <a href="{% url 'login' %}">
-                                        <img class="card-img-top"
-                                             src="{% static "images/Recent work/Athena_1.png" %}"
-                                             alt="Card image cap"></a>
+                                    <div class="inner">
+                                        <a href="{% url 'login' %}">
+                                            <img class="card-img-top"
+                                                 src="{% static "images/Recent work/Athena_1.png" %}"
+                                                 alt="Card image cap"></a>
+                                    </div>
                                 {% endif %}
                                 <div class="card-body">
                                     <p class="card-text text-center">LOGO DESIGN</p>
@@ -159,15 +171,19 @@
                              data-bs-content="Showcase your awesome logo with a flawless stationery design.">
                             <div class="card mb-3 shadow">
                                 {% if user.is_authenticated %}
-                                    <a href="{% url 'services' %}">
-                                        <img class="card-img-top"
-                                             src="{% static "images/Recent work/Cargostore_1.png" %}"
-                                             alt="Card image cap"></a>
+                                    <div class="inner">
+                                        <a href="{% url 'services' %}">
+                                            <img class="card-img-top"
+                                                 src="{% static "images/Recent work/Cargostore_1.png" %}"
+                                                 alt="Card image cap"></a>
+                                    </div>
                                 {% else %}
-                                    <a href="{% url 'login' %}">
-                                        <img class="card-img-top"
-                                             src="{% static "images/Recent work/Cargostore_1.png" %}"
-                                             alt="Card image cap"></a>
+                                    <div class="inner">
+                                        <a href="{% url 'login' %}">
+                                            <img class="card-img-top"
+                                                 src="{% static "images/Recent work/Cargostore_1.png" %}"
+                                                 alt="Card image cap"></a>
+                                    </div>
                                 {% endif %}
                                 <div class="card-body">
                                     <p class="card-text text-center">STATIONERY DESIGN</p>
@@ -182,15 +198,19 @@
                              data-bs-content="I will integrate the design across every aspect of your business to help it grow and thrive.">
                             <div class="card mb-3 shadow">
                                 {% if user.is_authenticated %}
-                                    <a href="{% url 'services' %}">
-                                        <img class="card-img-top"
-                                             src="{% static "images/Recent work/Hash_1.png" %}"
-                                             alt="Card image cap"></a>
+                                    <div class="inner">
+                                        <a href="{% url 'services' %}">
+                                            <img class="card-img-top"
+                                                 src="{% static "images/Recent work/Hash_1.png" %}"
+                                                 alt="Card image cap"></a>
+                                    </div>
                                 {% else %}
-                                    <a href="{% url 'login' %}">
-                                        <img class="card-img-top"
-                                             src="{% static "images/Recent work/Hash_1.png" %}"
-                                             alt="Card image cap"></a>
+                                    <div class="inner">
+                                        <a href="{% url 'login' %}">
+                                            <img class="card-img-top"
+                                                 src="{% static "images/Recent work/Hash_1.png" %}"
+                                                 alt="Card image cap"></a>
+                                    </div>
                                 {% endif %}
                                 <div class="card-body">
                                     <p class="card-text text-center">BRANDING DESIGN</p>
@@ -204,13 +224,16 @@
                              data-bs-custom-class="custom-popover"
                              data-bs-content="Follow me and stay up to date for special deals and customisable ready made logos.">
                             <div class="card mb-3 shadow">
-                                <a href="{% url 'ready-made' %}">
-                                    <img class="card-img-top"
-                                         src="{% static "images/Recent work/Aeostra_1.png" %}"
-                                         alt="Card image cap"></a>
-                                <div class="card-body">
-                                    <p class="card-text text-center">READY MADE</p>
+                                <div class="inner">
+                                    <a href="{% url 'ready-made' %}">
+                                        <img class="card-img-top"
+                                             src="{% static "images/Recent work/Aeostra_1.png" %}"
+                                             alt="Card image cap">
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text text-center">READY MADE</p>
                             </div>
                         </div>
                     </div>
