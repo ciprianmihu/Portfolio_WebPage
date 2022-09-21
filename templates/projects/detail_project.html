@@ -39,21 +39,19 @@
                 <div class="row">
                     <div class="col">
                         <div class="card shadow" style="min-width: 200px">
-                            <div class="inner">
-                                {% if projectlogo.optional_project_image_1 %}
-                                    <img class="card-img"
-                                         src="{{ projectlogo.optional_project_image_1.url }}"
-                                         alt="Card image cap">
-                                {% elif projectlogo.ready_logo %}
-                                    <img class="card-img"
-                                         src="{{ projectlogo.ready_logo.logo_image_1.url }}"
-                                         alt="Card image cap">
-                                {% else %}
-                                    <img class="card-img"
-                                         src="{% static 'images/CiprianM_Brand.png' %}"
-                                         alt="Card image cap">
-                                {% endif %}
-                            </div>
+                            {% if projectlogo.optional_project_image_1 %}
+                                <img class="card-img"
+                                     src="{{ projectlogo.optional_project_image_1.url }}"
+                                     alt="Card image cap">
+                            {% elif projectlogo.ready_logo %}
+                                <img class="card-img"
+                                     src="{{ projectlogo.ready_logo.logo_image_1.url }}"
+                                     alt="Card image cap">
+                            {% else %}
+                                <img class="card-img"
+                                     src="{% static 'images/CiprianM_Brand.png' %}"
+                                     alt="Card image cap">
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col">
