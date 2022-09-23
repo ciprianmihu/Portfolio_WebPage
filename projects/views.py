@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
-from FinalProject.settings import EMAIL_HOST_USER, ADMIN_ID
+from FinalProject.settings import EMAIL_HOST_USER, ADMIN_USERNAME
 from projects.filters import ProjectsFilter
 from projects.forms import ProjectLogoForm, ProjectLogoClientForm, ProjectFileForm, ProjectFileUpdateForm, \
     ProjectFileCommentForm, ProjectMessageForm, ProjectPaymentForm, ProjectFileClientForm
@@ -109,7 +109,7 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
                           html_message=html_message1)
             else:
-                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(username=ADMIN_USERNAME).email],
                           html_message=html_message1)
 
             return redirect('projects')
@@ -140,7 +140,7 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
                 send_mail(subject, message, EMAIL_HOST_USER, [self.object.client_name.email],
                           html_message=html_message1)
             else:
-                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(username=ADMIN_USERNAME).email],
                           html_message=html_message1)
 
             return redirect(reverse('detail-project', kwargs={'pk': self.object.id}))
@@ -354,7 +354,7 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
             if self.request.user.is_superuser:
                 send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email], html_message=html_message1)
             else:
-                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(username=ADMIN_USERNAME).email],
                           html_message=html_message1)
 
             return super().form_valid(form)
@@ -416,7 +416,7 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
             if self.request.user.is_superuser:
                 send_mail(subject, message, EMAIL_HOST_USER, [project.client_name.email], html_message=html_message1)
             else:
-                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(id=ADMIN_ID).email],
+                send_mail(subject, message, EMAIL_HOST_USER, [UserExtend.objects.get(username=ADMIN_USERNAME).email],
                           html_message=html_message1)
 
             return super().form_valid(form)
