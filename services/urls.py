@@ -10,7 +10,4 @@ urlpatterns = [
     path('detail_service/<int:pk>/', views.ServiceDetailView.as_view(), name='detail-service'),
     path('update_service/<int:pk>/', views.ServiceUpdateView.as_view(), name='update-service'),
     path('delete_service_modal/<int:pk>/', views.delete_service_logo, name='delete-service-modal'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

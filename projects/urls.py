@@ -25,7 +25,7 @@ urlpatterns = [
          name='create-project-file-comment'),
     path('create_project_message/<int:pk>/', views.ProjectMessageCreateView.as_view(), name='create-project-message'),
     path('create_project_payment/<int:pk>/', views.ProjectPaymentCreateView.as_view(), name='create-project-payment'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
