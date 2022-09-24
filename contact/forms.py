@@ -6,9 +6,9 @@ class ContactForm(forms.Form):
     last_name = forms.CharField(max_length=50)
     email = forms.EmailField()
     subject_options = (
-        ("i want to hire you", "I want to hire you"),
-        ("i want to buy ready made logo", "I want to buy ready made logo"),
-        ("i want to ask you", "I want to ask you"))
+        ("I want to hire you", "I want to hire you"),
+        ("I want to buy ready made logo", "I want to buy ready made logo"),
+        ("I want to ask you", "I want to ask you"))
     subject = forms.ChoiceField(choices=subject_options)
     message = forms.CharField(
         widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Please enter a message', 'rows': 5}))
