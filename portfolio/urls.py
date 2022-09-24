@@ -6,8 +6,8 @@ from portfolio import views
 
 urlpatterns = [
     path('portfolio/', views.PortfolioListView.as_view(), name='portfolio'),
-    path('create_portfolio_logo/', views.PortfolioCreateView.as_view(), name='create-portfolio-logo'),
-    path('update_portfolio_logo/<int:pk>/', views.PortfolioUpdateView.as_view(), name='update-portfolio-logo'),
-    path('detail_portfolio_logo/<int:pk>/', views.PortfolioDetailView.as_view(), name='detail-portfolio-logo'),
-    path('delete_portfolio_logo_modal/<int:pk>/', views.delete_portfolio_logo, name='delete-portfolio-logo-modal'),
+    path('create_portfolio/', views.PortfolioCreateView.as_view(), name='create-portfolio'),
+    path('update_portfolio/<int:pk>/', views.PortfolioUpdateView.as_view(), name='update-portfolio'),
+    path('detail_portfolio/<int:pk>/', views.PortfolioDetailView.as_view(), name='detail-portfolio'),
+    path('delete_portfolio/<int:pk>/', views.delete_portfolio_logo, name='delete-portfolio'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

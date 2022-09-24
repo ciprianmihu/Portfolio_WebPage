@@ -9,7 +9,7 @@ from portfolio.models import PortfolioLogo
 
 
 class PortfolioCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    template_name = 'portfolio/create_portfolio_logo.html'
+    template_name = 'portfolio/create_portfolio.html'
     model = PortfolioLogo
     form_class = PortfolioLogoForm
     success_url = reverse_lazy('portfolio')
@@ -30,17 +30,17 @@ class PortfolioListView(ListView):
 
 
 class PortfolioUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    template_name = 'portfolio/update_portfolio_logo.html'
+    template_name = 'portfolio/update_portfolio.html'
     model = PortfolioLogo
     form_class = PortfolioLogoForm
     permission_required = 'portfolio.change_portfoliologo'
 
     def get_success_url(self):
-        return reverse('detail-portfolio-logo', kwargs={'pk': self.object.id})
+        return reverse('detail-portfolio', kwargs={'pk': self.object.id})
 
 
 class PortfolioDetailView(DetailView):
-    template_name = 'portfolio/detail_portfolio_logo.html'
+    template_name = 'portfolio/detail_portfolio.html'
     model = PortfolioLogo
 
     def get_context_data(self, **kwargs):
