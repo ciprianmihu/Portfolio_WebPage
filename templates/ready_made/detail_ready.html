@@ -99,12 +99,12 @@
                                 </div>
                                 <div class="btn-group float-end my-1" style="width: 150px">
                                     <a class="btn btn-outline-primary float-start"
-                                       href="{% url 'detail-ready-logo' previous_logo_id %}"
+                                       href="{% url 'detail-ready' previous_logo_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Previous logo!">❮</a>
                                     <a class="btn btn-outline-primary float-start" href="{% url 'ready-made' %}"
                                        role="button">View all</a>
                                     <a class="btn btn-outline-primary float-start"
-                                       href="{% url 'detail-ready-logo' next_logo_id %}"
+                                       href="{% url 'detail-ready' next_logo_id %}"
                                        role="button" data-bs-toggle="tooltip" title="Next logo!">❯</a>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                                 data-bs-toggle="dropdown" style="width: 150px">Actions
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{% url 'update-ready-logo' readylogo.id %}"
+                                            <li><a href="{% url 'update-ready' readylogo.id %}"
                                                    class="dropdown-item">Edit logo</a></li>
                                             <li>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
@@ -167,7 +167,7 @@
                                                         style="width: 100px">No</button>
                                             </span>
                                             <span class="float-end">
-                                                <a href="{% url "delete-ready-logo-modal" readylogo.id %}"
+                                                <a href="{% url "delete-ready" readylogo.id %}"
                                                    class="btn btn-outline-danger" style="width: 100px">Yes</a>
                                             </span>
                                         </div>
