@@ -134,7 +134,6 @@ if "DATABASE_URL" in os.environ:
     # if "CI" in os.environ:
     #     DATABASES["default"]["TEST"] = DATABASES["default"]
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -171,7 +170,6 @@ TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
