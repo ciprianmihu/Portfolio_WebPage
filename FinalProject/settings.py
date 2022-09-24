@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'social_django',  # <-- Social login
     'home',
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
     'contact',
     'services',
     'projects',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -209,5 +211,13 @@ EMAIL_USE_SSL = True
 # SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 
 # TLS - Transport Layer Security - protocoale criptografice care permit comunicatii sigure
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 django_heroku.settings(locals())
