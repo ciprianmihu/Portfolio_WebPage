@@ -7,7 +7,7 @@ class ServiceLogo(models.Model):
     service_deliverable = models.TextField(max_length=3000)
     turnaround = models.CharField(max_length=50)
     price = models.CharField(max_length=50)
-    service_image_1 = models.ImageField(upload_to='services/', null=True, blank=True)
+    service_image_1 = models.ImageField(upload_to='services/', null=True)
 
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
