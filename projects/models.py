@@ -32,6 +32,9 @@ class ProjectLogo(models.Model):
     geometric_or_organic = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     abstract_or_literal = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
 
+    class Meta:
+        ordering = ['id']
+
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
