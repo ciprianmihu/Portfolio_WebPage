@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            {% if perms.projects.add_projectlogo %}
+            {% if user.is_superuser %}
                 <div class="container-fluid pb-5 d-flex justify-content-center">
                     <div class="row">
                         <div class="col">

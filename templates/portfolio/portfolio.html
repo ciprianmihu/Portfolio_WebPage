@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            {% if perms.portfolio.add_portfoliologo %}
+            {% if user.is_superuser %}
                 <div class="container-fluid pb-5 d-flex justify-content-center">
                     <div class="row">
                         <div class="col">
