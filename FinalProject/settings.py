@@ -164,7 +164,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -182,7 +182,7 @@ LOGOUT_REDIRECT_URL = '/login/'
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" # trimite mail in consola
 # SMTP = SIMPLE MAIL TRANSFER PROTOCOL - un protocol folosit pentru trimiterea de mailuri
 
-DEFAULT_FROM_EMAIL = 'admin@florisdent.ro'
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
