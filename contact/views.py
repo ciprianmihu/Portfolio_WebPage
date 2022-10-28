@@ -1,7 +1,5 @@
-from django.conf import settings
-from django.contrib import messages
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from FinalProject.settings import ADMIN_USERNAME
