@@ -8,6 +8,7 @@ from userextend.models import UserExtend
 
 
 def contact(request):
+    # function responsible for sending a message
     if request.method == 'GET':
         form = ContactForm()
     else:
@@ -26,4 +27,5 @@ def contact(request):
 
 
 def success_view(request):
+    # function responsible for returning after sending a message
     return render(request, 'contact/message_sent_confirmation.html')

@@ -12,12 +12,14 @@ from userextend.models import UserExtend, UserProfile
 
 
 class UserExtendCreateView(CreateView):
+    # class responsible for creating a user
     template_name = 'userextend/create_user.html'
     model = UserExtend
     form_class = UserExtendForm
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
+        # method responsible for saving the form
         if form.is_valid() and not form.errors:
             new_user = form.save()
             UserProfile.objects.create(
@@ -34,35 +36,42 @@ class UserExtendCreateView(CreateView):
 
 
 class UserExtendProfileView(LoginRequiredMixin, DetailView):
+    # class responsible for showing the user detail
     template_name = 'userextend/profile_user.html'
     model = UserExtend
 
     def get_queryset(self):
+        # method responsible for filtering to the current user
         queryset = super(UserExtendProfileView, self).get_queryset().filter(id=self.request.user.id)
 
         return queryset
 
 
 class UserExtendUpdateView(LoginRequiredMixin, UpdateView):
+    # class responsible for updating the user profile
     template_name = 'userextend/update_user.html'
     model = UserExtend
     form_class = UserExtendUpdateForm
 
     def get_success_url(self):
+        # method responsible for returning after the update
         return reverse('profile-user', kwargs={'pk': self.request.user.id})
 
 
 class UserExtendUpdateBioView(LoginRequiredMixin, UpdateView):
+    # class responsible for updating the user bio
     template_name = 'userextend/update_user_bio.html'
     model = UserProfile
     form_class = UserExtendUpdateBioForm
 
     def get_success_url(self):
+        # method responsible for returning after the update
         return reverse('profile-user', kwargs={'pk': self.request.user.id})
 
 
 @login_required
 def inactive_user(request, pk):
+    # function responsible for deactivating an user
     UserExtend.objects.filter(id=pk).update(active=False)
 
     return redirect('detail-user')
@@ -70,6 +79,7 @@ def inactive_user(request, pk):
 
 @login_required
 def active_user(request, pk):
+    # function responsible for activating an user
     UserExtend.objects.filter(id=pk).update(active=True)
 
     return redirect('detail-user')

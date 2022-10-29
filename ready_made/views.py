@@ -9,6 +9,7 @@ from ready_made.models import ReadyLogo
 
 
 class ReadeMadeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    # class responsible for creating a ready logo
     template_name = 'ready_made/create_ready.html'
     model = ReadyLogo
     form_class = ReadyMadeLogoForm
@@ -16,6 +17,7 @@ class ReadeMadeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVie
     permission_required = 'ready_made.add_readylogo'
 
     def form_valid(self, form):
+        # method responsible for saving the form
         if form.is_valid() and not form.errors:
             new_ready_logo = form.save(commit=False)
             new_ready_logo.save()
@@ -23,6 +25,7 @@ class ReadeMadeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateVie
 
 
 class ReadyMadeListView(ListView):
+    # class responsible for showing all logos
     template_name = 'ready_made/ready_made.html'
     model = ReadyLogo
     context_object_name = "all_ready_logos"
@@ -30,20 +33,24 @@ class ReadyMadeListView(ListView):
 
 
 class ReadeMadeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    # class responsible for updating the logos
     template_name = 'ready_made/update_ready.html'
     model = ReadyLogo
     form_class = ReadyMadeLogoForm
     permission_required = 'ready_made.change_readylogo'
 
     def get_success_url(self):
+        # method responsible for returning after the logo creation
         return reverse('detail-ready', kwargs={'pk': self.object.id})
 
 
 class ReadyMadeDetailView(DetailView):
+    # class responsible for showing the logo details
     template_name = 'ready_made/detail_ready.html'
     model = ReadyLogo
 
     def get_context_data(self, **kwargs):
+        # method responsible for the navigation to next and previous logo
         data = super(ReadyMadeDetailView, self).get_context_data(**kwargs)
         logo_ids = list(ReadyLogo.objects.all().values_list('pk', flat=True))
         data['previous_logo_id'] = logo_ids[logo_ids.index(self.object.id) - 1]
@@ -58,6 +65,7 @@ class ReadyMadeDetailView(DetailView):
 @login_required
 @permission_required('ready_made.delete_readylogo')
 def delete_ready_logo(request, pk):
+    # function responsible for deleting a logo
     ReadyLogo.objects.filter(id=pk).delete()
 
     return redirect('ready-made')

@@ -16,12 +16,14 @@ from userextend.models import UserExtend
 
 
 class ProjectCreateView(LoginRequiredMixin, CreateView):
+    # class responsible for creating a project
     template_name = 'projects/create_project.html'
     model = ProjectLogo
     form_class = ProjectLogoForm
     success_url = reverse_lazy('projects')
 
     def form_valid(self, form):
+        # method responsible for saving the project form
         if form.is_valid() and not form.errors:
             new_project_logo = form.save()
             client_email = form.cleaned_data['client_name']
@@ -41,11 +43,13 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectListView(LoginRequiredMixin, ListView):
+    # class responsible for showing the list of the projects
     template_name = 'projects/projects.html'
     model = ProjectLogo
     context_object_name = 'all_projects'
 
     def get_queryset(self):
+        # method responsible for getting the status of the project
         queryset = super(ProjectListView, self).get_queryset()
         status = self.request.GET.get('status')
         if status:
@@ -54,6 +58,7 @@ class ProjectListView(LoginRequiredMixin, ListView):
         return filter_queryset
 
     def get_context_data(self, **kwargs):
+        # method responsible for counting the projects by status
         data = super(ProjectListView, self).get_context_data(**kwargs)
 
         projects = ProjectLogo.objects.all()
@@ -80,19 +85,23 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
+    # class responsible for showing the detail of the projects
     template_name = 'projects/detail_project.html'
     model = ProjectLogo
 
 
 class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+    # class responsible for updating the projects
     template_name = 'projects/update_project.html'
     model = ProjectLogo
     form_class = ProjectLogoForm
 
     def get_success_url(self):
+        # method responsible for returning after the project update
         return reverse('detail-project', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
+        # method responsible for saving the form and sending email to the client
         if form.is_valid() and not form.errors:
             new_project_logo = form.save()
             ProjectActivity.objects.create(
@@ -116,14 +125,17 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
+    # class responsible for updating the projects from the client side
     template_name = 'projects/update_project.html'
     model = ProjectLogo
     form_class = ProjectLogoClientForm
 
     def get_success_url(self):
+        # method responsible for returning after the project update
         return reverse('detail-project', kwargs={'pk': self.object.id})
 
     def form_valid(self, form):
+        # method responsible for saving the form and sending email to the designer
         if form.is_valid() and not form.errors:
             new_project_logo = form.save()
             ProjectActivity.objects.create(
@@ -149,25 +161,30 @@ class ProjectClientUpdateView(LoginRequiredMixin, UpdateView):
 @login_required
 @permission_required('projects.delete_projectfile')
 def delete_project_logo(request, pk):
+    # function responsible for deleting the project
     ProjectLogo.objects.filter(id=pk).delete()
 
     return redirect('projects')
 
 
 class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
+    # class responsible for creating a project file
     template_name = 'projects/files/create_project_file.html'
     model = ProjectFile
     form_class = ProjectFileForm
 
     def get_form_kwargs(self):
+        # method responsible for filtering to curent project
         kwargs = super().get_form_kwargs()
         kwargs.update({'initial': {'project': self.kwargs.get('pk')}})
         return kwargs
 
     def get_success_url(self):
+        # method responsible for returning after the project file creation
         return reverse('project-files', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
+        # method responsible for saving the form
         response = super().form_valid(form)
         if form.is_valid() and not form.errors:
             project = form.cleaned_data['project']
@@ -181,19 +198,23 @@ class ProjectFilesCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectFilesClientCreateView(LoginRequiredMixin, CreateView):
+    # class responsible for creating a client project file
     template_name = 'projects/files/create_project_file.html'
     model = ProjectFile
     form_class = ProjectFileClientForm
 
     def get_form_kwargs(self):
+        # method responsible for filtering to curent project
         kwargs = super().get_form_kwargs()
         kwargs.update({'initial': {'project': self.kwargs.get('pk')}})
         return kwargs
 
     def get_success_url(self):
+        # method responsible for returning after the project file creation
         return reverse('project-files', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
+        # method responsible for saving the form
         response = super().form_valid(form)
         if form.is_valid() and not form.errors:
             project = form.cleaned_data['project']
@@ -207,10 +228,12 @@ class ProjectFilesClientCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectFilesView(LoginRequiredMixin, DetailView):
+    # class responsible for showing the project files
     template_name = 'projects/files/files_project.html'
     model = ProjectLogo
 
     def get_context_data(self, **kwargs):
+        # method responsible for counting the files by status
         status = self.request.GET.get('status')
         data = super(ProjectFilesView, self).get_context_data(**kwargs)
         all_files = ProjectFile.objects.filter(project=self.kwargs.get('pk'))
@@ -229,10 +252,12 @@ class ProjectFilesView(LoginRequiredMixin, DetailView):
 
 
 class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
+    # class responsible for showing the project file details
     template_name = 'projects/files/detail_project_file.html'
     model = ProjectFile
 
     def get_context_data(self, **kwargs):
+        # method responsible for the navigation to next and previous file
         data = super(ProjectFilesDetailView, self).get_context_data(**kwargs)
         comments = ProjectFileComment.objects.filter(project_file=self.kwargs.get('pk'))
         data['comments'] = comments
@@ -248,37 +273,44 @@ class ProjectFilesDetailView(LoginRequiredMixin, DetailView):
 
 
 class ProjectFilesUpdateView(LoginRequiredMixin, UpdateView):
+    # class responsible for updating the project file
     template_name = 'projects/files/update_project_file.html'
     model = ProjectFile
     form_class = ProjectFileForm
 
     def get_success_url(self):
+        # method responsible for returning after the project file update
         return reverse('project-files', kwargs={'pk': self.object.project.id})
 
 
 class ProjectFilesClientUpdateView(LoginRequiredMixin, UpdateView):
+    # class responsible for updating the project file by the client
     template_name = 'projects/files/update_project_file.html'
     model = ProjectFile
     form_class = ProjectFileUpdateForm
 
     def get_success_url(self):
+        # method responsible for returning after the project file update
         return reverse('project-files', kwargs={'pk': self.object.project.id})
 
 
 @login_required
 @permission_required('portfolio.delete_projectlogo')
 def delete_project_file(request, project_id, pk):
+    # function responsible for deleting a file
     ProjectFile.objects.filter(id=pk).delete()
 
     return redirect('project-files', pk=project_id)
 
 
 class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
+    # class responsible for creating a project file comment
     template_name = 'projects/comments/create_project_file_comment.html'
     model = ProjectFileComment
     form_class = ProjectFileCommentForm
 
     def get_context_data(self, **kwargs):
+        # method responsible for filtering the comments to the user
         data = super(ProjectFilesCommentCreateView, self).get_context_data(**kwargs)
         project_file = ProjectFile.objects.get(id=self.kwargs.get('pk'))
         data['project_file'] = project_file
@@ -291,6 +323,7 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
         return data
 
     def get_form_kwargs(self):
+        # method responsible for filtering the comments to the project
         kwargs = super().get_form_kwargs()
         kwargs.update({'initial': {'owner': self.request.user.id,
                                    'project': ProjectFile.objects.get(id=self.kwargs.get('pk')).project.id,
@@ -298,14 +331,18 @@ class ProjectFilesCommentCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse('detail-project-file', kwargs={'project_id': self.object.project.id, 'pk': self.object.project_file.id})
+        # method responsible for returning after the project file comment creation
+        return reverse('detail-project-file',
+                       kwargs={'project_id': self.object.project.id, 'pk': self.object.project_file.id})
 
 
 class ProjectActivityView(LoginRequiredMixin, DetailView):
+    # class responsible for creating a project activity
     template_name = 'projects/activity/activity_project.html'
     model = ProjectLogo
 
     def get_context_data(self, **kwargs):
+        # method responsible for filtering the activity to project
         data = super(ProjectActivityView, self).get_context_data(**kwargs)
         activities = ProjectActivity.objects.filter(project=self.kwargs.get('pk'))
         data['activities'] = activities
@@ -316,11 +353,13 @@ class ProjectActivityView(LoginRequiredMixin, DetailView):
 
 
 class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
+    # class responsible for creating a project activity message
     template_name = 'projects/messages/create_project_message.html'
     model = ProjectActivityMessage
     form_class = ProjectMessageForm
 
     def get_context_data(self, **kwargs):
+        # method responsible for filtering the messages to the user
         data = super(ProjectMessageCreateView, self).get_context_data(**kwargs)
         project = ProjectLogo.objects.get(id=self.kwargs.get('pk'))
         data['project'] = project
@@ -333,15 +372,18 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
         return data
 
     def get_form_kwargs(self):
+        # method responsible for filtering the messages to project
         kwargs = super().get_form_kwargs()
         kwargs.update({'initial': {'owner': self.request.user.id,
                                    'project': ProjectLogo.objects.get(id=self.kwargs.get('pk')).id}})
         return kwargs
 
     def get_success_url(self):
+        # method responsible for returning after the project message creation
         return reverse('project-activity', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
+        # method responsible for saving the form and sending email to the client or designer
         if form.is_valid() and not form.errors:
             new_project_message = form.save()
             project = form.cleaned_data['project']
@@ -361,10 +403,12 @@ class ProjectMessageCreateView(LoginRequiredMixin, CreateView):
 
 
 class ProjectPaymentsView(LoginRequiredMixin, DetailView):
+    # class responsible for showing a project payment
     template_name = 'projects/payments/payments_project.html'
     model = ProjectLogo
 
     def get_context_data(self, **kwargs):
+        # method responsible for filtering the payments to the project
         data = super(ProjectPaymentsView, self).get_context_data(**kwargs)
         payments = ProjectPayment.objects.filter(project=self.kwargs.get('pk'))
         data['payments'] = payments
@@ -373,11 +417,13 @@ class ProjectPaymentsView(LoginRequiredMixin, DetailView):
 
 
 class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
+    # class responsible for creating a project payment
     template_name = 'projects/payments/create_project_payment.html'
     model = ProjectPayment
     form_class = ProjectPaymentForm
 
     def get_context_data(self, **kwargs):
+        # method responsible for filtering the payments to project
         data = super(ProjectPaymentCreateView, self).get_context_data(**kwargs)
         project = ProjectLogo.objects.get(id=self.kwargs.get('pk'))
         data['project'] = project
@@ -390,15 +436,18 @@ class ProjectPaymentCreateView(LoginRequiredMixin, CreateView):
         return data
 
     def get_form_kwargs(self):
+        # method responsible for filtering the payments to project
         kwargs = super().get_form_kwargs()
         kwargs.update({'initial': {'owner': self.request.user.id,
                                    'project': ProjectLogo.objects.get(id=self.kwargs.get('pk')).id}})
         return kwargs
 
     def get_success_url(self):
+        # method responsible for returning after the project payment creation
         return reverse('project-payments', kwargs={'pk': self.object.project.id})
 
     def form_valid(self, form):
+        # method responsible for saving the form and sending email to the client or designer
         if form.is_valid() and not form.errors:
             new_project_payment = form.save()
             project = form.cleaned_data['project']
